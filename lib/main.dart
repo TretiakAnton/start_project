@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/screens/screen1.dart';
 
 void main() {
+  initializeImages();
   runApp(const MyApp());
 }
 
