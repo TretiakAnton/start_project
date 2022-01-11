@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:
-          BlocProvider(create: (context) => FilmBloc(), child: const Screen1()),
+      home: BlocProvider(
+          create: (context) => FilmBloc('https://www.publicdomainpictures.net'),
+          child: const Screen1()),
     );
   }
 }

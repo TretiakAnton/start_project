@@ -18,12 +18,12 @@ class Screen1 extends StatelessWidget {
               children: [
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('screen2BlOC');
+                      Navigator.of(context).pushNamed('screen2BlOC',);
                     },
                     child: const Text('Bloc')),
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('screen2MVVM');
+                      Navigator.of(context).pushNamed('screen2MVVM',);
                     },
                     child: const Text('MVVM')),
               ],

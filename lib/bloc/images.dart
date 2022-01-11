@@ -4,10 +4,12 @@ enum ImageEvent { image1, image2, image3, image4, image5, image6 }
 
 class FilmBloc extends Bloc<ImageEvent, String> {
   late String _url;
-  final String _whiteScreen = 'https://www.publicdomainpictures.net';
+  final String whiteScreen = 'https://www.publicdomainpictures.net';
 
-  @override
-  String get initialState => _whiteScreen;
+ FilmBloc(String initialState) : super(initialState);
+
+ @override
+  String get initialState => whiteScreen;
 
   @override
   Stream<String> mapEventToState(ImageEvent event) async* {
@@ -31,7 +33,7 @@ class FilmBloc extends Bloc<ImageEvent, String> {
         _url = _urls[0];
         break;
       default:
-        _url = _whiteScreen;
+        _url = whiteScreen;
     }
     yield _url;
   }

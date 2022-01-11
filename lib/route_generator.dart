@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2_bloc.dart';
-import 'package:start_project/screens/screen3_bloc.dart';
 import 'film.dart';
 import 'screens/screens.dart';
 
@@ -9,9 +7,9 @@ class RouteGenerator {
     final String? name = settings.name;
     final Object? arguments = settings.arguments;
 
-    if (name == null) {
+    /*if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
-    }
+    }*/
 
     switch (name) {
       case Screen1.detailsScreenRoute:
