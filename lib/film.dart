@@ -2,15 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class Film {
   final String id;
-  final CachedNetworkImage image;
+  final String imageId;
 
-  const Film(this.id, this.image);
-}
-
-void initializeImages() {
-  for (int index = 1; index <= 6; index++) {
-    films.add(Film('id$index', CachedNetworkImage(imageUrl: urls[index])));
-  }
+  const Film(this.id, this.imageId);
 }
 
 List<String> filmNames = [];
@@ -23,4 +17,11 @@ List<String> urls = [
   'https://m.media-amazon.com/images/M/MV5BODQ0NDhjYWItYTMxZi00NTk2LWIzNDEtOWZiYWYxZjc2MTgxXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'
 ];
 
-List<Film> films = [];
+List<Film> films = [
+  const Film('film1', 'image1'),
+  const Film('film2', 'image2'),
+  const Film('film3', 'image3'),
+  const Film('film4', 'image4'),
+  const Film('film5', 'image5'),
+  const Film('film6', 'image6'),
+];

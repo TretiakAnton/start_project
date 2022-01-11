@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/screens/screen2_bloc.dart';
+import 'package:start_project/screens/screen3_bloc.dart';
+import 'film.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
@@ -13,7 +16,19 @@ class RouteGenerator {
     switch (name) {
       case Screen1.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen1(
+          builder: (_) => const Screen1(),
+        );
+      case Screen2Bloc.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen2Bloc(),
+        );
+      case Screen3Bloc.detailsScreenRoute:
+        Film filmArgument;
+        if (arguments is Film) {
+          filmArgument = arguments;
+        }
+        return MaterialPageRoute(
+          builder: (_) =>  Screen3Bloc(film: filmArgument
           ),
         );
 
