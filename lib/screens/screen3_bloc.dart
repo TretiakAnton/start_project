@@ -19,6 +19,9 @@ class _Screen3BlocState extends State<Screen3Bloc> {
   Widget build(BuildContext context) {
     String name = widget.film.id;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Details'),
+      ),
       body: Center(
         child: BlocBuilder<FilmBloc,String>(
           builder: (context,currentUrl)=>

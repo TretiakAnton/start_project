@@ -7,25 +7,27 @@ class RouteGenerator {
     final String? name = settings.name;
     final Object? arguments = settings.arguments;
 
-    /*if (name == null) {
+    if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
-    }*/
+    }
 
     switch (name) {
+
       case Screen1.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen1(),
         );
+
       case Screen2Bloc.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen2Bloc(),
         );
+
       case Screen3Bloc.detailsScreenRoute:
         Film filmArgument;
-          filmArgument = arguments as Film;
+        filmArgument = arguments as Film;
         return MaterialPageRoute(
-          builder: (_) =>  Screen3Bloc(film: filmArgument
-          ),
+          builder: (_) => Screen3Bloc(film: filmArgument),
         );
 
       default:

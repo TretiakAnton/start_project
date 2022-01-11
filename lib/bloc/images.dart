@@ -1,40 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum ImageEvent { image1, image2, image3, image4, image5, image6 }
+Set<String> imageEvent = { 'image1', 'image2', 'image3', 'image4', 'image5', 'image6', };
 
-class FilmBloc extends Bloc<ImageEvent, String> {
+class FilmBloc extends Bloc<int, String> {
   late String _url;
   final String whiteScreen = 'https://www.publicdomainpictures.net';
 
  FilmBloc(String initialState) : super(initialState);
 
- @override
-  String get initialState => whiteScreen;
+ String get initialState => whiteScreen;
 
-  @override
-  Stream<String> mapEventToState(ImageEvent event) async* {
-    switch (event) {
-      case ImageEvent.image1:
-        _url = _urls[0];
-        break;
-      case ImageEvent.image2:
-        _url = _urls[0];
-        break;
-      case ImageEvent.image3:
-        _url = _urls[0];
-        break;
-      case ImageEvent.image4:
-        _url = _urls[0];
-        break;
-      case ImageEvent.image5:
-        _url = _urls[0];
-        break;
-      case ImageEvent.image6:
-        _url = _urls[0];
-        break;
-      default:
-        _url = whiteScreen;
-    }
+  Stream<String> mapEventToState(int event) async* {
+    _url=_urls[event-1];
     yield _url;
   }
 }

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class Film {
   final String id;
-  final String imageId;
+  final int imageId;
 
   const Film(this.id, this.imageId);
 }
@@ -18,10 +18,10 @@ List<String> urls = [
 ];
 
 List<Film> films = [
-  const Film('film1', 'image1'),
-  const Film('film2', 'image2'),
-  const Film('film3', 'image3'),
-  const Film('film4', 'image4'),
-  const Film('film5', 'image5'),
-  const Film('film6', 'image6'),
+  const Film('film1', 1),
+  const Film('film2', 2),
+  const Film('film3', 3),
+  const Film('film4', 4),
+  const Film('film5', 5),
+  const Film('film6', 6),
 ];
