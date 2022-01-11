@@ -5,20 +5,12 @@ import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screen1.dart';
 
 void main() {
-  runApp(
-      MultiBlocProvider(
-          providers: [
-            BlocProvider<FilmBloc>(
-              create: (context) =>
-                  FilmBloc('https://www.publicdomainpictures.net'),
-            ),
-
-          ],
-          child: const MyApp()
-      )
-  );
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<FilmBloc>(
+      create: (context) => FilmBloc('https://www.publicdomainpictures.net'),
+    ),
+  ], child: const MyApp()));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,12 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateRoute: RouteGenerator.onGenerateRoute,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home:  const Screen1()
-    );
+        onGenerateRoute: RouteGenerator.onGenerateRoute,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        home: const Screen1());
   }
 }

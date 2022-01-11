@@ -1,25 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Set<int> imageEvent = { 1, 2, 3, 4, 5, 6 };
-
 class FilmBloc extends Bloc<int, String> {
-  late String _url;
   final String whiteScreen = 'https://www.publicdomainpictures.net';
 
- FilmBloc(String initialState) : super(initialState);
+  FilmBloc(String initialState) : super(initialState);
 
- String get initialState => whiteScreen;
+  String get initialState => whiteScreen;
 
   Stream<String> mapEventToState(int event) async* {
-    //_url=_urls[event-1];
-    int index=0;
-    for(int i=0;i<5;i++){
-      if(event == imageEvent.elementAt(i)){
-        index=i;
-        break;
-      }
-    }
-    _url= _urls.elementAt(index);
+     String _url;
+    _url = _urls[event - 1];
     yield _url;
   }
 }

@@ -28,7 +28,7 @@ class _Screen3BlocState extends State<Screen3Bloc> {
           Column(
             children: [
               Text(name),
-              CachedNetworkImage(imageUrl: currentUrl as String),
+              CachedNetworkImage(imageUrl: currentUrl),
             ],
           ),
         ),

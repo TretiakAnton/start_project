@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 class Film {
   final String id;
   final int imageId;
