@@ -1,40 +1,42 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum ImageEvent  {image1,image2,image3,image4,image5,image6}
-class FilmBloc extends Bloc<ImageEvent, CachedNetworkImage>{
-  late CachedNetworkImage _image;
-  @override
-  CachedNetworkImage get initialState => CachedNetworkImage(imageUrl: 'https://www.publicdomainpictures.net/pictures/130000/velka/white-background.jpg',);
+enum ImageEvent { image1, image2, image3, image4, image5, image6 }
+
+class FilmBloc extends Bloc<ImageEvent, String> {
+  late String _url;
+  final String _whiteScreen = 'https://www.publicdomainpictures.net';
 
   @override
-  Stream<CachedNetworkImage> mapEventToState(ImageEvent event) async* {
-    switch(event){
+  String get initialState => _whiteScreen;
+
+  @override
+  Stream<String> mapEventToState(ImageEvent event) async* {
+    switch (event) {
       case ImageEvent.image1:
-        _image = CachedNetworkImage(imageUrl: _urls[0]);
+        _url = _urls[0];
         break;
       case ImageEvent.image2:
-        _image = CachedNetworkImage(imageUrl: _urls[1]);
+        _url = _urls[0];
         break;
       case ImageEvent.image3:
-        _image = CachedNetworkImage(imageUrl: _urls[2]);
+        _url = _urls[0];
         break;
       case ImageEvent.image4:
-        _image = CachedNetworkImage(imageUrl: _urls[3]);
+        _url = _urls[0];
         break;
       case ImageEvent.image5:
-        _image = CachedNetworkImage(imageUrl: _urls[4]);
+        _url = _urls[0];
         break;
       case ImageEvent.image6:
-        _image = CachedNetworkImage(imageUrl: _urls[5]);
+        _url = _urls[0];
         break;
-      default :
-        _image=CachedNetworkImage(imageUrl: 'https://www.publicdomainpictures.net');
+      default:
+        _url = _whiteScreen;
     }
-    yield _image;
+    yield _url;
   }
-
 }
+
 List<String> _urls = [
   'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg',
   'https://flxt.tmsimg.com/assets/p22804_p_v10_ab.jpg',

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:start_project/bloc/images.dart';
 import 'package:start_project/film.dart';
 
 class Screen2Bloc extends StatefulWidget {
@@ -13,6 +15,7 @@ class Screen2Bloc extends StatefulWidget {
 class _Screen2BlocState extends State<Screen2Bloc> {
   @override
   Widget build(BuildContext context) {
+    FilmBloc _bloc = BlocProvider.of<FilmBloc>(context);
     return Scaffold(
         body: ListView.builder(
             itemCount: films.length,
@@ -20,7 +23,9 @@ class _Screen2BlocState extends State<Screen2Bloc> {
               return Card(
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('screen3BlOC',arguments: films[index]);
+                    Navigator.of(context)
+                        .pushNamed('screen3BlOC', arguments: films[index]);
+                    _bloc.add(films[index].imageId as ImageEvent);
                   },
                   title: Text(films[index].id),
                 ),
