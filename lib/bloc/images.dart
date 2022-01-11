@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Set<String> imageEvent = { 'image1', 'image2', 'image3', 'image4', 'image5', 'image6', };
+Set<int> imageEvent = { 1, 2, 3, 4, 5, 6 };
 
 class FilmBloc extends Bloc<int, String> {
   late String _url;
@@ -11,7 +11,15 @@ class FilmBloc extends Bloc<int, String> {
  String get initialState => whiteScreen;
 
   Stream<String> mapEventToState(int event) async* {
-    _url=_urls[event-1];
+    //_url=_urls[event-1];
+    int index=0;
+    for(int i=0;i<5;i++){
+      if(event == imageEvent.elementAt(i)){
+        index=i;
+        break;
+      }
+    }
+    _url= _urls.elementAt(index);
     yield _url;
   }
 }
