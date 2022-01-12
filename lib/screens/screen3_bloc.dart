@@ -17,23 +17,21 @@ class Screen3Bloc extends StatefulWidget {
 class _Screen3BlocState extends State<Screen3Bloc> {
   @override
   Widget build(BuildContext context) {
+    int index =widget.film.imageId;
     String name = widget.film.id;
+    BlocProvider.of<FilmBloc>(context).add(films[index].imageId);
+    print('add snth');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
       ),
-      body: Center(
-        child: BlocBuilder<FilmBloc,String>(
-          builder: (context,currentUrl)=>
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            child: Column(
-              children: [
-                Text(name),
-
-                CachedNetworkImage(imageUrl: currentUrl),
-              ],
-            ),
+      body: BlocBuilder<FilmBloc, String>(
+        builder: (context, currentUrl) => Center(
+          child: Column(
+            children: [
+              Text(name),
+              CachedNetworkImage(imageUrl: currentUrl),
+            ],
           ),
         ),
       ),

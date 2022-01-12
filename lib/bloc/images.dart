@@ -7,9 +7,10 @@ class FilmBloc extends Bloc<int, String> {
 
   String initialState = 'https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg';
 
-  void _getImageUrl(int event, Emitter emitter) {
+  void _getImageUrl() {
     String _url;
     _url = _urls[event - 1];
+    print(_url);
     emitter(_url);
   }
 
