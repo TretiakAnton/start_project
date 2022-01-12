@@ -1,13 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilmBloc extends Bloc<int, String> {
   FilmBloc(String initialState) : super('https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg') {
-    on<int>((event, emit) => _getImageUrl);
+    on<int>((event, emit)  {
+      print('gp to func');
+      _getImageUrl(event,emit);
+    });
   }
 
   String initialState = 'https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg';
 
-  void _getImageUrl() {
+  void _getImageUrl(int event, Emitter emitter) {
+    print('get into func');
     String _url;
     _url = _urls[event - 1];
     print(_url);
