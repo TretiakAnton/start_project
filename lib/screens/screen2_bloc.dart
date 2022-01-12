@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:start_project/bloc/images.dart';
+import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
 
 class Screen2Bloc extends StatefulWidget {

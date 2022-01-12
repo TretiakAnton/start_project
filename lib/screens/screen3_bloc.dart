@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:start_project/bloc/images.dart';
+import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
 
 class Screen3Bloc extends StatefulWidget {
