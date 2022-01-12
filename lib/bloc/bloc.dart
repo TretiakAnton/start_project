@@ -3,29 +3,45 @@ import 'package:start_project/repo/films%20_repo.dart';
 
 import '../film.dart';
 
-abstract class FilmGetter{}
+abstract class FilmEvent {}
 
-class FilmState extends FilmGetter{
-  late Future<List<Film>> list;
-  getFilmFromRepo() async {
-    FilmRepository repo;
-     list = repo.getListOfFilms();
-     return list;
-  }
-  getNull() {
-    return null;
-  }
+class LoadFilmsEvent extends FilmEvent {}
+
+class SelectFilmEvent extends FilmEvent {
+  final Film selectedFilmId;
+
+  SelectFilmEvent(this.selectedFilmId);
 }
 
-enum State {init, getFilms}
+abstract class FilmState {}
 
-class FilmBloc extends Bloc<State, FilmState> {
-  FilmBloc(FilmState initialState ) : super(FilmState().getNull()) {
-    on<State>((event, emit)  async {
-      (event == State.init)?emit(await FilmState().getNull() ):emit( await FilmState().getFilmFromRepo());
-    });
-  }
+class FilmLoadingState extends FilmState {}
 
+class FilmLoadedState extends FilmState {
+  final List<Film> films;
+  final Film? selectedFilm;
+
+  FilmLoadedState(this.films, this.selectedFilm);
 }
 
+class FilmBloc extends Bloc<FilmEvent, FilmState> {
+  final FilmRepository _repo;
 
+  FilmBloc(this._repo) : super(FilmLoadingState()) {
+    on<LoadFilmsEvent>(_loadFilms);
+    on<SelectFilmEvent>(_selectFilm);
+  }
+
+  void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
+    List<Film> films = List.empty();
+    if (state is FilmLoadedState) {
+      films = (state as FilmLoadedState).films;
+    }
+    emit(FilmLoadedState(films, event.selectedFilmId));
+  }
+
+  void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
+    final result = await _repo.getListOfFilms();
+    emit(FilmLoadedState(result, null));
+  }
+}
