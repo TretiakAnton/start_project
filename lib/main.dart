@@ -6,7 +6,7 @@ import 'package:start_project/screens/screen1.dart';
 
 void main() {
   runApp(MultiBlocProvider(
-    providers: [BlocProvider<FilmBloc>(create: (context) => FilmBloc())],
+    providers: [BlocProvider<FilmBloc>(create: (context) => FilmBloc(State.init))],
     child: const MyApp(),
   ));
 }

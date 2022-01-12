@@ -10,15 +10,19 @@ class FilmState extends FilmGetter{
   getFilmFromRepo() async {
     FilmRepository repo;
      list = repo.getListOfFilms();
+     return list;
+  }
+  getNull() {
+    return null;
   }
 }
 
 enum State {init, getFilms}
 
 class FilmBloc extends Bloc<State, FilmState> {
-  FilmBloc() : super(null) {
-    on<State>((event, emit)  {
-      (event == State.init)?emit(null):emit(FilmState().getFilmFromRepo());
+  FilmBloc(FilmState initialState ) : super(FilmState().getNull()) {
+    on<State>((event, emit)  async {
+      (event == State.init)?emit(await FilmState().getNull() ):emit( await FilmState().getFilmFromRepo());
     });
   }
 
