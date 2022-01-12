@@ -25,7 +25,7 @@ class RouteGenerator {
 
       case Screen3Bloc.detailsScreenRoute:
         Film filmArgument;
-        filmArgument = settings.arguments as Film;
+        filmArgument = arguments as Film;
         return MaterialPageRoute(
           builder: (_) => Screen3Bloc(film: filmArgument),
         );
