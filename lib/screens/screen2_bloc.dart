@@ -26,10 +26,10 @@ class _Screen2BlocState extends State<Screen2Bloc> {
               return Card(
                 child: ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('screen3BlOC', arguments: films[index]);
-                    BlocProvider.of<FilmBloc>(context).add(films[index].imageId);
-                    //bloc.add( films[index].imageId);
-                    print('tap button $index');
+                    Navigator.of(context)
+                        .pushNamed('screen3BlOC', arguments: films[index]);
+                    BlocProvider.of<FilmBloc>(context)
+                        .add(films[index].imageId);
                   },
                   title: Text(films[index].id),
                 ),

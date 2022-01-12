@@ -17,10 +17,7 @@ class Screen3Bloc extends StatefulWidget {
 class _Screen3BlocState extends State<Screen3Bloc> {
   @override
   Widget build(BuildContext context) {
-    int imageId =widget.film.imageId;
     String name = widget.film.id;
-    BlocProvider.of<FilmBloc>(context).add(imageId);
-    print('add snth');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
