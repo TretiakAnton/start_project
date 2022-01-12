@@ -5,7 +5,7 @@ import 'package:start_project/bloc/images.dart';
 import 'package:start_project/film.dart';
 
 class Screen3Bloc extends StatefulWidget {
-  static const String detailsScreenRoute = 'screen3BLOC';
+  static const String detailsScreenRoute = 'screen3BlOC';
   final Film film;
 
   const Screen3Bloc({Key? key, required this.film}) : super(key: key);
@@ -25,11 +25,15 @@ class _Screen3BlocState extends State<Screen3Bloc> {
       body: Center(
         child: BlocBuilder<FilmBloc,String>(
           builder: (context,currentUrl)=>
-          Column(
-            children: [
-              Text(name),
-              CachedNetworkImage(imageUrl: currentUrl),
-            ],
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            child: Column(
+              children: [
+                Text(name),
+
+                CachedNetworkImage(imageUrl: currentUrl),
+              ],
+            ),
           ),
         ),
       ),

@@ -7,7 +7,7 @@ import 'package:start_project/screens/screen1.dart';
 void main() {
   runApp(MultiBlocProvider(providers: [
     BlocProvider<FilmBloc>(
-      create: (context) => FilmBloc('https://www.publicdomainpictures.net'),
+      create: (context) => FilmBloc('https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg'),
     ),
   ], child: const MyApp()));
 }

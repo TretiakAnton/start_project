@@ -1,17 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilmBloc extends Bloc<int, String> {
-  final String whiteScreen = 'https://www.publicdomainpictures.net';
-
-  FilmBloc(String initialState) : super(initialState);
-
-  String get initialState => whiteScreen;
-
-  Stream<String> mapEventToState(int event) async* {
-     String _url;
-    _url = _urls[event - 1];
-    yield _url;
+  FilmBloc(String initialState) : super('https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg') {
+    on<int>((event, emit) => _getImageUrl);
   }
+
+  String initialState = 'https://image.winudf.com/v2/image1/aHUuYmthbG1hbi5hbmRyb2lkLmFwcC53aGl0ZXNjcmVlbl9zY3JlZW5fMV8xNTY3MDI0NzUwXzAwMw/screen-1.jpg?fakeurl=1&type=.jpg';
+
+  void _getImageUrl(int event, Emitter emitter) {
+    String _url;
+    _url = _urls[event - 1];
+    emitter(_url);
+  }
+
 }
 
 List<String> _urls = [
