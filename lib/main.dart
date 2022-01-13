@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
-import 'package:start_project/repo/films%20_repo.dart';
+import 'package:start_project/repo/films_repo.dart';
 
 import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screen1.dart';
