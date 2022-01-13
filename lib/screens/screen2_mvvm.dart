@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/screens/screen3_mvvm.dart';
+import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen2MVVM extends StatefulWidget {
@@ -22,6 +22,13 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
       ),
       body: Center(
         child: _ui(filmViewModel),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
+          filmViewModel.setLoadingLandscape(true);
+        },
       ),
     );
   }

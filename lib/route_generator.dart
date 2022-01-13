@@ -27,14 +27,17 @@ class RouteGenerator {
 
       case Screen2MVVM.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen2MVVM(
-          ),
+          builder: (_) => const Screen2MVVM(),
         );
 
       case Screen3MVVM.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen3MVVM(
-          ),
+          builder: (_) => const Screen3MVVM(),
+        );
+
+      case Screen4MVVM.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen4MVVM(),
         );
 
       default:

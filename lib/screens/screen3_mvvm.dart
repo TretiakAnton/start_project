@@ -24,8 +24,9 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
       body: _ui(filmViewModel),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
-
+          Navigator.of(context)
+              .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
+          filmViewModel.setLoadingLandscape(false);
         },
       ),
     );

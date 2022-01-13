@@ -5,10 +5,13 @@ import 'package:start_project/repo/films_repo.dart';
 class FilmViewModel extends ChangeNotifier {
   final FilmRepository _repo;
   bool _loading = false;
+  bool _loadingLandscape = false;
   List<Film> _filmList = [];
   late Film _film;
 
   bool get loading => _loading;
+
+  bool get loadingLandscape => _loadingLandscape;
 
   List<Film> get filmList => _filmList;
 
@@ -20,6 +23,11 @@ class FilmViewModel extends ChangeNotifier {
 
   setLoading(bool loading) async {
     _loading = loading;
+    notifyListeners();
+  }
+
+  setLoadingLandscape(bool loadingLandscape) async {
+    _loadingLandscape = loadingLandscape;
     notifyListeners();
   }
 

@@ -13,34 +13,81 @@ class Screen4MVVM extends StatefulWidget {
 }
 
 class _Screen4MVVMState extends State<Screen4MVVM> {
+  final _appBar = AppBar(
+    title: const Text('Landscape Screen'),
+  );
+
   @override
   Widget build(BuildContext context) {
+    final _topHeight = MediaQuery.of(context).padding.top;
+    final _appBarHeight = _appBar.preferredSize.height;
+    final _fullScreenHeight = MediaQuery.of(context).size.height;
+    final functionalHeight = _fullScreenHeight - _topHeight - _appBarHeight;
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Details'),
+      appBar: _appBar,
+      body: _ui(filmViewModel, functionalHeight),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
+        },
       ),
-      body: _ui(filmViewModel),
     );
   }
 }
 
-_ui(FilmViewModel filmViewModel) {
+_ui(FilmViewModel filmViewModel, double height) {
   if (!filmViewModel.loading) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Text(filmViewModel.film.id),
-            CachedNetworkImage(imageUrl: filmViewModel.film.url)
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          SizedBox(
+            height: (height * 0.33),
+            child: ListView.builder(
+                itemCount: filmViewModel.filmList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      onTap: () {
+                        //Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
+                        filmViewModel.getSelectedFilm(
+                            filmViewModel.filmList.elementAt(index));
+                        filmViewModel.getSelectedFilm(
+                            filmViewModel.setLoadingLandscape(true));
+                      },
+                      title: Text(filmViewModel.filmList[index].id),
+                    ),
+                  );
+                }),
+          ),
+          SizedBox(
+            height: (height * 0.67),
+            child: _rightPart(filmViewModel),
+          )
+        ],
       ),
     );
   } else {
     return const Center(
       child: CircularProgressIndicator(),
     );
+  }
+}
+
+_rightPart(FilmViewModel filmViewModel) {
+  if (!filmViewModel.loadingLandscape) {
+    return Column(
+      children: [
+        Text(filmViewModel.film.id),
+        CachedNetworkImage(imageUrl: filmViewModel.film.url),
+      ],
+    );
+  } else {
+    return Column(children: const [
+      Text('Waiting for you to choose film'),
+      CircularProgressIndicator(),
+    ]);
   }
 }
