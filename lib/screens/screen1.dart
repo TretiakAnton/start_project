@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2_mvvm.dart';
 
 class Screen1 extends StatelessWidget {
   static const String detailsScreenRoute = 'screen1';
@@ -27,7 +26,7 @@ class Screen1 extends StatelessWidget {
                     child: const Text('Bloc')),
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(Screen2MVVM.detailsScreenRoute);
+                      Navigator.of(context).pushNamed('screen2MVVM');
                     },
                     child: const Text('MVVM')),
               ],
