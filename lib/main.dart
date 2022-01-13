@@ -12,7 +12,7 @@ void main() {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_)=> FilmViewModel()),
+      ChangeNotifierProvider(create: (_)=> FilmViewModel(FilmRepository())),
       BlocProvider<FilmBloc>(create: (context) => FilmBloc(FilmRepository())..add(LoadFilmsEvent()))
        ],
     child: const MyApp(),

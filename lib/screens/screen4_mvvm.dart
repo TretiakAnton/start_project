@@ -1,19 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/screens/screen4_mvvm.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-class Screen3MVVM extends StatefulWidget {
-  static const String detailsScreenRoute = 'screen3MVVM';
+class Screen4MVVM extends StatefulWidget {
+  static const String detailsScreenRoute = 'screen4MVVM';
 
-  const Screen3MVVM({Key? key}) : super(key: key);
+  const Screen4MVVM({Key? key}) : super(key: key);
 
   @override
-  State<Screen3MVVM> createState() => _Screen3MVVMState();
+  State<Screen4MVVM> createState() => _Screen4MVVMState();
 }
 
-class _Screen3MVVMState extends State<Screen3MVVM> {
+class _Screen4MVVMState extends State<Screen4MVVM> {
   @override
   Widget build(BuildContext context) {
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -22,12 +21,6 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
         title: const Text('Details'),
       ),
       body: _ui(filmViewModel),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
-
-        },
-      ),
     );
   }
 }
