@@ -4,6 +4,7 @@ import 'screens/screens.dart';
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String? name = settings.name;
+
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
     }
@@ -22,6 +23,18 @@ class RouteGenerator {
       case Screen3Bloc.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen3Bloc(),
+        );
+
+      case Screen2MVVM.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen2MVVM(
+          ),
+        );
+
+      case Screen3MVVM.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen3MVVM(
+          ),
         );
 
       default:

@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
-import 'package:start_project/repo/films%20_repo.dart';
+import 'package:start_project/repo/films_repo.dart';
+
 import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screen1.dart';
+import 'package:start_project/viewmodel/film_view_model.dart';
 
 void main() {
-  runApp(MultiBlocProvider(
-    providers: [BlocProvider<FilmBloc>(create: (context) => FilmBloc(FilmRepository())..add(LoadFilmsEvent()))],
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_)=> FilmViewModel()),
+      BlocProvider<FilmBloc>(create: (context) => FilmBloc(FilmRepository())..add(LoadFilmsEvent()))
+       ],
     child: const MyApp(),
   ));
 }

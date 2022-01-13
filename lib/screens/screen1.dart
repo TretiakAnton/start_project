@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2_bloc.dart';
 
 class Screen1 extends StatelessWidget {
   static const String detailsScreenRoute = 'screen1';
@@ -10,7 +9,7 @@ class Screen1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main Screen'),
+        title: const Text('Home Screen'),
       ),
       body: Center(
         child: Column(
@@ -22,14 +21,12 @@ class Screen1 extends StatelessWidget {
               children: [
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(Screen2Bloc.detailsScreenRoute);
+                      Navigator.of(context).pushNamed('screen2BlOC');
                     },
                     child: const Text('Bloc')),
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(Screen2MVVM.detailsScreenRoute);
+                      Navigator.of(context).pushNamed('screen2MVVM');
                     },
                     child: const Text('MVVM')),
               ],
