@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2_mvvm.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String? name = settings.name;
-    final Object? arguments = settings.arguments;
 
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
@@ -21,6 +19,12 @@ class RouteGenerator {
       case Screen2MVVM.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen2MVVM(
+          ),
+        );
+
+      case Screen3MVVM.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen3MVVM(
           ),
         );
 

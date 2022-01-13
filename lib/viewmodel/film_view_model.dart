@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
-
-import '../film.dart';
 
 class FilmViewModel extends ChangeNotifier {
   bool _loading = false;
   List<Film> _filmList = [];
+  late Film _film;
 
   bool get loading => _loading;
-  List<Film> get listFilms => _filmList;
 
-  FilmViewModel(){
-    getFilms();
+  List<Film> get filmList => _filmList;
+
+  Film get film => _film;
+
+  FilmViewModel() {
+    getFilmList();
     print('get films loaded');
   }
 
@@ -24,7 +27,11 @@ class FilmViewModel extends ChangeNotifier {
     _filmList = filmList;
   }
 
-  getFilms() async {
+  setFilm(Film film) {
+    _film = film;
+  }
+
+  getFilmList() async {
     setLoading(true);
     var response = await FilmRepository().getListOfFilms();
     if (response.isNotEmpty) {
@@ -32,6 +39,12 @@ class FilmViewModel extends ChangeNotifier {
     } else {
       //failure message
     }
+    setLoading(false);
+  }
+
+  getSelectedFilm(Film film){
+    setLoading(true);
+    setFilm(film);
     setLoading(false);
   }
 }
