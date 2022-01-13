@@ -2,39 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
-class Screen2Bloc extends StatefulWidget {
+class Screen2MVVM extends StatefulWidget {
   static const String detailsScreenRoute = 'screen2MVVM';
 
-  const Screen2Bloc({Key? key}) : super(key: key);
+  const Screen2MVVM({Key? key}) : super(key: key);
 
   @override
-  State<Screen2Bloc> createState() => _Screen2BlocState();
+  State<Screen2MVVM> createState() => _Screen2MVVMState();
 }
 
-class _Screen2BlocState extends State<Screen2Bloc> {
+class _Screen2MVVMState extends State<Screen2MVVM> {
   @override
   Widget build(BuildContext context) {
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('List of Films'),
-        ),
-        body: ListView.builder(
-            itemCount: filmState.films.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('screen3BlOC');
-                    BlocProvider.of<FilmBloc>(context)
-                        .add(SelectFilmEvent(filmState.films[index]));
-                  },
-                  title: Text(filmState.films[index].id),
-                ),
-              );
-            });
+      appBar: AppBar(
+        title: const Text('List of Films'),
+      ),
+      body: Center(
+        child: _ui(filmViewModel),
+      ),
+    );
+  }
+}
 
-
+_ui(FilmViewModel filmViewModel) {
+  if (!filmViewModel.loading) {
+    return ListView.builder(
+        itemCount: filmViewModel.listFilms.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('screen3MVVM');
+               //add notify for load selected film
+                // BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(filmState.films[index]));
+              },
+              title: Text(filmViewModel.listFilms[index].id),
+            ),
+          );
+        });
+  } else {
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

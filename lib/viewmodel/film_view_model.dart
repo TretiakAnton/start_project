@@ -8,8 +8,12 @@ class FilmViewModel extends ChangeNotifier {
   List<Film> _filmList = [];
 
   bool get loading => _loading;
-
   List<Film> get listFilms => _filmList;
+
+  FilmViewModel(){
+    getFilms();
+    print('get films loaded');
+  }
 
   setLoading(bool loading) async {
     _loading = loading;
@@ -23,7 +27,7 @@ class FilmViewModel extends ChangeNotifier {
   getFilms() async {
     setLoading(true);
     var response = await FilmRepository().getListOfFilms();
-    if (response!.isEmpty) {
+    if (response.isNotEmpty) {
       setFilmList(response);
     } else {
       //failure message

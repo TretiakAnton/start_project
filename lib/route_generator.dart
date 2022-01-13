@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/screens/screen2_mvvm.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
@@ -14,6 +15,12 @@ class RouteGenerator {
       case Screen1.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen1(
+          ),
+        );
+
+      case Screen2MVVM.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen2MVVM(
           ),
         );
 
