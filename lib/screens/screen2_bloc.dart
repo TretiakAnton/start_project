@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
+import 'package:start_project/screens/screen3_bloc.dart';
 
 class Screen2Bloc extends StatefulWidget {
   static const String detailsScreenRoute = 'screen2BlOC';
@@ -27,7 +28,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                     return Card(
                       child: ListTile(
                         onTap: () {
-                          Navigator.of(context).pushNamed('screen3BlOC');
+                          Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
                           BlocProvider.of<FilmBloc>(context)
                               .add(SelectFilmEvent(filmState.films[index]));
                         },

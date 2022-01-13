@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/screens/screen2_bloc.dart';
 
 class Screen1 extends StatelessWidget {
   static const String detailsScreenRoute = 'screen1';
@@ -21,12 +22,14 @@ class Screen1 extends StatelessWidget {
               children: [
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('screen2BlOC',);
+                      Navigator.of(context)
+                          .pushNamed(Screen2Bloc.detailsScreenRoute);
                     },
                     child: const Text('Bloc')),
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('screen2MVVM',);
+                      Navigator.of(context)
+                          .pushNamed(Screen2MVVM.detailsScreenRoute);
                     },
                     child: const Text('MVVM')),
               ],
