@@ -15,7 +15,6 @@ class FilmViewModel extends ChangeNotifier {
 
   FilmViewModel() {
     getFilmList();
-    print('get films loaded');
   }
 
   setLoading(bool loading) async {

@@ -35,7 +35,6 @@ _ui(FilmViewModel filmViewModel) {
           return Card(
             child: ListTile(
               onTap: () {
-                print('push screen');
                 Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
                 filmViewModel.getSelectedFilm(filmViewModel.filmList.elementAt(index));
                //add notify for load selected film

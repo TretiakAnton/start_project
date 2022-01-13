@@ -4,7 +4,7 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class Screen3MVVM extends StatefulWidget {
-  static const String detailsScreenRoute = 'screen3BlOC';
+  static const String detailsScreenRoute = 'screen3MVVM';
 
   const Screen3MVVM({Key? key}) : super(key: key);
 
