@@ -29,7 +29,7 @@ _ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.all(10a),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Text(filmViewModel.film.id),
