@@ -17,23 +17,25 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
   Widget build(BuildContext context) {
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Details'),
-        ),
-body: _ui(filmViewModel),
-
-        );
+      appBar: AppBar(
+        title: const Text('Details'),
+      ),
+      body: _ui(filmViewModel),
+    );
   }
 }
 
-_ui(FilmViewModel filmViewModel){
+_ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
     return Center(
-      child: Column(
-        children: [
-          Text(filmViewModel.film.id),
-          CachedNetworkImage(imageUrl: filmViewModel.film.url)
-        ],
+      child: Container(
+        padding: const EdgeInsets.all(10a),
+        child: Column(
+          children: [
+            Text(filmViewModel.film.id),
+            CachedNetworkImage(imageUrl: filmViewModel.film.url)
+          ],
+        ),
       ),
     );
   } else {

@@ -23,11 +23,14 @@ class _Screen3BlocState extends State<Screen3Bloc> {
           builder: (_, filmState) {
             if (filmState is FilmLoadedState) {
               return Center(
-                child: Column(
-                  children: [
-                    Text(filmState.selectedFilm!.id),
-                    CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
-                  ],
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Text(filmState.selectedFilm!.id),
+                      CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
+                    ],
+                  ),
                 ),
               );
             } else {
