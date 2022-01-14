@@ -10,7 +10,8 @@ class FilmViewModel extends ChangeNotifier {
   bool _loadingLandscape = false;
   List<Film> _filmList = [];
   late Film _film;
-  Orientation _orientation = Orientation.portrait;
+  final Orientation _orientation = Orientation.portrait;
+  late String _route;
 
   bool get loading => _loading;
 
@@ -21,6 +22,8 @@ class FilmViewModel extends ChangeNotifier {
   Film get film => _film;
 
   Orientation get orientation => _orientation;
+
+  String get route => _route;
 
   FilmViewModel(this._repo) {
     getFilmList();
@@ -56,6 +59,10 @@ class FilmViewModel extends ChangeNotifier {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     setLoading(false);
+  }
+
+  setRoute(String route) {
+    _route = route;
   }
 
   getFilmList() async {

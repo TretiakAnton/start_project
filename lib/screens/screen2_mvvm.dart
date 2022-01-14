@@ -45,15 +45,13 @@ _ui(FilmViewModel filmViewModel) {
     return ListView.builder(
         itemCount: filmViewModel.filmList.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
-                filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
-               //add notify for load selected film
-              },
-              title: Text(filmViewModel.filmList[index].id),
-            ),
+          return ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
+              filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
+              filmViewModel.setRoute(Screen2MVVM.detailsScreenRoute);
+            },
+            title: Text(filmViewModel.filmList[index].id),
           );
         });
   } else {

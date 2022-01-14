@@ -13,31 +13,32 @@ class Screen4MVVM extends StatefulWidget {
 }
 
 class _Screen4MVVMState extends State<Screen4MVVM> {
-  final _appBar = AppBar(
-    title: const Text('Landscape Screen'),
-  );
-
   @override
   Widget build(BuildContext context) {
-    final _topHeight = MediaQuery.of(context).padding.top;
-    final _appBarHeight = _appBar.preferredSize.height;
-    final _fullScreenHeight = MediaQuery.of(context).size.height;
-    final functionalHeight = _fullScreenHeight - _topHeight - _appBarHeight;
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return Scaffold(
-      appBar: _appBar,
-      body: _ui(filmViewModel, functionalHeight),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            filmViewModel.setOrientationPortrait();
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text('Landscape Screen'),
+      ),
+      body: _ui(filmViewModel),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           filmViewModel.setOrientationPortrait();
-          // Navigator.of(context).pushReplacementNamed();
+          Navigator.of(context).pushReplacementNamed(filmViewModel.route);
         },
       ),
     );
   }
 }
 
-_ui(FilmViewModel filmViewModel, double height) {
+_ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -48,15 +49,13 @@ _ui(FilmViewModel filmViewModel, double height) {
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      onTap: () {
-                        filmViewModel.getSelectedFilm(
-                            filmViewModel.filmList.elementAt(index));
-                        filmViewModel.setLoadingLandscape(false);
-                      },
-                      title: Text(filmViewModel.filmList[index].id),
-                    ),
+                  return ListTile(
+                    onTap: () {
+                      filmViewModel.getSelectedFilm(
+                          filmViewModel.filmList.elementAt(index));
+                      filmViewModel.setLoadingLandscape(false);
+                    },
+                    title: Text(filmViewModel.filmList[index].id),
                   );
                 }),
           ),

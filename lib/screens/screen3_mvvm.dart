@@ -27,6 +27,7 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
         onPressed: () {
           Navigator.of(context).pop();
           Navigator.of(context).popAndPushNamed(Screen4MVVM.detailsScreenRoute);
+          filmViewModel.setRoute(Screen3MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(false);
           filmViewModel.setOrientationLandscape();
         },

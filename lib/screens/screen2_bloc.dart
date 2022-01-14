@@ -25,15 +25,13 @@ class _Screen2BlocState extends State<Screen2Bloc> {
               return ListView.builder(
                   itemCount: filmState.films.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
-                          BlocProvider.of<FilmBloc>(context)
-                              .add(SelectFilmEvent(filmState.films[index]));
-                        },
-                        title: Text(filmState.films[index].id),
-                      ),
+                    return ListTile(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
+                        BlocProvider.of<FilmBloc>(context)
+                            .add(SelectFilmEvent(filmState.films[index]));
+                      },
+                      title: Text(filmState.films[index].id),
                     );
                   });
             } else {
