@@ -21,13 +21,19 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
         title: const Text('List of Films'),
       ),
       body: Center(
-        child: _ui(filmViewModel),
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return _ui(filmViewModel);
+          },
+        ),
+        //_ui(filmViewModel),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
               .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(true);
+          filmViewModel.setOrientationLandscape();
         },
       ),
     );
@@ -43,9 +49,8 @@ _ui(FilmViewModel filmViewModel) {
             child: ListTile(
               onTap: () {
                 Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
-                filmViewModel.getSelectedFilm(filmViewModel.filmList.elementAt(index));
+                filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
                //add notify for load selected film
-                // BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(filmState.films[index]));
               },
               title: Text(filmViewModel.filmList[index].id),
             ),

@@ -29,8 +29,8 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
       body: _ui(filmViewModel, functionalHeight),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
+          filmViewModel.setOrientationPortrait();
+         // Navigator.of(context).pushReplacementNamed();
         },
       ),
     );
@@ -51,11 +51,9 @@ _ui(FilmViewModel filmViewModel, double height) {
                   return Card(
                     child: ListTile(
                       onTap: () {
-                        //Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
                         filmViewModel.getSelectedFilm(
                             filmViewModel.filmList.elementAt(index));
-                        filmViewModel.getSelectedFilm(
-                            filmViewModel.setLoadingLandscape(true));
+                        filmViewModel.setLoadingLandscape(false);
                       },
                       title: Text(filmViewModel.filmList[index].id),
                     ),
