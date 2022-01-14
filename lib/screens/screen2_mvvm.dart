@@ -51,7 +51,7 @@ _ui(FilmViewModel filmViewModel) {
               Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
               filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
               filmViewModel.setRoute(Screen2MVVM.detailsScreenRoute);
-              //filmViewModel.setSelected(index);
+              filmViewModel.setSelected(index);
             },
             title: Text(filmViewModel.filmList[index].id),
           );

@@ -30,7 +30,6 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
           filmViewModel.setRoute(Screen3MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(false);
           filmViewModel.setOrientationLandscape();
-          filmViewModel.setSelected(filmViewModel.getIndexByFilm(filmViewModel.film));
         },
       ),
     );

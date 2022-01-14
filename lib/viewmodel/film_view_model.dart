@@ -93,11 +93,4 @@ class FilmViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  getIndexByFilm(Film film) {
-    for (int index = 0; index < _filmList.length; index++) {
-      if(film == _filmList[index]){
-        setSelected(index);
-      }
-    }
-  }
 }
