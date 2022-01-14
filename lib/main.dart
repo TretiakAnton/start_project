@@ -5,7 +5,7 @@ import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/repo/films_repo.dart';
 
 import 'package:start_project/route_generator.dart';
-import 'package:start_project/screens/screen1.dart';
+import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 void main() {
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: const Screen1());
+        home:const Screen1()
+    );
   }
 }

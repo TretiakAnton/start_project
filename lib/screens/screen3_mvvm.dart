@@ -23,6 +23,7 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
       ),
       body: _ui(filmViewModel),
       floatingActionButton: FloatingActionButton(
+        tooltip: 'rotate',
         onPressed: () {
           Navigator.of(context).pop();
           Navigator.of(context).popAndPushNamed(Screen4MVVM.detailsScreenRoute);

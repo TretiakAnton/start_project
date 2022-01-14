@@ -30,7 +30,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           filmViewModel.setOrientationPortrait();
-         // Navigator.of(context).pushReplacementNamed();
+          // Navigator.of(context).pushReplacementNamed();
         },
       ),
     );
@@ -43,8 +43,8 @@ _ui(FilmViewModel filmViewModel, double height) {
       padding: const EdgeInsets.all(10),
       child: Row(
         children: [
-          SizedBox(
-            height: (height * 0.33),
+          Expanded(
+            flex: 1,
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
@@ -60,10 +60,10 @@ _ui(FilmViewModel filmViewModel, double height) {
                   );
                 }),
           ),
-          SizedBox(
-            height: (height * 0.67),
+          Expanded(
+            flex: 2,
             child: _rightPart(filmViewModel),
-          )
+          ),
         ],
       ),
     );
@@ -76,11 +76,15 @@ _ui(FilmViewModel filmViewModel, double height) {
 
 _rightPart(FilmViewModel filmViewModel) {
   if (!filmViewModel.loadingLandscape) {
-    return Column(
-      children: [
-        Text(filmViewModel.film.id),
-        CachedNetworkImage(imageUrl: filmViewModel.film.url),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+              padding: const EdgeInsets.all(5),
+              child: Text(filmViewModel.film.id)),
+          CachedNetworkImage(imageUrl: filmViewModel.film.url),
+        ],
+      ),
     );
   } else {
     return Column(children: const [
