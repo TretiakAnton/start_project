@@ -32,11 +32,8 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           filmViewModel.setOrientationPortrait();
-          if(filmViewModel.route== Screen2MVVM.detailsScreenRoute){
-            filmViewModel.setInitialSelected();
-          }
+          filmViewModel.setInitialSelected();
           Navigator.of(context).pushReplacementNamed(filmViewModel.route);
-
         },
       ),
     );
