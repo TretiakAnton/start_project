@@ -12,6 +12,7 @@ class FilmViewModel extends ChangeNotifier {
   late Film _film;
   final Orientation _orientation = Orientation.portrait;
   late String _route;
+  late int _selected;
 
   bool get loading => _loading;
 
@@ -24,6 +25,8 @@ class FilmViewModel extends ChangeNotifier {
   Orientation get orientation => _orientation;
 
   String get route => _route;
+
+  int get selected => _selected;
 
   FilmViewModel(this._repo) {
     getFilmList();
@@ -65,6 +68,14 @@ class FilmViewModel extends ChangeNotifier {
     _route = route;
   }
 
+  setSelected(int selected) {
+    _selected = selected;
+  }
+
+  setInitialSelected() {
+    setSelected(_filmList.length + 1);
+  }
+
   getFilmList() async {
     setLoading(true);
     var response = await _repo.getListOfFilms();
@@ -80,5 +91,13 @@ class FilmViewModel extends ChangeNotifier {
     setLoading(true);
     setFilm(film);
     setLoading(false);
+  }
+
+  getIndexByFilm(Film film) {
+    for (int index = 0; index < _filmList.length; index++) {
+      if(film == _filmList[index]){
+        setSelected(index);
+      }
+    }
   }
 }

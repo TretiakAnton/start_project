@@ -34,6 +34,7 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
               .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(true);
           filmViewModel.setOrientationLandscape();
+          filmViewModel.setInitialSelected();
         },
       ),
     );
@@ -50,6 +51,7 @@ _ui(FilmViewModel filmViewModel) {
               Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
               filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
               filmViewModel.setRoute(Screen2MVVM.detailsScreenRoute);
+              //filmViewModel.setSelected(index);
             },
             title: Text(filmViewModel.filmList[index].id),
           );

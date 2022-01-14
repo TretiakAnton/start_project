@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:start_project/screens/screen2_mvvm.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen4MVVM extends StatefulWidget {
@@ -31,7 +32,11 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           filmViewModel.setOrientationPortrait();
+          if(filmViewModel.route== Screen2MVVM.detailsScreenRoute){
+            filmViewModel.setInitialSelected();
+          }
           Navigator.of(context).pushReplacementNamed(filmViewModel.route);
+
         },
       ),
     );
@@ -50,9 +55,11 @@ _ui(FilmViewModel filmViewModel) {
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    selected: index == filmViewModel.selected,
                     onTap: () {
                       filmViewModel.getSelectedFilm(
                           filmViewModel.filmList.elementAt(index));
+                      filmViewModel.setSelected(index);
                       filmViewModel.setLoadingLandscape(false);
                     },
                     title: Text(filmViewModel.filmList[index].id),

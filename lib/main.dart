@@ -7,7 +7,7 @@ import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
-
+//пофиксить баг с поп методом при обратном повороте
 void main() {
 
   runApp(MultiProvider(
