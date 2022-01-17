@@ -25,8 +25,7 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
       floatingActionButton: FloatingActionButton(
         tooltip: 'rotate',
         onPressed: () {
-          Navigator.of(context).pop();
-          Navigator.of(context).popAndPushNamed(Screen4MVVM.detailsScreenRoute);
+          Navigator.of(context).pushNamed(Screen4MVVM.detailsScreenRoute);
           filmViewModel.setRoute(Screen3MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(false);
           filmViewModel.setOrientationLandscape();

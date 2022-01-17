@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/screens/screen2_mvvm.dart';
+import 'package:start_project/screens/screen1.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen4MVVM extends StatefulWidget {
@@ -23,7 +23,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             filmViewModel.setOrientationPortrait();
-            Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
         title: const Text('Landscape Screen'),
