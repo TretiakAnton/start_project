@@ -7,14 +7,15 @@ import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
-//пофиксить баг с поп методом при обратном повороте
-void main() {
 
+void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_)=> FilmViewModel(FilmRepository())),
-      BlocProvider<FilmBloc>(create: (context) => FilmBloc(FilmRepository())..add(LoadFilmsEvent()))
-       ],
+      ChangeNotifierProvider(create: (_) => FilmViewModel(FilmRepository())),
+      BlocProvider<FilmBloc>(
+          create: (context) =>
+              FilmBloc(FilmRepository())..add(LoadFilmsEvent()))
+    ],
     child: const MyApp(),
   ));
 }
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home:const Screen1()
-    );
+        home: const Screen1());
   }
 }

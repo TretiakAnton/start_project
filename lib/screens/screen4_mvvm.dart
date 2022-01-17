@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/screens/screen1.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen4MVVM extends StatefulWidget {
