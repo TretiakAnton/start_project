@@ -32,7 +32,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
         onPressed: () {
           filmViewModel.setOrientationPortrait();
           filmViewModel.setInitialSelected();
-          Navigator.of(context).pushReplacementNamed(filmViewModel.route);
+          Navigator.of(context).pop();
         },
       ),
     );

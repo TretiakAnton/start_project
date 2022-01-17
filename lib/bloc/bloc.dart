@@ -17,19 +17,25 @@ class SetInitFilm extends FilmEvent {}
 
 abstract class FilmState {}
 
-class FilmLoadingState extends FilmState {}
+class FilmLoadingState extends FilmState {
+  late bool loading;
+}
 
 class FilmLoadedState extends FilmState {
-  final List<Film> films;
+  late List<Film> films;
   final Film? selectedFilm;
 
-  FilmLoadedState(this.films, this.selectedFilm);
+  FilmLoadedState(this.selectedFilm, [this.films], this.selectedFilm);
 }
 
 class SelectedFilm extends FilmState {
   final Film? selectedFilm;
 
   SelectedFilm(this.selectedFilm);
+}
+
+class SelectedRoute extends FilmState{
+  String route;
 }
 
 class FilmBloc extends Bloc<FilmEvent, FilmState> {
