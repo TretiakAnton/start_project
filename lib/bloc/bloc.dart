@@ -16,7 +16,6 @@ class SelectFilmEvent extends FilmEvent {
 abstract class FilmState {}
 
 class FilmLoadingState extends FilmState {
-  late bool loading;
 }
 
 class FilmLoadedState extends FilmState {
