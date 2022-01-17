@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/screens/screen3_bloc.dart';
 import 'package:start_project/screens/screen4_bloc.dart';
 
@@ -31,8 +32,9 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight
               ]);
-              BlocProvider.of<FilmBloc>(context).add(SetInitFilm());
-              //filmViewModel.setInitialSelected();
+
+              BlocProvider.of<FilmBloc>(context)
+                  .add(SelectFilmEvent(null as Film));              //filmViewModel.setInitialSelected();
             },
           ),
         );
