@@ -31,7 +31,7 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .pushReplacementNamed(Screen4MVVM.detailsScreenRoute);
+              .pushNamed(Screen4MVVM.detailsScreenRoute);
           filmViewModel.setLoadingLandscape(true);
           filmViewModel.setOrientationLandscape();
           filmViewModel.setInitialSelected();
