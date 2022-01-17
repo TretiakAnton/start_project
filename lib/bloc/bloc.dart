@@ -1,38 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/repo/films_repo.dart';
 
+import 'film_event.dart';
+import 'film_state.dart';
 import '../film.dart';
-
-abstract class FilmEvent {}
-
-class LoadFilmsEvent extends FilmEvent {}
-
-class SelectFilmEvent extends FilmEvent {
-  final Film selectedFilmId;
-
-  SelectFilmEvent(this.selectedFilmId);
-}
-
-abstract class FilmState {}
-
-class FilmLoadingState extends FilmState {
-}
-
-class FilmLoadedState extends FilmState {
-  final List<Film> films;
-  final Film? selectedFilm;
-
-  FilmLoadedState(
-    this.films,
-    this.selectedFilm,
-  );
-}
-
-class SelectedFilm extends FilmState {
-  final Film? selectedFilm;
-
-  SelectedFilm(this.selectedFilm);
-}
+export 'film_state.dart';
+export 'film_event.dart';
 
 class FilmBloc extends Bloc<FilmEvent, FilmState> {
   final FilmRepository _repo;

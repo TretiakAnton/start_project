@@ -32,9 +32,8 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight
               ]);
-
               BlocProvider.of<FilmBloc>(context)
-                  .add(SelectFilmEvent(null as Film));              //filmViewModel.setInitialSelected();
+                  .add(SelectFilmEvent(const Film('',10,'',)));
             },
           ),
         );
