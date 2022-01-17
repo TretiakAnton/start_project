@@ -13,10 +13,6 @@ class SelectFilmEvent extends FilmEvent {
   SelectFilmEvent(this.selectedFilmId);
 }
 
-class SetInitFilm extends SelectFilmEvent {
-  SetInitFilm(Film selectedFilmId) : super(selectedFilmId);
-}
-
 abstract class FilmState {}
 
 class FilmLoadingState extends FilmState {
@@ -27,7 +23,10 @@ class FilmLoadedState extends FilmState {
   final List<Film> films;
   final Film? selectedFilm;
 
-  FilmLoadedState(this.films, this.selectedFilm, );
+  FilmLoadedState(
+    this.films,
+    this.selectedFilm,
+  );
 }
 
 class SelectedFilm extends FilmState {
@@ -42,7 +41,6 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   FilmBloc(this._repo) : super(FilmLoadingState()) {
     on<LoadFilmsEvent>(_loadFilms);
     on<SelectFilmEvent>(_selectFilm);
-    on<SetInitFilm>(_selectFilm);
   }
 
   void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
@@ -56,12 +54,5 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
     final result = await _repo.getListOfFilms();
     emit(FilmLoadedState(result, null));
-  }
-
-  void _setInitFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
-    if (state is FilmLoadedState) {
-      films = (state as FilmLoadedState).films;
-    }
-    emit(FilmLoadedState(films , null));
   }
 }
