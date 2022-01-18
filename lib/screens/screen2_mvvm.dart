@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/screens/screen3_mvvm.dart';
+import 'package:start_project/film.dart';
+import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen2MVVM extends StatefulWidget {
@@ -21,7 +23,24 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
         title: const Text('List of Films'),
       ),
       body: Center(
-        child: _ui(filmViewModel),
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return _ui(filmViewModel);
+          },
+        ),
+        //_ui(filmViewModel),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
+        tooltip: 'rotate',
+        onPressed: () {
+          Navigator.of(context).pushNamed(Screen4MVVM.detailsScreenRoute);
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
+          filmViewModel.setFilm(const Film('', 0, ''));
+        },
       ),
     );
   }
@@ -32,17 +51,14 @@ _ui(FilmViewModel filmViewModel) {
     return ListView.builder(
         itemCount: filmViewModel.filmList.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                print('push screen');
-                Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
-                filmViewModel.getSelectedFilm(filmViewModel.filmList.elementAt(index));
-               //add notify for load selected film
-                // BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(filmState.films[index]));
-              },
-              title: Text(filmViewModel.filmList[index].id),
-            ),
+          return ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
+              filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
+            },
+            title: Text(filmViewModel.filmList[index].id),
+            focusColor: Colors.amber,
+            // Colors.amber,
           );
         });
   } else {

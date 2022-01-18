@@ -1,7 +1,7 @@
 class Film {
   final String id;
-  final int imageId;
+  final int indexId;
   final String url;
 
-  const Film(this.id, this.imageId, this.url);
+  const Film(this.id, this.indexId, this.url);
 }

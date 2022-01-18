@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
+import 'package:start_project/screens/screen4_mvvm.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class Screen3MVVM extends StatefulWidget {
-  static const String detailsScreenRoute = 'screen3BlOC';
+  static const String detailsScreenRoute = 'screen3MVVM';
 
   const Screen3MVVM({Key? key}) : super(key: key);
 
@@ -17,23 +19,36 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
   Widget build(BuildContext context) {
     FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Details'),
-        ),
-body: _ui(filmViewModel),
-
-        );
+      appBar: AppBar(
+        title: const Text('Details'),
+      ),
+      body: _ui(filmViewModel),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
+        tooltip: 'rotate',
+        onPressed: () {
+          Navigator.of(context).pushNamed(Screen4MVVM.detailsScreenRoute);
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
+        },
+      ),
+    );
   }
 }
 
-_ui(FilmViewModel filmViewModel){
+_ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
     return Center(
-      child: Column(
-        children: [
-          Text(filmViewModel.film.id),
-          CachedNetworkImage(imageUrl: filmViewModel.film.url)
-        ],
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Text(filmViewModel.film.id),
+            CachedNetworkImage(imageUrl: filmViewModel.film.url)
+          ],
+        ),
       ),
     );
   } else {

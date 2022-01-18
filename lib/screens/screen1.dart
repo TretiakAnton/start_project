@@ -12,26 +12,31 @@ class Screen1 extends StatelessWidget {
         title: const Text('Home Screen'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text('Choose one'),
-            Row(
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+            return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('screen2BlOC');
-                    },
-                    child: const Text('Bloc')),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('screen2MVVM');
-                    },
-                    child: const Text('MVVM')),
+                const Text('Choose one'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('screen2BlOC');
+                        },
+                        child: const Text('Bloc')),
+                    OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('screen2MVVM');
+                        },
+                        child: const Text('MVVM')),
+                  ],
+                )
               ],
-            )
-          ],
+            );
+          },
         ),
       ),
     );

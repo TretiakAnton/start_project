@@ -3,6 +3,8 @@ import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 
 class FilmViewModel extends ChangeNotifier {
+  final FilmRepository _repo;
+
   bool _loading = false;
   List<Film> _filmList = [];
   late Film _film;
@@ -13,9 +15,8 @@ class FilmViewModel extends ChangeNotifier {
 
   Film get film => _film;
 
-  FilmViewModel() {
+  FilmViewModel(this._repo) {
     getFilmList();
-    print('get films loaded');
   }
 
   setLoading(bool loading) async {
@@ -33,7 +34,7 @@ class FilmViewModel extends ChangeNotifier {
 
   getFilmList() async {
     setLoading(true);
-    var response = await FilmRepository().getListOfFilms();
+    var response = await _repo.getListOfFilms();
     if (response.isNotEmpty) {
       setFilmList(response);
     } else {
@@ -42,7 +43,7 @@ class FilmViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  getSelectedFilm(Film film){
+  getSelectedFilm(Film film) {
     setLoading(true);
     setFilm(film);
     setLoading(false);
