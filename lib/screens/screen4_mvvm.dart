@@ -53,12 +53,12 @@ _ui(FilmViewModel filmViewModel) {
       child: Row(
         children: [
           Expanded(
-            flex: 1,
+            //flex: 1,
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    selected: index == filmViewModel.film.indexId - 1,
+                    selected: index == filmViewModel.film.indexId-1,
                     onTap: () {
                       filmViewModel.getSelectedFilm(
                           filmViewModel.filmList.elementAt(index));
@@ -82,7 +82,7 @@ _ui(FilmViewModel filmViewModel) {
 }
 
 _rightPart(FilmViewModel filmViewModel) {
-  if (!filmViewModel.film.url.isNotEmpty) {
+  if (filmViewModel.film.url.isNotEmpty) {
     return SingleChildScrollView(
       child: Column(
         children: [
