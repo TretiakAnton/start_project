@@ -4,3 +4,4 @@ export './screen3_mvvm.dart';
 export './screen2_bloc.dart';
 export './screen3_bloc.dart';
 export './screen4_mvvm.dart';
+export './screen4_bloc.dart';

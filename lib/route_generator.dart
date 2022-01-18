@@ -25,6 +25,11 @@ class RouteGenerator {
           builder: (_) => const Screen3Bloc(),
         );
 
+      case Screen4Bloc.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen4Bloc(),
+        );
+
       case Screen2MVVM.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const Screen2MVVM(),
