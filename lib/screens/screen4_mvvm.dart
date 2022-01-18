@@ -47,7 +47,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
 }
 
 _ui(FilmViewModel filmViewModel) {
-  if (!filmViewModel.filmList.isNotEmpty) {
+  if (!filmViewModel.loading) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Row(

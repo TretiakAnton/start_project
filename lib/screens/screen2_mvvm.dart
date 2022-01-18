@@ -57,6 +57,8 @@ _ui(FilmViewModel filmViewModel) {
               filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
             },
             title: Text(filmViewModel.filmList[index].id),
+            focusColor: Colors.amber,
+            // Colors.amber,
           );
         });
   } else {
