@@ -26,14 +26,19 @@ class _Screen2BlocState extends State<Screen2Bloc> {
           ),
           body: _ui(filmState),
           floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.rotate_left),
+            tooltip: 'rotate',
             onPressed: () {
               Navigator.of(context).pushNamed(Screen4Bloc.detailsScreenRoute);
               SystemChrome.setPreferredOrientations([
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight
               ]);
-              BlocProvider.of<FilmBloc>(context)
-                  .add(SelectFilmEvent(const Film('',10,'',)));
+              BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
+                '',
+                10,
+                '',
+              )));
             },
           ),
         );

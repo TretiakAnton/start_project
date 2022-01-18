@@ -25,13 +25,17 @@ class _Screen3BlocState extends State<Screen3Bloc> {
               title: const Text('Details'),
             ),
             body: _ui(filmState),
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              Navigator.of(context).pushNamed(Screen4Bloc.detailsScreenRoute);
-              SystemChrome.setPreferredOrientations([
-                DeviceOrientation.landscapeLeft,
-                DeviceOrientation.landscapeRight
-              ]);
-            }));
+            floatingActionButton: FloatingActionButton(
+                child: const Icon(Icons.rotate_left),
+                tooltip: 'rotate',
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(Screen4Bloc.detailsScreenRoute);
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.landscapeLeft,
+                    DeviceOrientation.landscapeRight
+                  ]);
+                }));
       },
     );
   }

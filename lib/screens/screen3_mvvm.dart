@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
 import 'package:start_project/screens/screen4_mvvm.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
@@ -23,12 +24,14 @@ class _Screen3MVVMState extends State<Screen3MVVM> {
       ),
       body: _ui(filmViewModel),
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
         tooltip: 'rotate',
         onPressed: () {
           Navigator.of(context).pushNamed(Screen4MVVM.detailsScreenRoute);
-          filmViewModel.setRoute(Screen3MVVM.detailsScreenRoute);
-          filmViewModel.setLoadingLandscape(false);
-          filmViewModel.setOrientationLandscape();
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
         },
       ),
     );

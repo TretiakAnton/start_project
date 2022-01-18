@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
+
+import '../film.dart';
 
 class Screen4MVVM extends StatefulWidget {
   static const String detailsScreenRoute = 'screen4MVVM';
@@ -21,7 +24,8 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            filmViewModel.setOrientationPortrait();
+            SystemChrome.setPreferredOrientations(
+                [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
@@ -29,9 +33,12 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
       ),
       body: _ui(filmViewModel),
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
+        tooltip: 'rotate',
         onPressed: () {
-          filmViewModel.setOrientationPortrait();
-          filmViewModel.setInitialSelected();
+          SystemChrome.setPreferredOrientations(
+              [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+          filmViewModel.setFilm(const Film('', 0, ''));
           Navigator.of(context).pop();
         },
       ),
@@ -40,7 +47,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
 }
 
 _ui(FilmViewModel filmViewModel) {
-  if (!filmViewModel.loading) {
+  if (!filmViewModel.filmList.isNotEmpty) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -51,12 +58,10 @@ _ui(FilmViewModel filmViewModel) {
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    selected: index == filmViewModel.selected,
+                    selected: index == filmViewModel.film.indexId - 1,
                     onTap: () {
                       filmViewModel.getSelectedFilm(
                           filmViewModel.filmList.elementAt(index));
-                      filmViewModel.setSelected(index);
-                      filmViewModel.setLoadingLandscape(false);
                     },
                     title: Text(filmViewModel.filmList[index].id),
                   );
@@ -77,7 +82,7 @@ _ui(FilmViewModel filmViewModel) {
 }
 
 _rightPart(FilmViewModel filmViewModel) {
-  if (!filmViewModel.loadingLandscape) {
+  if (!filmViewModel.film.url.isNotEmpty) {
     return SingleChildScrollView(
       child: Column(
         children: [

@@ -26,19 +26,24 @@ class _Screen4BlocState extends State<Screen4Bloc> {
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 BlocProvider.of<FilmBloc>(context)
-                    .add(SelectFilmEvent( const Film('',0,'',)));
+                    .add(SelectFilmEvent(const Film(
+                  '',
+                  0,
+                  '',
+                )));
                 SystemChrome.setPreferredOrientations([
                   DeviceOrientation.portraitUp,
                   DeviceOrientation.portraitDown
                 ]);
                 Navigator.of(context).popUntil((route) => route.isFirst);
-
               },
             ),
             title: const Text('Landscape Screen'),
           ),
           body: _ui(filmState),
           floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.rotate_left),
+            tooltip: 'rotate',
             onPressed: () {
               Navigator.of(context).pop();
               SystemChrome.setPreferredOrientations([
@@ -54,7 +59,7 @@ class _Screen4BlocState extends State<Screen4Bloc> {
 }
 
 _ui(FilmState filmState) {
-  if (filmState is FilmLoadedState) {
+  if (filmState is FilmLoadedState && filmState.films.isNotEmpty) {
     return Row(
       children: [
         Expanded(
@@ -63,6 +68,7 @@ _ui(FilmState filmState) {
               itemCount: filmState.films.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  selected: index == filmState.selectedFilm!.indexId - 1,
                   onTap: () {
                     BlocProvider.of<FilmBloc>(context)
                         .add(SelectFilmEvent(filmState.films[index]));
@@ -85,7 +91,7 @@ _ui(FilmState filmState) {
 }
 
 _rightPart(FilmLoadedState filmState) {
-  if (filmState.selectedFilm!.id.isNotEmpty) {
+  if (filmState.selectedFilm!.url.isNotEmpty) {
     return SingleChildScrollView(
       child: Column(
         children: [

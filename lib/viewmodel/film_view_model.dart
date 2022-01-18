@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 
@@ -7,26 +6,14 @@ class FilmViewModel extends ChangeNotifier {
   final FilmRepository _repo;
 
   bool _loading = false;
-  bool _loadingLandscape = false;
   List<Film> _filmList = [];
   late Film _film;
-  final Orientation _orientation = Orientation.portrait;
-  late String _route;
-  late int _selected;
 
   bool get loading => _loading;
-
-  bool get loadingLandscape => _loadingLandscape;
 
   List<Film> get filmList => _filmList;
 
   Film get film => _film;
-
-  Orientation get orientation => _orientation;
-
-  String get route => _route;
-
-  int get selected => _selected;
 
   FilmViewModel(this._repo) {
     getFilmList();
@@ -37,43 +24,12 @@ class FilmViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setLoadingLandscape(bool loadingLandscape) async {
-    _loadingLandscape = loadingLandscape;
-    notifyListeners();
-  }
-
   setFilmList(List<Film> filmList) {
     _filmList = filmList;
   }
 
   setFilm(Film film) {
     _film = film;
-  }
-
-  setOrientationPortrait() async {
-    setLoading(true);
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    setLoading(false);
-  }
-
-  setOrientationLandscape() async {
-    setLoading(true);
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-    setLoading(false);
-  }
-
-  setRoute(String route) {
-    _route = route;
-  }
-
-  setSelected(int selected) {
-    _selected = selected;
-  }
-
-  setInitialSelected() {
-    setSelected(_filmList.length + 1);
   }
 
   getFilmList() async {
@@ -92,5 +48,4 @@ class FilmViewModel extends ChangeNotifier {
     setFilm(film);
     setLoading(false);
   }
-
 }

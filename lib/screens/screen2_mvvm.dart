@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
@@ -29,12 +31,15 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
         //_ui(filmViewModel),
       ),
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
+        tooltip: 'rotate',
         onPressed: () {
-          Navigator.of(context)
-              .pushNamed(Screen4MVVM.detailsScreenRoute);
-          filmViewModel.setLoadingLandscape(true);
-          filmViewModel.setOrientationLandscape();
-          filmViewModel.setInitialSelected();
+          Navigator.of(context).pushNamed(Screen4MVVM.detailsScreenRoute);
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
+          filmViewModel.setFilm(const Film('', 0, ''));
         },
       ),
     );
@@ -50,8 +55,6 @@ _ui(FilmViewModel filmViewModel) {
             onTap: () {
               Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
               filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
-              filmViewModel.setRoute(Screen2MVVM.detailsScreenRoute);
-              filmViewModel.setSelected(index);
             },
             title: Text(filmViewModel.filmList[index].id),
           );
