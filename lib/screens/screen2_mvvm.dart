@@ -39,7 +39,7 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
             DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight
           ]);
-          filmViewModel.setFilm(const Film('', 0, ''));
+          filmViewModel.setFilm(const Film('', ''));
         },
       ),
     );
@@ -48,19 +48,25 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
 
 _ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
-    return ListView.builder(
-        itemCount: filmViewModel.filmList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
-              filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
-            },
-            title: Text(filmViewModel.filmList[index].id),
-            focusColor: Colors.amber,
-            // Colors.amber,
-          );
-        });
+    return RefreshIndicator(
+      onRefresh: () async {
+        filmViewModel.getShuffled();
+      },
+      child: ListView.builder(
+          itemCount: filmViewModel.filmList.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(Screen3MVVM.detailsScreenRoute);
+                  filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
+                },
+                title: Text(filmViewModel.filmList[index].id),
+              ),
+            );
+          }),
+    );
   } else {
     return const Center(
       child: CircularProgressIndicator(),

@@ -38,7 +38,7 @@ class _Screen4MVVMState extends State<Screen4MVVM> {
         onPressed: () {
           SystemChrome.setPreferredOrientations(
               [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-          filmViewModel.setFilm(const Film('', 0, ''));
+          filmViewModel.setFilm(const Film('', ''));
           Navigator.of(context).pop();
         },
       ),
@@ -53,17 +53,19 @@ _ui(FilmViewModel filmViewModel) {
       child: Row(
         children: [
           Expanded(
-            //flex: 1,
+            flex: 1,
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    selected: index == filmViewModel.film.indexId-1,
-                    onTap: () {
-                      filmViewModel.getSelectedFilm(
-                          filmViewModel.filmList.elementAt(index));
-                    },
-                    title: Text(filmViewModel.filmList[index].id),
+                  return Card(
+                    child: ListTile(
+                      selected: filmViewModel.filmList[index] == filmViewModel.film,
+                      onTap: () {
+                        filmViewModel.getSelectedFilm(
+                            filmViewModel.filmList.elementAt(index));
+                      },
+                      title: Text(filmViewModel.filmList[index].id),
+                    ),
                   );
                 }),
           ),

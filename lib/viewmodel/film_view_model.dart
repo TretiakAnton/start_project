@@ -48,4 +48,10 @@ class FilmViewModel extends ChangeNotifier {
     setFilm(film);
     setLoading(false);
   }
+
+  getShuffled() async {
+    setLoading(true);
+    filmList.shuffle();
+    setLoading(false);
+  }
 }

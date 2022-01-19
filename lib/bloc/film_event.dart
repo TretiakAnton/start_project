@@ -9,3 +9,5 @@ class SelectFilmEvent extends FilmEvent {
 
   SelectFilmEvent(this.selectedFilmId);
 }
+
+class ShuffleFilmEvent extends FilmEvent{}

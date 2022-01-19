@@ -13,6 +13,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   FilmBloc(this._repo) : super(FilmLoadingState()) {
     on<LoadFilmsEvent>(_loadFilms);
     on<SelectFilmEvent>(_selectFilm);
+    on<ShuffleFilmEvent>(_shuffleFilms);
   }
 
   void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
@@ -26,5 +27,14 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
     final result = await _repo.getListOfFilms();
     emit(FilmLoadedState(result, null));
+  }
+
+  void _shuffleFilms(ShuffleFilmEvent event, Emitter<FilmState> emit) async {
+    List<Film> films = List.empty();
+    if (state is FilmLoadedState) {
+      films = (state as FilmLoadedState).films;
+    }
+    films.shuffle();
+    emit(FilmLoadedState(films, null));
   }
 }
