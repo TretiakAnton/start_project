@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
@@ -48,4 +50,19 @@ class FilmViewModel extends ChangeNotifier {
     setFilm(film);
     setLoading(false);
   }
+
+  getShuffled()async{
+    setLoading(true);
+    List<Film> films = filmList;
+    Random random = Random();
+    for (int index = films.length; index >= 1; index--) {
+      int temp = random.nextInt(index);
+      Film swap = films[index - 1];
+      films[index - 1] = films[temp];
+      films[temp] = swap;
+    }
+    setFilmList(films);
+    setLoading(false);
+  }
+
 }

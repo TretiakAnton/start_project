@@ -53,7 +53,7 @@ _ui(FilmViewModel filmViewModel) {
       child: Row(
         children: [
           Expanded(
-            //flex: 1,
+            flex: 1,
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
