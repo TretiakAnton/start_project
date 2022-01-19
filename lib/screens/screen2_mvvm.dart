@@ -39,7 +39,7 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
             DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight
           ]);
-          filmViewModel.setFilm(const Film('', 0, ''));
+          filmViewModel.setFilm(const Film('', ''));
         },
       ),
     );

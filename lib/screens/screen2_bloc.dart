@@ -36,7 +36,6 @@ class _Screen2BlocState extends State<Screen2Bloc> {
               ]);
               BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
                 '',
-                10,
                 '',
               )));
             },

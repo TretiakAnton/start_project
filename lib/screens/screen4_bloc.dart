@@ -28,7 +28,6 @@ class _Screen4BlocState extends State<Screen4Bloc> {
                 BlocProvider.of<FilmBloc>(context)
                     .add(SelectFilmEvent(const Film(
                   '',
-                  0,
                   '',
                 )));
                 SystemChrome.setPreferredOrientations([
@@ -69,7 +68,7 @@ _ui(FilmState filmState) {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    selected: index == filmState.selectedFilm!.indexId - 1,
+                    selected: filmState.films[index] == filmState.selectedFilm,
                     onTap: () {
                       BlocProvider.of<FilmBloc>(context)
                           .add(SelectFilmEvent(filmState.films[index]));
