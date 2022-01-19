@@ -52,13 +52,15 @@ _ui(FilmState filmState) {
     return ListView.builder(
         itemCount: filmState.films.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
-              BlocProvider.of<FilmBloc>(context)
-                  .add(SelectFilmEvent(filmState.films[index]));
-            },
-            title: Text(filmState.films[index].id),
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
+                BlocProvider.of<FilmBloc>(context)
+                    .add(SelectFilmEvent(filmState.films[index]));
+              },
+              title: Text(filmState.films[index].id),
+            ),
           );
         });
   } else {

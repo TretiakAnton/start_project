@@ -51,14 +51,16 @@ _ui(FilmViewModel filmViewModel) {
     return ListView.builder(
         itemCount: filmViewModel.filmList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
-              filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
-            },
-            title: Text(filmViewModel.filmList[index].id),
-            focusColor: Colors.amber,
-            // Colors.amber,
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(Screen3MVVM.detailsScreenRoute);
+                filmViewModel.getSelectedFilm(filmViewModel.filmList[index]);
+              },
+              title: Text(filmViewModel.filmList[index].id),
+              focusColor: Colors.amber,
+              // Colors.amber,
+            ),
           );
         });
   } else {

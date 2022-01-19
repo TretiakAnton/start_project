@@ -57,13 +57,15 @@ _ui(FilmViewModel filmViewModel) {
             child: ListView.builder(
                 itemCount: filmViewModel.filmList.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    selected: index == filmViewModel.film.indexId-1,
-                    onTap: () {
-                      filmViewModel.getSelectedFilm(
-                          filmViewModel.filmList.elementAt(index));
-                    },
-                    title: Text(filmViewModel.filmList[index].id),
+                  return Card(
+                    child: ListTile(
+                      selected: index == filmViewModel.film.indexId-1,
+                      onTap: () {
+                        filmViewModel.getSelectedFilm(
+                            filmViewModel.filmList.elementAt(index));
+                      },
+                      title: Text(filmViewModel.filmList[index].id),
+                    ),
                   );
                 }),
           ),

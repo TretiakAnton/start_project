@@ -67,13 +67,15 @@ _ui(FilmState filmState) {
           child: ListView.builder(
               itemCount: filmState.films.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  selected: index == filmState.selectedFilm!.indexId - 1,
-                  onTap: () {
-                    BlocProvider.of<FilmBloc>(context)
-                        .add(SelectFilmEvent(filmState.films[index]));
-                  },
-                  title: Text(filmState.films[index].id),
+                return Card(
+                  child: ListTile(
+                    selected: index == filmState.selectedFilm!.indexId - 1,
+                    onTap: () {
+                      BlocProvider.of<FilmBloc>(context)
+                          .add(SelectFilmEvent(filmState.films[index]));
+                    },
+                    title: Text(filmState.films[index].id),
+                  ),
                 );
               }),
         ),
