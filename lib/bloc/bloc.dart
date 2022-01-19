@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/repo/films_repo.dart';
 
@@ -36,13 +34,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
     if (state is FilmLoadedState) {
       films = (state as FilmLoadedState).films;
     }
-    Random random = Random();
-    for (int index = films.length; index >= 1; index--) {
-      int temp = random.nextInt(index);
-      Film swap = films[index - 1];
-      films[index - 1] = films[temp];
-      films[temp] = swap;
-    }
+    films.shuffle();
     emit(FilmLoadedState(films, null));
   }
 }
