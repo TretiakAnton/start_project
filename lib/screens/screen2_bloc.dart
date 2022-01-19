@@ -24,7 +24,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
           appBar: AppBar(
             title: const Text('List of Films'),
           ),
-          body: _ui(filmState),
+          body: _ui(filmState, context),
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.rotate_left),
             tooltip: 'rotate',
@@ -47,22 +47,28 @@ class _Screen2BlocState extends State<Screen2Bloc> {
   }
 }
 
-_ui(FilmState filmState) {
+_ui(FilmState filmState, BuildContext context) {
   if (filmState is FilmLoadedState) {
-    return ListView.builder(
-        itemCount: filmState.films.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(Screen3Bloc.detailsScreenRoute);
-                BlocProvider.of<FilmBloc>(context)
-                    .add(SelectFilmEvent(filmState.films[index]));
-              },
-              title: Text(filmState.films[index].id),
-            ),
-          );
-        });
+    return RefreshIndicator(
+      onRefresh: () async {
+        BlocProvider.of<FilmBloc>(context).add(ShuffleFilmEvent());
+      },
+      child: ListView.builder(
+          itemCount: filmState.films.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(Screen3Bloc.detailsScreenRoute);
+                  BlocProvider.of<FilmBloc>(context)
+                      .add(SelectFilmEvent(filmState.films[index]));
+                },
+                title: Text(filmState.films[index].id),
+              ),
+            );
+          }),
+    );
   } else {
     return const Center(
       child: CircularProgressIndicator(),

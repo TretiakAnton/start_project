@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/repo/films_repo.dart';
 
@@ -13,6 +15,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   FilmBloc(this._repo) : super(FilmLoadingState()) {
     on<LoadFilmsEvent>(_loadFilms);
     on<SelectFilmEvent>(_selectFilm);
+    on<ShuffleFilmEvent>(_shuffleFilms);
   }
 
   void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
@@ -26,5 +29,20 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
     final result = await _repo.getListOfFilms();
     emit(FilmLoadedState(result, null));
+  }
+
+  void _shuffleFilms(ShuffleFilmEvent event, Emitter<FilmState> emit) async {
+    List<Film> films = List.empty();
+    if (state is FilmLoadedState) {
+      films = (state as FilmLoadedState).films;
+    }
+    Random random = Random();
+    for (int index = films.length; index >= 1; index--) {
+      int temp = random.nextInt(index);
+      Film swap = films[index - 1];
+      films[index - 1] = films[temp];
+      films[temp] = swap;
+    }
+    emit(FilmLoadedState(films, null));
   }
 }
