@@ -50,7 +50,7 @@ _ui(FilmViewModel filmViewModel) {
   if (!filmViewModel.loading) {
     return RefreshIndicator(
       onRefresh: () async {
-        filmViewModel.getShuffled();
+        filmViewModel.getPullToRefresh();
       },
       child: ListView.builder(
           itemCount: filmViewModel.filmList.length,

@@ -49,8 +49,12 @@ class FilmViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  getShuffled() async {
+  getPullToRefresh() async {
     setLoading(true);
+    var response = await _repo.getListOfFilms();
+    if (response.isNotEmpty) {
+      setFilmList(response);
+    }
     filmList.shuffle();
     setLoading(false);
   }
