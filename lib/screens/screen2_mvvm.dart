@@ -28,7 +28,6 @@ class _Screen2MVVMState extends State<Screen2MVVM> {
             return _ui(filmViewModel);
           },
         ),
-        //_ui(filmViewModel),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.rotate_left),

@@ -45,6 +45,10 @@ class RouteGenerator {
           builder: (_) => const Screen4MVVM(),
         );
 
+      case Screen2.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const Screen4MVVM(),
+        );
       default:
         return RouteGenerator.onUnknownRoute(settings);
     }
