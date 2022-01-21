@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/task_performer.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String? name = settings.name;
+    final Object? arguments = settings.arguments;
 
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
@@ -46,9 +48,27 @@ class RouteGenerator {
         );
 
       case Screen2.detailsScreenRoute:
+        TaskPerformer taskPerformer = TaskPerformer.bloc;
+        if (arguments is TaskPerformer) {
+          taskPerformer = arguments;
+        }
         return MaterialPageRoute(
-          builder: (_) => const Screen4MVVM(),
+          builder: (_) => const Screen2(
+            taskPerformer: taskPerformer,
+          ),
         );
+
+      case Screen3.detailsScreenRoute:
+        TaskPerformer taskPerformer = TaskPerformer.bloc;
+        if (arguments is TaskPerformer) {
+          taskPerformer = arguments;
+        }
+        return MaterialPageRoute(
+          builder: (_) => const Screen3(
+            taskPerformer: taskPerformer,
+          ),
+        );
+
       default:
         return RouteGenerator.onUnknownRoute(settings);
     }
