@@ -34,7 +34,7 @@ class _Screen4State extends State<Screen4> {
   }
 }
 
-_ui1Layer(BuildContext context, TaskPerformer taskPerformer,
+Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return Scaffold(
     appBar: AppBar(
@@ -69,7 +69,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
   );
 }
 
-_ui2Layer(TaskPerformer taskPerformer,
+Widget _ui2Layer(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return Row(
     children: [
@@ -104,7 +104,7 @@ _ui2Layer(TaskPerformer taskPerformer,
   );
 }
 
-_ui3Layer(TaskPerformer taskPerformer,
+Widget _ui3Layer(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (filmState?.selectedFilm?.url.isNotEmpty ??
       filmViewModel!.film.url.isNotEmpty) {
@@ -118,7 +118,7 @@ _ui3Layer(TaskPerformer taskPerformer,
   }
 }
 
-_count(TaskPerformer taskPerformer,
+int? _count(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return filmState?.films.length;
@@ -127,7 +127,7 @@ _count(TaskPerformer taskPerformer,
   }
 }
 
-_title(TaskPerformer taskPerformer, int index,
+Widget _title(TaskPerformer taskPerformer, int index,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return Text(filmState!.films[index].id);
@@ -136,7 +136,7 @@ _title(TaskPerformer taskPerformer, int index,
   }
 }
 
-_selected(TaskPerformer taskPerformer, int index,
+bool _selected(TaskPerformer taskPerformer, int index,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return filmState?.films[index] == filmState?.selectedFilm;
@@ -145,7 +145,7 @@ _selected(TaskPerformer taskPerformer, int index,
   }
 }
 
-_column(TaskPerformer taskPerformer,
+Widget _column(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return Column(

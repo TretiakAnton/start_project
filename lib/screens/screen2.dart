@@ -34,7 +34,7 @@ class _Screen2State extends State<Screen2> {
   }
 }
 
-_ui1Layer(BuildContext context, TaskPerformer taskPerformer,
+Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return Scaffold(
     appBar: AppBar(
@@ -45,7 +45,8 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
       child: const Icon(Icons.rotate_left),
       tooltip: 'rotate',
       onPressed: () {
-        Navigator.of(context).pushNamed(Screen4.detailsScreenRoute,arguments: taskPerformer);
+        Navigator.of(context)
+            .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight
@@ -63,7 +64,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
   );
 }
 
-_ui2Layer(BuildContext context, TaskPerformer taskPerformer,
+Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return RefreshIndicator(
     onRefresh: () async {
@@ -79,7 +80,8 @@ _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
           return Card(
             child: ListTile(
               onTap: () {
-                Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,arguments: taskPerformer);
+                Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
+                    arguments: taskPerformer);
                 if (taskPerformer == TaskPerformer.bloc) {
                   BlocProvider.of<FilmBloc>(context)
                       .add(SelectFilmEvent(filmState!.films[index]));
@@ -94,7 +96,7 @@ _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
   );
 }
 
-_count(TaskPerformer taskPerformer,
+int? _count(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return filmState?.films.length;
@@ -103,7 +105,7 @@ _count(TaskPerformer taskPerformer,
   }
 }
 
-_title(TaskPerformer taskPerformer, int index,
+Widget _title(TaskPerformer taskPerformer, int index,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return Text(filmState!.films[index].id);

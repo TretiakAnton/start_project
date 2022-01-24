@@ -34,7 +34,7 @@ class _Screen3State extends State<Screen3> {
   }
 }
 
-_ui1Layer(BuildContext context, TaskPerformer taskPerformer,
+Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return Scaffold(
       appBar: AppBar(
@@ -45,7 +45,8 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
           child: const Icon(Icons.rotate_left),
           tooltip: 'rotate',
           onPressed: () {
-            Navigator.of(context).pushNamed(Screen4.detailsScreenRoute,arguments: taskPerformer);
+            Navigator.of(context).pushNamed(Screen4.detailsScreenRoute,
+                arguments: taskPerformer);
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight
@@ -53,7 +54,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
           }));
 }
 
-_ui2Layer(TaskPerformer taskPerformer,
+Widget _ui2Layer(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (filmState?.selectedFilm?.url.isNotEmpty ??
       filmViewModel!.film.url.isNotEmpty) {
@@ -70,7 +71,7 @@ _ui2Layer(TaskPerformer taskPerformer,
   }
 }
 
-_column(TaskPerformer taskPerformer,
+Widget _column(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   if (taskPerformer == TaskPerformer.bloc) {
     return Column(
