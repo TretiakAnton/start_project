@@ -12,7 +12,7 @@ class Screen2 extends StatefulWidget {
   static const String detailsScreenRoute = 'screen2';
   final TaskPerformer taskPerformer;
 
-  const Screen2({Key? key, required this.taskPerformer}) : super(key: key);
+  Screen2({Key? key, required this.taskPerformer}) : super(key: key);
 
   @override
   State<Screen2> createState() => _Screen2State();
@@ -23,7 +23,8 @@ class _Screen2State extends State<Screen2> {
   Widget build(BuildContext context) {
     if (widget.taskPerformer == TaskPerformer.bloc) {
       return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-        return _ui1Layer(context, widget.taskPerformer, filmState);
+        return _ui1Layer(
+            context, widget.taskPerformer, filmState as FilmLoadedState);
       });
     } else {
       FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -34,39 +35,36 @@ class _Screen2State extends State<Screen2> {
 }
 
 _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState is FilmLoadedState) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('List of Films'),
-      ),
-      body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.rotate_left),
-        tooltip: 'rotate',
-        onPressed: () {
-          //Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.landscapeRight
-          ]);
-          if (taskPerformer == TaskPerformer.bloc) {
-            BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
-              '',
-              '',
-            )));
-          } else {
-            filmViewModel?.setFilm(const Film('', ''));
-          }
-        },
-      ),
-    );
-  }
+    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('List of Films'),
+    ),
+    body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
+    floatingActionButton: FloatingActionButton(
+      child: const Icon(Icons.rotate_left),
+      tooltip: 'rotate',
+      onPressed: () {
+        //Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight
+        ]);
+        if (taskPerformer == TaskPerformer.bloc) {
+          BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
+            '',
+            '',
+          )));
+        } else {
+          filmViewModel?.setFilm(const Film('', ''));
+        }
+      },
+    ),
+  );
 }
 
 _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  //if (filmState is FilmLoadedState) {
   return RefreshIndicator(
     onRefresh: () async {
       if (taskPerformer == TaskPerformer.bloc) {

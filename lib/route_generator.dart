@@ -53,7 +53,7 @@ class RouteGenerator {
           taskPerformer = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => const Screen2(
+          builder: (_) => Screen2(
             taskPerformer: taskPerformer,
           ),
         );
@@ -64,7 +64,7 @@ class RouteGenerator {
           taskPerformer = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => const Screen3(
+          builder: (_) => Screen3(
             taskPerformer: taskPerformer,
           ),
         );
