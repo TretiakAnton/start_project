@@ -11,6 +11,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   final FilmRepository _repo;
 
   FilmBloc(this._repo) : super(FilmLoadingState()) {
+    _loadFilms;
     on<LoadFilmsEvent>(_loadFilms);
     on<SelectFilmEvent>(_selectFilm);
     on<ShuffleFilmEvent>(_pullToRefreshFilms);

@@ -25,8 +25,9 @@ class _Screen2State extends State<Screen2> {
   Widget build(BuildContext context) {
     if (widget.taskPerformer == TaskPerformer.bloc) {
       return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
+       // BlocProvider.of<FilmBloc>(context).add(LoadFilmsEvent());
         return _ui1Layer(
-            context, widget.taskPerformer, filmState as FilmLoadedState);
+            context, widget.taskPerformer, filmState as FilmLoadedState, null);
       });
     } else {
       FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -69,14 +70,20 @@ Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
 Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
   return RefreshIndicator(
-    onRefresh: () async {
-      if (taskPerformer == TaskPerformer.bloc) {
-        BlocProvider.of<FilmBloc>(context).add(ShuffleFilmEvent());
-      } else {
-        filmViewModel?.getPullToRefresh();
-      }
-    },
-    child: ListView.builder(
+      onRefresh: () async {
+        if (taskPerformer == TaskPerformer.bloc) {
+          BlocProvider.of<FilmBloc>(context).add(ShuffleFilmEvent());
+        } else {
+          filmViewModel?.getPullToRefresh();
+        }
+      },
+      child: _ui3Layer(context, taskPerformer, filmState, filmViewModel));
+}
+
+Widget _ui3Layer(BuildContext context, TaskPerformer taskPerformer,
+    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+  if (filmState?.films.isNotEmpty ?? filmViewModel!.filmList.isNotEmpty) {
+    return ListView.builder(
         itemCount: count(taskPerformer, filmState, filmViewModel),
         itemBuilder: (context, index) {
           return Card(
@@ -94,10 +101,8 @@ Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
               title: title(taskPerformer, index, filmState, filmViewModel),
             ),
           );
-        }),
-  );
+        });
+  } else {
+    return const Center(child: CircularProgressIndicator());
+  }
 }
-
-
-
-
