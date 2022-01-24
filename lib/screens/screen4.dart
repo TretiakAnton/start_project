@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,8 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 
 import '../film.dart';
 import '../task_performer.dart';
+import 'ui_tools/custom_functions.dart';
+import 'ui_tools/custom_widgets.dart';
 
 class Screen4 extends StatefulWidget {
   static const String detailsScreenRoute = 'screen4';
@@ -76,12 +77,12 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
       Expanded(
         flex: 1,
         child: ListView.builder(
-            itemCount: _count(taskPerformer, filmState, filmViewModel),
+            itemCount: count(taskPerformer, filmState, filmViewModel),
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
                   selected:
-                      _selected(taskPerformer, index, filmState, filmViewModel),
+                      selected(taskPerformer, index, filmState, filmViewModel),
                   onTap: () {
                     if (taskPerformer == TaskPerformer.bloc) {
                       BlocProvider.of<FilmBloc>(context)
@@ -91,7 +92,7 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
                           filmViewModel.filmList.elementAt(index));
                     }
                   },
-                  title: _title(taskPerformer, index, filmState, filmViewModel),
+                  title: title(taskPerformer, index, filmState, filmViewModel),
                 ),
               );
             }),
@@ -109,7 +110,7 @@ Widget _ui3Layer(TaskPerformer taskPerformer,
   if (filmState?.selectedFilm?.url.isNotEmpty ??
       filmViewModel!.film.url.isNotEmpty) {
     return SingleChildScrollView(
-        child: _column(taskPerformer, filmState, filmViewModel));
+        child: column(taskPerformer, filmState, filmViewModel));
   } else {
     return Column(children: const [
       Text('Waiting for you to choose film'),
@@ -118,48 +119,6 @@ Widget _ui3Layer(TaskPerformer taskPerformer,
   }
 }
 
-int? _count(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return filmState?.films.length;
-  } else {
-    return filmViewModel?.filmList.length;
-  }
-}
 
-Widget _title(TaskPerformer taskPerformer, int index,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return Text(filmState!.films[index].id);
-  } else {
-    return Text(filmViewModel!.filmList[index].id);
-  }
-}
 
-bool _selected(TaskPerformer taskPerformer, int index,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return filmState?.films[index] == filmState?.selectedFilm;
-  } else {
-    return filmViewModel?.filmList[index] == filmViewModel?.film;
-  }
-}
 
-Widget _column(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return Column(
-      children: [
-        Text(filmState!.selectedFilm!.id),
-        CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
-      ],
-    );
-  } else {
-    return Column(
-      children: [
-        Text(filmViewModel!.film.id),
-        CachedNetworkImage(imageUrl: filmViewModel.film.url)
-      ],
-    );
-  }
-}

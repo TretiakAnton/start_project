@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
+import 'package:start_project/screens/ui_tools/custom_functions.dart';
+import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 import '../task_performer.dart';
@@ -75,7 +77,7 @@ Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
       }
     },
     child: ListView.builder(
-        itemCount: _count(taskPerformer, filmState, filmViewModel),
+        itemCount: count(taskPerformer, filmState, filmViewModel),
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
@@ -89,27 +91,13 @@ Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
                   filmViewModel?.getSelectedFilm(filmViewModel.filmList[index]);
                 }
               },
-              title: _title(taskPerformer, index, filmState, filmViewModel),
+              title: title(taskPerformer, index, filmState, filmViewModel),
             ),
           );
         }),
   );
 }
 
-int? _count(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return filmState?.films.length;
-  } else {
-    return filmViewModel?.filmList.length;
-  }
-}
 
-Widget _title(TaskPerformer taskPerformer, int index,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return Text(filmState!.films[index].id);
-  } else {
-    return Text(filmViewModel!.filmList[index].id);
-  }
-}
+
+

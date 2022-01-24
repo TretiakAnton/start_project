@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
+import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 import '../task_performer.dart';
@@ -61,31 +61,12 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
     return Center(
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: _column(taskPerformer, filmState, filmViewModel),
+        child: column(taskPerformer, filmState, filmViewModel),
       ),
     );
   } else {
     return const Center(
       child: CircularProgressIndicator(),
-    );
-  }
-}
-
-Widget _column(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return Column(
-      children: [
-        Text(filmState!.selectedFilm!.id),
-        CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
-      ],
-    );
-  } else {
-    return Column(
-      children: [
-        Text(filmViewModel!.film.id),
-        CachedNetworkImage(imageUrl: filmViewModel.film.url)
-      ],
     );
   }
 }
