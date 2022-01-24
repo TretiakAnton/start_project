@@ -55,7 +55,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
 
 _ui2Layer(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState!.selectedFilm!.url.isNotEmpty ||
+  if (filmState?.selectedFilm?.url.isNotEmpty ??
       filmViewModel!.film.url.isNotEmpty) {
     return Center(
       child: Container(

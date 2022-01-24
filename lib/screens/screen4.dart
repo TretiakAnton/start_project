@@ -106,7 +106,7 @@ _ui2Layer(TaskPerformer taskPerformer,
 
 _ui3Layer(TaskPerformer taskPerformer,
     [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState!.selectedFilm!.url.isNotEmpty ||
+  if (filmState?.selectedFilm?.url.isNotEmpty ??
       filmViewModel!.film.url.isNotEmpty) {
     return SingleChildScrollView(
         child: _column(taskPerformer, filmState, filmViewModel));
