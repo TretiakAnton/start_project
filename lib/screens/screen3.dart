@@ -45,7 +45,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
           child: const Icon(Icons.rotate_left),
           tooltip: 'rotate',
           onPressed: () {
-            Navigator.of(context).pushNamed(Screen4Bloc.detailsScreenRoute);
+            Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight

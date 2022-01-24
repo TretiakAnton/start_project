@@ -7,3 +7,5 @@ export './screen4_mvvm.dart';
 export './screen4_bloc.dart';
 export './screen2.dart';
 export './screen3.dart';
+export './screen4.dart';
+

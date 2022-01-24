@@ -45,7 +45,7 @@ _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
       child: const Icon(Icons.rotate_left),
       tooltip: 'rotate',
       onPressed: () {
-        //Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
+        Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight
@@ -79,7 +79,7 @@ _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
           return Card(
             child: ListTile(
               onTap: () {
-                // Navigator.of(context).pushNamed(Screen3.detailsScreenRoute);
+                Navigator.of(context).pushNamed(Screen3.detailsScreenRoute);
                 if (taskPerformer == TaskPerformer.bloc) {
                   BlocProvider.of<FilmBloc>(context)
                       .add(SelectFilmEvent(filmState!.films[index]));
@@ -108,6 +108,6 @@ _title(TaskPerformer taskPerformer, int index,
   if (taskPerformer == TaskPerformer.bloc) {
     return Text(filmState!.films[index].id);
   } else {
-    Text(filmViewModel!.filmList[index].id);
+    return Text(filmViewModel!.filmList[index].id);
   }
 }

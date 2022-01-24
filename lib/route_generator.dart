@@ -69,6 +69,17 @@ class RouteGenerator {
           ),
         );
 
+      case Screen4.detailsScreenRoute:
+        TaskPerformer taskPerformer = TaskPerformer.bloc;
+        if (arguments is TaskPerformer) {
+          taskPerformer = arguments;
+        }
+        return MaterialPageRoute(
+          builder: (_) => Screen4(
+            taskPerformer: taskPerformer,
+          ),
+        );
+
       default:
         return RouteGenerator.onUnknownRoute(settings);
     }
