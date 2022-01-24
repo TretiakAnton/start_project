@@ -25,9 +25,7 @@ class _Screen2State extends State<Screen2> {
   Widget build(BuildContext context) {
     if (widget.taskPerformer == TaskPerformer.bloc) {
       return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-       // BlocProvider.of<FilmBloc>(context).add(LoadFilmsEvent());
-        return _ui1Layer(
-            context, widget.taskPerformer, filmState as FilmLoadedState, null);
+        return _ui1Layer(context, widget.taskPerformer, filmState, null);
       });
     } else {
       FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -38,33 +36,37 @@ class _Screen2State extends State<Screen2> {
 }
 
 Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('List of Films'),
-    ),
-    body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
-    floatingActionButton: FloatingActionButton(
-      child: const Icon(Icons.rotate_left),
-      tooltip: 'rotate',
-      onPressed: () {
-        Navigator.of(context)
-            .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight
-        ]);
-        if (taskPerformer == TaskPerformer.bloc) {
-          BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
-            '',
-            '',
-          )));
-        } else {
-          filmViewModel?.setFilm(const Film('', ''));
-        }
-      },
-    ),
-  );
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (filmState is FilmLoadedState) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('List of Films'),
+      ),
+      body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.rotate_left),
+        tooltip: 'rotate',
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
+          if (taskPerformer == TaskPerformer.bloc) {
+            BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
+              '',
+              '',
+            )));
+          } else {
+            filmViewModel?.setFilm(const Film('', ''));
+          }
+        },
+      ),
+    );
+  } else {
+    return const Center(child: CircularProgressIndicator());
+  }
 }
 
 Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
