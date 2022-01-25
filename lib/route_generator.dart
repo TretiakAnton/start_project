@@ -17,36 +17,6 @@ class RouteGenerator {
           builder: (_) => const Screen1(),
         );
 
-      case Screen2Bloc.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen2Bloc(),
-        );
-
-      case Screen3Bloc.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen3Bloc(),
-        );
-
-      case Screen4Bloc.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen4Bloc(),
-        );
-
-      case Screen2MVVM.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen2MVVM(),
-        );
-
-      case Screen3MVVM.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen3MVVM(),
-        );
-
-      case Screen4MVVM.detailsScreenRoute:
-        return MaterialPageRoute(
-          builder: (_) => const Screen4MVVM(),
-        );
-
       case Screen2.detailsScreenRoute:
         TaskPerformer taskPerformer = TaskPerformer.bloc;
         if (arguments is TaskPerformer) {
