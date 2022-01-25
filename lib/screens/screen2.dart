@@ -80,17 +80,17 @@ Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
 
 Widget _ui3Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmViewModel?.filmList.isNotEmpty ??
-      filmState is FilmLoadedState && filmState.films.isNotEmpty) {
+  if (filmViewModel?.filmList.isNotEmpty ?? filmState != null) {
     return ListView.builder(
-        itemCount: count(taskPerformer, filmState as FilmLoadedState, filmViewModel),
+        itemCount: count(taskPerformer, filmState, filmViewModel),
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
               onTap: () {
                 Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
                     arguments: taskPerformer);
-                if (taskPerformer == TaskPerformer.bloc) {
+                if (taskPerformer == TaskPerformer.bloc &&
+                    filmState is FilmLoadedState) {
                   BlocProvider.of<FilmBloc>(context)
                       .add(SelectFilmEvent(filmState.films[index]));
                 } else {
@@ -102,6 +102,6 @@ Widget _ui3Layer(BuildContext context, TaskPerformer taskPerformer,
           );
         });
   } else {
-    return const Center(child: CircularProgressIndicator());
+    return loading();
   }
 }

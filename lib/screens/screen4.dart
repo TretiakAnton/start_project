@@ -24,8 +24,7 @@ class _Screen4State extends State<Screen4> {
   Widget build(BuildContext context) {
     if (widget.taskPerformer == TaskPerformer.bloc) {
       return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-        return _ui1Layer(
-            context, widget.taskPerformer, filmState as FilmLoadedState);
+        return _ui1Layer(context, widget.taskPerformer, filmState, null);
       });
     } else {
       FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -36,7 +35,7 @@ class _Screen4State extends State<Screen4> {
 }
 
 Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
   return Scaffold(
     appBar: AppBar(
       leading: IconButton(
@@ -71,7 +70,7 @@ Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
 }
 
 Widget _ui2Layer(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
   return Row(
     children: [
       Expanded(
@@ -84,9 +83,10 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
                   selected:
                       selected(taskPerformer, index, filmState, filmViewModel),
                   onTap: () {
-                    if (taskPerformer == TaskPerformer.bloc) {
+                    if (taskPerformer == TaskPerformer.bloc &&
+                        filmState is FilmLoadedState) {
                       BlocProvider.of<FilmBloc>(context)
-                          .add(SelectFilmEvent(filmState!.films[index]));
+                          .add(SelectFilmEvent(filmState.films[index]));
                     } else {
                       filmViewModel?.getSelectedFilm(
                           filmViewModel.filmList.elementAt(index));
@@ -106,9 +106,8 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
 }
 
 Widget _ui3Layer(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState?.selectedFilm?.url.isNotEmpty ??
-      filmViewModel!.film.url.isNotEmpty) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (filmViewModel?.film.url.isNotEmpty ?? filmState != null) {
     return SingleChildScrollView(
         child: column(taskPerformer, filmState, filmViewModel));
   } else {
@@ -118,7 +117,3 @@ Widget _ui3Layer(TaskPerformer taskPerformer,
     ]);
   }
 }
-
-
-
-

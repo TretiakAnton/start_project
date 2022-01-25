@@ -6,30 +6,37 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 import '../../task_performer.dart';
 
 Widget title(TaskPerformer taskPerformer, int index,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
-    return Text(filmState!.films[index].id);
-  } else {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (taskPerformer == TaskPerformer.bloc && filmState is FilmLoadedState) {
+    return Text(filmState.films[index].id);
+  } else if (taskPerformer == TaskPerformer.mvvm) {
     return Text(filmViewModel!.filmList[index].id);
+  } else {
+    return loading();
   }
 }
 
-
 Widget column(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (taskPerformer == TaskPerformer.bloc && filmState is FilmLoadedState) {
     return Column(
       children: [
-        Text(filmState!.selectedFilm!.id),
+        Text(filmState.selectedFilm!.id),
         CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
       ],
     );
-  } else {
+  } else if (taskPerformer == TaskPerformer.mvvm) {
     return Column(
       children: [
         Text(filmViewModel!.film.id),
         CachedNetworkImage(imageUrl: filmViewModel.film.url)
       ],
     );
+  } else {
+    return loading();
   }
+}
+
+Widget loading() {
+  return const Center(child: CircularProgressIndicator());
 }

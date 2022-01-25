@@ -23,8 +23,7 @@ class _Screen3State extends State<Screen3> {
   Widget build(BuildContext context) {
     if (widget.taskPerformer == TaskPerformer.bloc) {
       return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-        return _ui1Layer(
-            context, widget.taskPerformer, filmState as FilmLoadedState);
+        return _ui1Layer(context, widget.taskPerformer, filmState);
       });
     } else {
       FilmViewModel filmViewModel = context.watch<FilmViewModel>();
@@ -35,7 +34,7 @@ class _Screen3State extends State<Screen3> {
 }
 
 Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
   return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
@@ -55,9 +54,8 @@ Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
 }
 
 Widget _ui2Layer(TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState?.selectedFilm?.url.isNotEmpty ??
-      filmViewModel!.film.url.isNotEmpty) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (filmViewModel?.film.url.isNotEmpty ?? filmState != null) {
     return Center(
       child: Container(
         padding: const EdgeInsets.all(10),
@@ -65,8 +63,6 @@ Widget _ui2Layer(TaskPerformer taskPerformer,
       ),
     );
   } else {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    return loading();
   }
 }
