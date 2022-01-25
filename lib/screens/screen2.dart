@@ -37,40 +37,36 @@ class _Screen2State extends State<Screen2> {
 
 Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
     [FilmState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState is FilmLoadedState) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('List of Films'),
-      ),
-      body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.rotate_left),
-        tooltip: 'rotate',
-        onPressed: () {
-          Navigator.of(context)
-              .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.landscapeRight
-          ]);
-          if (taskPerformer == TaskPerformer.bloc) {
-            BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
-              '',
-              '',
-            )));
-          } else {
-            filmViewModel?.setFilm(const Film('', ''));
-          }
-        },
-      ),
-    );
-  } else {
-    return const Center(child: CircularProgressIndicator());
-  }
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('List of Films'),
+    ),
+    body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
+    floatingActionButton: FloatingActionButton(
+      child: const Icon(Icons.rotate_left),
+      tooltip: 'rotate',
+      onPressed: () {
+        Navigator.of(context)
+            .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight
+        ]);
+        if (taskPerformer == TaskPerformer.bloc) {
+          BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
+            '',
+            '',
+          )));
+        } else {
+          filmViewModel?.setFilm(const Film('', ''));
+        }
+      },
+    ),
+  );
 }
 
 Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
   return RefreshIndicator(
       onRefresh: () async {
         if (taskPerformer == TaskPerformer.bloc) {
@@ -83,28 +79,31 @@ Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
 }
 
 Widget _ui3Layer(BuildContext context, TaskPerformer taskPerformer,
-    [FilmLoadedState? filmState, FilmViewModel? filmViewModel]) {
-  if (filmState?.films.isNotEmpty ?? filmViewModel!.filmList.isNotEmpty) {
-    return ListView.builder(
-        itemCount: count(taskPerformer, filmState, filmViewModel),
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
-                    arguments: taskPerformer);
-                if (taskPerformer == TaskPerformer.bloc) {
-                  BlocProvider.of<FilmBloc>(context)
-                      .add(SelectFilmEvent(filmState!.films[index]));
-                } else {
-                  filmViewModel?.getSelectedFilm(filmViewModel.filmList[index]);
-                }
-              },
-              title: title(taskPerformer, index, filmState, filmViewModel),
-            ),
-          );
-        });
-  } else {
-    return const Center(child: CircularProgressIndicator());
+    [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  if (taskPerformer== TaskPerformer.bloc && filmState is FilmLoadedState || filmViewModel!.filmList.isNotEmpty) {
+    if (filmState?.films.isNotEmpty ?? filmViewModel!.filmList.isNotEmpty) {
+      return ListView.builder(
+          itemCount: count(taskPerformer, filmState, filmViewModel),
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
+                      arguments: taskPerformer);
+                  if (taskPerformer == TaskPerformer.bloc) {
+                    BlocProvider.of<FilmBloc>(context)
+                        .add(SelectFilmEvent(filmState!.films[index]));
+                  } else {
+                    filmViewModel
+                        ?.getSelectedFilm(filmViewModel.filmList[index]);
+                  }
+                },
+                title: title(taskPerformer, index, filmState, filmViewModel),
+              ),
+            );
+          });
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
   }
 }
