@@ -51,15 +51,14 @@ class _Screen2State extends State<Screen2> {
             DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight
           ]);
-          flButton2Screen();
-          /*if (taskPerformer == TaskPerformer.bloc) {
+          if (taskPerformer == TaskPerformer.bloc) {
             BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
               '',
               '',
             )));
           } else {
             filmViewModel?.setFilm(const Film('', ''));
-          }*/
+          }
         },
       ),
     );

@@ -17,7 +17,6 @@ class Screen1 extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
-            // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -49,4 +48,3 @@ class Screen1 extends StatelessWidget {
     );
   }
 }
-//branch to work on it
