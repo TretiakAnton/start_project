@@ -1,0 +1,1 @@
+enum TaskPerformer { bloc, mvvm }
