@@ -2,12 +2,14 @@ import '../film.dart';
 
 abstract class FilmEvent {}
 
-class LoadFilmsEvent extends FilmEvent {}
+class LoadFilmsEvent extends FilmEvent {
+  LoadFilmsEvent(this.isShuffled);
 
-class SelectFilmEvent extends FilmEvent {
-  final Film selectedFilmId;
-
-  SelectFilmEvent(this.selectedFilmId);
+  final bool isShuffled;
 }
 
-class ShuffleFilmEvent extends FilmEvent{}
+class SelectFilmEvent extends FilmEvent {
+  SelectFilmEvent(this.selectedFilmId);
+
+  final Film selectedFilmId;
+}

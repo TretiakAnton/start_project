@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:start_project/screens/screen2.dart';
+import 'package:start_project/screens/screen2_bloc.dart';
 
 import '../task_performer.dart';
 
@@ -30,14 +30,14 @@ class Screen1 extends StatelessWidget {
                     OutlinedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(
-                              Screen2.detailsScreenRoute,
+                              Screen2Bloc.detailsScreenRoute,
                               arguments: TaskPerformer.bloc);
                         },
                         child: const Text('Bloc')),
                     OutlinedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(
-                              Screen2.detailsScreenRoute,
+                              Screen2Bloc.detailsScreenRoute,
                               arguments: TaskPerformer.mvvm);
                         },
                         child: const Text('MVVM')),

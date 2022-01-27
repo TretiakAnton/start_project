@@ -17,15 +17,9 @@ class RouteGenerator {
           builder: (_) => const Screen1(),
         );
 
-      case Screen2.detailsScreenRoute:
-        TaskPerformer taskPerformer = TaskPerformer.bloc;
-        if (arguments is TaskPerformer) {
-          taskPerformer = arguments;
-        }
+      case Screen2Bloc.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => Screen2(
-            taskPerformer: taskPerformer,
-          ),
+          builder: (_) => const Screen2Bloc(),
         );
 
       case Screen3.detailsScreenRoute:
