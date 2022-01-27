@@ -23,86 +23,76 @@ class Screen2 extends StatefulWidget {
 class _Screen2State extends State<Screen2> {
   @override
   Widget build(BuildContext context) {
-    if (widget.taskPerformer == TaskPerformer.bloc) {
-      return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-        return _ui1Layer(context, widget.taskPerformer, filmState, null);
-      });
-    } else {
-      FilmViewModel filmViewModel = context.watch<FilmViewModel>();
-
-      return _ui1Layer(context, widget.taskPerformer, null, filmViewModel);
-    }
-  }
-
-  Widget _ui1Layer(BuildContext context, TaskPerformer taskPerformer,
-      [FilmState? filmState, FilmViewModel? filmViewModel]) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('List of Films'),
       ),
-      body: _ui2Layer(context, taskPerformer, filmState, filmViewModel),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.rotate_left),
-        tooltip: 'rotate',
-        onPressed: () {
-          Navigator.of(context)
-              .pushNamed(Screen4.detailsScreenRoute, arguments: taskPerformer);
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.landscapeRight
-          ]);
-          if (taskPerformer == TaskPerformer.bloc) {
-            BlocProvider.of<FilmBloc>(context).add(SelectFilmEvent(const Film(
-              '',
-              '',
-            )));
-          } else {
-            filmViewModel?.setFilm(const Film('', ''));
-          }
-        },
-      ),
+      body: Center(child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            if (orientation == Orientation.portrait) {
+              if (widget.taskPerformer == TaskPerformer.bloc) {
+                return _ui2BlocPart(context);
+              } else {
+                return _ui2MvvmPart(context);
+              }
+            } else {
+              Navigator.of(context).pushNamed(Screen4.detailsScreenRoute);
+            }
+          })),
     );
   }
 
-  Widget _ui2Layer(BuildContext context, TaskPerformer taskPerformer,
-      [FilmState? filmState, FilmViewModel? filmViewModel]) {
+  Widget _ui2MvvmPart(BuildContext context) {
+    final FilmViewModel filmViewModel = context.watch<FilmViewModel>();
     return RefreshIndicator(
         onRefresh: () async {
-          if (taskPerformer == TaskPerformer.bloc) {
-            BlocProvider.of<FilmBloc>(context).add(ShuffleFilmEvent());
-          } else {
-            filmViewModel?.getPullToRefresh();
-          }
+          filmViewModel.getFilmList(isShuffle: true);
         },
-        child: _ui3Layer(context, taskPerformer, filmState, filmViewModel));
-  }
-
-  Widget _ui3Layer(BuildContext context, TaskPerformer taskPerformer,
-      [FilmState? filmState, FilmViewModel? filmViewModel]) {
-    if (filmViewModel?.filmList.isNotEmpty ?? filmState != null) {
-      return ListView.builder(
-          itemCount: count(taskPerformer, filmState, filmViewModel),
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                onTap: () {
-                  Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
-                      arguments: taskPerformer);
-                  if (taskPerformer == TaskPerformer.bloc &&
-                      filmState is FilmLoadedState) {
-                    BlocProvider.of<FilmBloc>(context)
-                        .add(SelectFilmEvent(filmState.films[index]));
-                  } else {
-                    filmViewModel
-                        ?.getSelectedFilm(filmViewModel.filmList[index]);
-                  }
-                },
-                title: title(taskPerformer, index, filmState, filmViewModel),
-              ),
-            );
-          });
-    } else {
-      return loading();
-    }
+        child: _ui3MvvmPart(context, filmViewModel));
   }
 }
+
+Widget _ui2BlocPart(BuildContext context) {
+  return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        BlocProvider.of<FilmBloc>(context).add(ShuffleFilmEvent());
+
+        // filmViewModel?.getFilmList(isShuffle: true);
+      },
+      child: _ui3BlocPart(context, filmState),);
+  }
+  );
+}
+
+Widget _ui3MvvmPart(BuildContext context, FilmViewModel filmViewModel) {
+
+}
+
+Widget _ui3BlocPart(BuildContext context, FilmState? filmState) {
+  if (filmViewModel?.filmList.isNotEmpty ?? filmState != null) {
+    return ListView.builder(
+        itemCount: count(taskPerformer, filmState, filmViewModel),
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(Screen3.detailsScreenRoute,
+                    arguments: taskPerformer);
+                if (taskPerformer == TaskPerformer.bloc &&
+                    filmState is FilmLoadedState) {
+                  BlocProvider.of<FilmBloc>(context)
+                      .add(SelectFilmEvent(filmState.films[index]));
+                } else {
+                  filmViewModel
+                      ?.getSelectedFilm(filmViewModel.filmList[index]);
+                }
+              },
+              title: title(taskPerformer, index, filmState, filmViewModel),
+            ),
+          );
+        });
+  } else {
+    return loading();
+  }
+}}

@@ -26,14 +26,14 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   }
 
   void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
-    final result = await _repo.getListOfFilms();
+    final result = await _repo.getFilms();
     emit(FilmLoadedState(result, null));
   }
 
   void _pullToRefreshFilms(
       ShuffleFilmEvent event, Emitter<FilmState> emit) async {
     List<Film> films = List.empty();
-    films = await _repo.getListOfFilms();
+    films = await _repo.getFilms();
     films.shuffle();
     emit(FilmLoadedState(films, null));
   }

@@ -16,7 +16,7 @@ class FilmViewModel extends ChangeNotifier {
   Film get film => _film;
 
   FilmViewModel(this._repo) {
-    getFilmList();
+    getFilmList(isShuffle: false);
   }
 
   setLoading(bool loading) async {
@@ -24,21 +24,20 @@ class FilmViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setFilmList(List<Film> filmList) {
+/*
+  _setFilmList(List<Film> filmList) {
     _filmList = filmList;
-  }
+  }*/
 
   setFilm(Film film) {
     _film = film;
   }
 
-  getFilmList() async {
+  getFilmList({required bool isShuffle}) async {
     setLoading(true);
-    var response = await _repo.getListOfFilms();
-    if (response.isNotEmpty) {
-      setFilmList(response);
-    } else {
-      //failure message
+    _filmList = await _repo.getFilms();
+    if(isShuffle){
+      filmList.shuffle();
     }
     setLoading(false);
   }
@@ -46,16 +45,6 @@ class FilmViewModel extends ChangeNotifier {
   getSelectedFilm(Film film) {
     setLoading(true);
     setFilm(film);
-    setLoading(false);
-  }
-
-  getPullToRefresh() async {
-    setLoading(true);
-    var response = await _repo.getListOfFilms();
-    if (response.isNotEmpty) {
-      setFilmList(response);
-    }
-    filmList.shuffle();
     setLoading(false);
   }
 }
