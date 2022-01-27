@@ -4,8 +4,6 @@ import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-import '../task_performer.dart';
-
 class Screen2Bloc extends StatefulWidget {
   static const String detailsScreenRoute = 'screen2Bloc';
 
