@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/task_performer.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
@@ -22,26 +21,27 @@ class RouteGenerator {
           builder: (_) => const Screen2Bloc(),
         );
 
-      case Screen3.detailsScreenRoute:
-        TaskPerformer taskPerformer = TaskPerformer.bloc;
-        if (arguments is TaskPerformer) {
-          taskPerformer = arguments;
-        }
+      case Screen2Mvvm.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => Screen3(
-            taskPerformer: taskPerformer,
-          ),
+          builder: (_) => const Screen2Mvvm(),
         );
 
-      case Screen4.detailsScreenRoute:
-        TaskPerformer taskPerformer = TaskPerformer.bloc;
-        if (arguments is TaskPerformer) {
-          taskPerformer = arguments;
+      case Screen3Bloc.detailsScreenRoute:
+        int selectedFilm = 0;
+        if (arguments is int) {
+          selectedFilm = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => Screen4(
-            taskPerformer: taskPerformer,
-          ),
+          builder: (_) => Screen3Bloc(selectedFilm: selectedFilm),
+        );
+
+      case Screen3Mvvm.detailsScreenRoute:
+        int selectedFilm = 0;
+        if (arguments is int) {
+          selectedFilm = arguments;
+        }
+        return MaterialPageRoute(
+          builder: (_) => Screen3Mvvm(selectedFilm: selectedFilm),
         );
 
       default:

@@ -14,7 +14,7 @@ void main() {
       BlocProvider<BlocSecondScreen>(
           create: (context) =>
               BlocSecondScreen(FilmRepository())..add(LoadFilmsEvent(false))),
-      BlocProvider<FilmBloc>(create: (context) => FilmBloc(FilmRepository()))
+      BlocProvider<FilmBloc>(create: (context) => FilmBloc())
     ],
     child: const MyApp(),
   ));

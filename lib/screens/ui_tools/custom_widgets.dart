@@ -28,6 +28,39 @@ Widget details(Film? film) {
   );
 }
 
-Widget landscape([int? selectedIndex]) {
+Widget landscape(bool ifSelected, String screenRoute, List<Film> list,
+    [Film? selectedFilm]) {
   return Center();
+}
+
+class Landscape extends StatelessWidget {
+  Landscape(this.film,
+      {required this.ifSelected, required this.screenRoute, required this.list})
+      : super();
+
+  final bool ifSelected;
+  final String screenRoute;
+  final List<Film> list;
+  final Film? film;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(flex: 1, child: listOfFilms(screenRoute, list)),
+        Expanded(
+          flex: 2,
+          child: _details(ifSelected, film),
+        )
+      ],
+    );
+  }
+
+  Widget _details(bool ifSelected, Film? film) {
+    if (ifSelected) {
+      return details(film);
+    } else {
+      return loading();
+    }
+  }
 }

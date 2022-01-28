@@ -1,5 +1,5 @@
 export './screen1.dart';
 export './screen2_bloc.dart';
+export './screen2_mvvm.dart';
 export './screen3_bloc.dart';
-export './screen4.dart';
-
+export './screen3_mvvm.dart';
