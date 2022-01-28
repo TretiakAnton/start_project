@@ -1,32 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
-import 'package:start_project/viewmodel/film_view_model.dart';
-
-import '../../task_performer.dart';
-
-
-Widget column(TaskPerformer taskPerformer,
-    [FilmState? filmState, FilmViewModel? filmViewModel]) {
-  if (taskPerformer == TaskPerformer.bloc && filmState is FilmLoadedState) {
-    return Column(
-      children: [
-        Text(filmState.selectedFilm!.id),
-        CachedNetworkImage(imageUrl: filmState.selectedFilm!.url)
-      ],
-    );
-  } else if (taskPerformer == TaskPerformer.mvvm) {
-    return Column(
-      children: [
-        Text(filmViewModel!.film.id),
-        CachedNetworkImage(imageUrl: filmViewModel.film.url)
-      ],
-    );
-  } else {
-    return loading();
-  }
-}
 
 Widget loading() {
   return const Center(child: CircularProgressIndicator());
@@ -47,6 +21,13 @@ Widget listOfFilms(String screenRoute, List<Film> list) {
       });
 }
 
+Widget details(Film? film) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [Text(film!.id), CachedNetworkImage(imageUrl: film.url)],
+  );
+}
+
 Widget landscape([int? selectedIndex]) {
-  return
+  return Center();
 }

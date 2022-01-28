@@ -9,25 +9,19 @@ export 'film_event.dart';
 export 'film_state.dart';
 
 class FilmBloc extends Bloc<FilmEvent, FilmState> {
-  final FilmRepository _repo;
 
-  FilmBloc(this._repo) : super(FilmLoadingState()) {
-    on<LoadFilmsEvent>(_loadFilms);
-    on<SelectFilmEvent>(_selectFilm);
+  FilmBloc() : super(FilmLoadingState()) {
+    on<SelectFilmEvent>(_selectFilmOnIndex);
   }
 
-  void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) {
+  void _selectFilmOnIndex(SelectFilmEvent event, Emitter<FilmState> emit) {
     List<Film> films = List.empty();
     if (state is FilmLoadedState) {
       films = (state as FilmLoadedState).films;
     }
-    emit(FilmLoadedState(films, event.selectedFilmId));
+    emit(FilmLoadedState(films, films[event.selectedFilmId]));
   }
 
-  void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
-    final result = await _repo.getFilms();
-    emit(FilmLoadedState(result, null));
-  }
 }
 
 class BlocSecondScreen extends Bloc<FilmEvent, FilmState> {

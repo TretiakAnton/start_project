@@ -5,9 +5,8 @@ import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class Screen2Bloc extends StatefulWidget {
-  static const String detailsScreenRoute = 'screen2Bloc';
-
   const Screen2Bloc({Key? key}) : super(key: key);
+  static const String detailsScreenRoute = 'screen2Bloc';
 
   @override
   State<Screen2Bloc> createState() => _Screen2BlocState();
@@ -33,7 +32,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 },
                 child: listOfFilms(Screen3.detailsScreenRoute, filmState.films),
               );
-            } else if (orientation == Orientation.landscape) {
+            } else {
               return landscape();
             }
           } else {
