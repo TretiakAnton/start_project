@@ -10,7 +10,7 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => FilmViewModel(FilmRepository())..getFilmList(isShuffle: false)),
+      ChangeNotifierProvider(create: (_) => FilmViewModel(FilmRepository())),
       BlocProvider<BlocSecondScreen>(
           create: (context) =>
               BlocSecondScreen(FilmRepository())..add(LoadFilmsEvent(false))),

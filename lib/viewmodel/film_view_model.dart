@@ -12,11 +12,10 @@ class FilmViewModel extends ChangeNotifier {
 
   Film get film => _film;
 
-  FilmViewModel(this._repo) {
-    getFilmList(isShuffle: false);
-  }
+  FilmViewModel(this._repo);
 
   Future<void> getFilmList({required bool isShuffle}) async {
+    _filmList.clear();
     _filmList = await _repo.getFilms();
     if (isShuffle) {
       filmList.shuffle();
