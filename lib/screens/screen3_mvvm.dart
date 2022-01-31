@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class Screen3Mvvm extends StatefulWidget {
-  final int selectedFilm;
+  final int selectedFilmId;
   static const String detailsScreenRoute = 'screen3Mvvm';
 
-  Screen3Mvvm({Key? key, required this.selectedFilm}) : super(key: key);
+  Screen3Mvvm({Key? key, required this.selectedFilmId}) : super(key: key);
 
   @override
   State<Screen3Mvvm> createState() => _Screen3MvvmState();
@@ -15,28 +16,40 @@ class Screen3Mvvm extends StatefulWidget {
 
 class _Screen3MvvmState extends State<Screen3Mvvm> {
   @override
+  void initState() {
+    super.initState();
+    context.read<FilmViewModel>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
       ),
-      body: Center(
-        child: OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-            final FilmViewModel filmViewModel = context.watch<FilmViewModel>();
-            if (orientation == Orientation.portrait) {
-              return details(filmViewModel.film);
-            } else {
-              return Landscape(
-                filmViewModel.film,
-                ifSelected: true,
-                list: filmViewModel.filmList,
-                onFilmSelected: (int index) {
-                  filmViewModel.getSelectedFilm(index);
-                },
-              );
-            }
-          },
+      body: Consumer<FilmViewModel>(
+        builder: (context, filmViewModel, child) => Center(
+          child: OrientationBuilder(
+            builder: (BuildContext context, Orientation orientation) {
+              filmViewModel.getSelectedFilm(widget.selectedFilmId);
+              if (filmViewModel.film.id.isNotEmpty) {
+                if (orientation == Orientation.portrait) {
+                  return details(filmViewModel.film);
+                } else {
+                  return Landscape(
+                    filmViewModel.film,
+                    ifSelected: true,
+                    list: filmViewModel.filmList,
+                    onFilmSelected: (int index) {
+                      filmViewModel.getSelectedFilm(index);
+                    },
+                  );
+                }
+              } else {
+                return loading();
+              }
+            },
+          ),
         ),
       ),
     );

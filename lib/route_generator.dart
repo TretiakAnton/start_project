@@ -41,7 +41,7 @@ class RouteGenerator {
           selectedFilm = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => Screen3Mvvm(selectedFilm: selectedFilm),
+          builder: (_) => Screen3Mvvm(selectedFilmId: selectedFilm),
         );
 
       default:

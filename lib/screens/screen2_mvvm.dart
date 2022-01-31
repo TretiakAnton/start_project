@@ -16,49 +16,54 @@ class Screen2Mvvm extends StatefulWidget {
 
 class _Screen2MvvmState extends State<Screen2Mvvm> {
   @override
+  void initState() {
+    super.initState();
+    context.read<FilmViewModel>().getFilmList(isShuffle: false);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('List of Films'),
       ),
-      body: Center(child: OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-        final FilmViewModel filmViewModel = context.watch<FilmViewModel>();
-        filmViewModel.getFilmList(isShuffle: false);
-        if (filmViewModel.filmList.isNotEmpty) {
-          return _ui(context, orientation, filmViewModel);
-        } else {
-          return loading();
-        }
-      })),
-    );
-  }
-}
-
-Widget _ui(BuildContext context, Orientation orientation,
-    FilmViewModel filmViewModel) {
-  if (orientation == Orientation.portrait) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        filmViewModel.getFilmList(isShuffle: true);
-      },
-      child: ListOfFilms(
-        list: filmViewModel.filmList,
-        onFilmSelected: (int index) {
-          Navigator.of(context)
-              .pushNamed(Screen3Mvvm.detailsScreenRoute, arguments: index);
-        },
+      body: Consumer<FilmViewModel>(
+        builder: (context, filmViewModel, child) => Center(
+          child: OrientationBuilder(
+              builder: (BuildContext context, Orientation orientation) {
+            if (filmViewModel.filmList.isNotEmpty) {
+              if (orientation == Orientation.portrait) {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    filmViewModel.getFilmList(isShuffle: true);
+                  },
+                  child: ListOfFilms(
+                    list: filmViewModel.filmList,
+                    onFilmSelected: (int index) {
+                      Navigator.of(context).pushNamed(
+                          Screen3Mvvm.detailsScreenRoute,
+                          arguments: index);
+                    },
+                  ),
+                );
+              } else {
+                return Landscape(
+                  const Film('', ''),
+                  ifSelected: false,
+                  list: filmViewModel.filmList,
+                  onFilmSelected: (int index) {
+                    Navigator.of(context).pushNamed(
+                        Screen3Mvvm.detailsScreenRoute,
+                        arguments: index);
+                  },
+                );
+              }
+            } else {
+              return loading();
+            }
+          }),
+        ),
       ),
-    );
-  } else {
-    return Landscape(
-      const Film('', ''),
-      ifSelected: false,
-      list: filmViewModel.filmList,
-      onFilmSelected: (int index) {
-        Navigator.of(context)
-            .pushNamed(Screen3Mvvm.detailsScreenRoute, arguments: index);
-      },
     );
   }
 }

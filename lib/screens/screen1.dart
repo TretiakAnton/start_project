@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:start_project/screens/screen2_bloc.dart';
 import 'package:start_project/screens/screen2_mvvm.dart';
 
@@ -17,8 +16,7 @@ class Screen1 extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
-            SystemChrome.setPreferredOrientations(
-                [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+        //    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

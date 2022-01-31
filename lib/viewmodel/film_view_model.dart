@@ -7,8 +7,8 @@ class FilmViewModel extends ChangeNotifier {
 
   final FilmRepository _repo;
 
-  List<Film> _filmList=[];
-  late Film _film;
+  List<Film> _filmList = [];
+  Film _film = const Film('', '');
 
   List<Film> get filmList => _filmList;
 
