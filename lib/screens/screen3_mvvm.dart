@@ -27,10 +27,14 @@ class _Screen3MvvmState extends State<Screen3Mvvm> {
             if (orientation == Orientation.portrait) {
               return details(filmViewModel.film);
             } else {
-              return Landscape(filmViewModel.film,
-                  ifSelected: true,
-                  screenRoute: Screen3Mvvm.detailsScreenRoute,
-                  list: filmViewModel.filmList);
+              return Landscape(
+                filmViewModel.film,
+                ifSelected: true,
+                list: filmViewModel.filmList,
+                onFilmSelected: (int index) {
+                  filmViewModel.getSelectedFilm(index);
+                },
+              );
             }
           },
         ),

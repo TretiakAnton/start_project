@@ -31,15 +31,25 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                   BlocProvider.of<BlocSecondScreen>(context)
                       .add(LoadFilmsEvent(true));
                 },
-                child: listOfFilms(
-                    Screen3Bloc.detailsScreenRoute, filmState.films),
+                child: ListOfFilms(
+                  list: filmState.films,
+                  onFilmSelected: (int index) {
+                    Navigator.of(context).pushNamed(
+                        Screen3Bloc.detailsScreenRoute,
+                        arguments: index);
+                  },
+                ),
               );
             } else {
               return Landscape(
                 const Film('', ''),
                 ifSelected: false,
                 list: filmState.films,
-                screenRoute: Screen3Bloc.detailsScreenRoute,
+                onFilmSelected: (int index) {
+                  Navigator.of(context).pushNamed(
+                      Screen3Bloc.detailsScreenRoute,
+                      arguments: index);
+                },
               );
             }
           } else {

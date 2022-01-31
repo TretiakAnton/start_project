@@ -1,5 +1,3 @@
-import '../film.dart';
-
 abstract class FilmEvent {}
 
 class LoadFilmsEvent extends FilmEvent {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:start_project/bloc/bloc.dart';
+import 'package:provider/src/provider.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
@@ -27,17 +26,26 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
         if (orientation == Orientation.portrait) {
           return RefreshIndicator(
             onRefresh: () async {
-              BlocProvider.of<BlocSecondScreen>(context)
-                  .add(LoadFilmsEvent(true));
+              filmViewModel.getFilmList(isShuffle: true);
             },
-            child: listOfFilms(
-                Screen3Mvvm.detailsScreenRoute, filmViewModel.filmList),
+            child: ListOfFilms(
+              list: filmViewModel.filmList,
+              onFilmSelected: (int index) {
+                Navigator.of(context).pushNamed(Screen3Mvvm.detailsScreenRoute,
+                    arguments: index);
+              },
+            ),
           );
         } else {
-          return Landscape(const Film('', ''),
-              ifSelected: false,
-              screenRoute: Screen3Mvvm.detailsScreenRoute,
-              list: filmViewModel.filmList);
+          return Landscape(
+            const Film('', ''),
+            ifSelected: false,
+            list: filmViewModel.filmList,
+            onFilmSelected: (int index) {
+              Navigator.of(context)
+                  .pushNamed(Screen3Mvvm.detailsScreenRoute, arguments: index);
+            },
+          );
         }
       })),
     );

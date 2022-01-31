@@ -5,11 +5,8 @@ import 'package:start_project/repo/films_repo.dart';
 class FilmViewModel extends ChangeNotifier {
   final FilmRepository _repo;
 
-  bool _loading = false;
   List<Film> _filmList = [];
   late Film _film;
-
-  bool get loading => _loading;
 
   List<Film> get filmList => _filmList;
 
@@ -19,32 +16,14 @@ class FilmViewModel extends ChangeNotifier {
     getFilmList(isShuffle: false);
   }
 
-  setLoading(bool loading) async {
-    _loading = loading;
-    notifyListeners();
-  }
-
-/*
-  _setFilmList(List<Film> filmList) {
-    _filmList = filmList;
-  }*/
-
-  setFilm(Film film) {
-    _film = film;
-  }
-
-  getFilmList({required bool isShuffle}) async {
-    setLoading(true);
+  Future<void> getFilmList({required bool isShuffle}) async {
     _filmList = await _repo.getFilms();
-    if(isShuffle){
+    if (isShuffle) {
       filmList.shuffle();
     }
-    setLoading(false);
   }
 
-  getSelectedFilm(Film film) {
-    setLoading(true);
-    setFilm(film);
-    setLoading(false);
+  void getSelectedFilm(int index) {
+    _film = filmList[index];
   }
 }

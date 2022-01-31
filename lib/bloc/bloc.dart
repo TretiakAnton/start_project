@@ -8,9 +8,9 @@ import 'film_state.dart';
 export 'film_event.dart';
 export 'film_state.dart';
 
-class FilmBloc extends Bloc<FilmEvent, FilmState> {
+class BlocThirdScreen extends Bloc<FilmEvent, FilmState> {
 
-  FilmBloc() : super(FilmLoadingState()) {
+  BlocThirdScreen() : super(FilmLoadingState()) {
     on<SelectFilmEvent>(_selectFilmOnIndex);
   }
 
