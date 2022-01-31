@@ -25,39 +25,40 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
           builder: (BuildContext context, Orientation orientation) {
         final FilmViewModel filmViewModel = context.watch<FilmViewModel>();
         filmViewModel.getFilmList(isShuffle: false);
-        return Consumer<FilmViewModel>(builder: (_, filmViewModel, __) {
-          if (filmViewModel.filmList.isNotEmpty) {
-            if (orientation == Orientation.portrait) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  filmViewModel.getFilmList(isShuffle: true);
-                },
-                child: ListOfFilms(
-                  list: filmViewModel.filmList,
-                  onFilmSelected: (int index) {
-                    Navigator.of(context).pushNamed(
-                        Screen3Mvvm.detailsScreenRoute,
-                        arguments: index);
-                  },
-                ),
-              );
-            } else {
-              return Landscape(
-                const Film('', ''),
-                ifSelected: false,
-                list: filmViewModel.filmList,
-                onFilmSelected: (int index) {
-                  Navigator.of(context).pushNamed(
-                      Screen3Mvvm.detailsScreenRoute,
-                      arguments: index);
-                },
-              );
-            }
-          } else {
-            return loading();
-          }
-        });
+        if (filmViewModel.filmList.isNotEmpty) {
+          return _ui(context, orientation, filmViewModel);
+        } else {
+          return loading();
+        }
       })),
+    );
+  }
+}
+
+Widget _ui(BuildContext context, Orientation orientation,
+    FilmViewModel filmViewModel) {
+  if (orientation == Orientation.portrait) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        filmViewModel.getFilmList(isShuffle: true);
+      },
+      child: ListOfFilms(
+        list: filmViewModel.filmList,
+        onFilmSelected: (int index) {
+          Navigator.of(context)
+              .pushNamed(Screen3Mvvm.detailsScreenRoute, arguments: index);
+        },
+      ),
+    );
+  } else {
+    return Landscape(
+      const Film('', ''),
+      ifSelected: false,
+      list: filmViewModel.filmList,
+      onFilmSelected: (int index) {
+        Navigator.of(context)
+            .pushNamed(Screen3Mvvm.detailsScreenRoute, arguments: index);
+      },
     );
   }
 }
