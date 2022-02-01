@@ -15,14 +15,11 @@ class FilmViewModel extends ChangeNotifier {
   Film get film => _film;
 
   Future<void> getFilmList({required bool isShuffle}) async {
-    //_filmList.clear();
     _filmList = await _repo.getFilms();
-    print('repo');
     if (isShuffle) {
       _filmList.shuffle();
     }
     notifyListeners();
-    print('notify');
   }
 
   void getSelectedFilm(int index) {
