@@ -40,10 +40,9 @@ class _Screen3BlocState extends State<Screen3Bloc> {
           builder: (BuildContext context, Orientation orientation) {
             return BlocBuilder<BlocThirdScreen, FilmState>(
                 builder: (_, filmState) {
-              //BlocProvider.of<BlocThirdScreen>(context).add(SelectFilmEvent(widget.selectedFilm));
               if (filmState is FilmLoadedState) {
                 if (orientation == Orientation.portrait) {
-                  return details(filmState.selectedFilm);
+                  return Details(film: filmState.selectedFilm);
                 } else {
                   return Landscape(
                     filmState.selectedFilm,

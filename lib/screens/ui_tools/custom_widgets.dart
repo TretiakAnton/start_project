@@ -2,20 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
-Widget loading() {
-  return const Center(child: CircularProgressIndicator());
-}
-
-Widget details(Film? film) {
-  return Container(
-    padding: const EdgeInsets.all(5),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [Text(film!.id), CachedNetworkImage(imageUrl: film.url)],
-    ),
-  );
-}
-
 class Landscape extends StatelessWidget {
   const Landscape(
     this.film, {
@@ -39,7 +25,9 @@ class Landscape extends StatelessWidget {
               list: list,
               onFilmSelected: (int index) {
                 onFilmSelected(index);
-              }, ifSelected: ifSelected, selectedFilm: film,
+              },
+              ifSelected: ifSelected,
+              selectedFilm: film,
             )),
         Expanded(
           flex: 2,
@@ -51,7 +39,7 @@ class Landscape extends StatelessWidget {
 
   Widget _details(bool ifSelected, Film? film) {
     if (ifSelected) {
-      return details(film);
+      return Details(film: film);
     } else {
       return loading();
     }
@@ -60,7 +48,11 @@ class Landscape extends StatelessWidget {
 
 class ListOfFilms extends StatelessWidget {
   const ListOfFilms(
-      {Key? key, required this.list, required this.onFilmSelected, required this.ifSelected, required this.selectedFilm})
+      {Key? key,
+      required this.list,
+      required this.onFilmSelected,
+      required this.ifSelected,
+      required this.selectedFilm})
       : super(key: key);
   final bool ifSelected;
   final Film? selectedFilm;
@@ -74,7 +66,8 @@ class ListOfFilms extends StatelessWidget {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              selected: _selected(ifSelected, index, selectedFilm as Film, list),
+              selected:
+                  _selected(ifSelected, index, selectedFilm as Film, list),
               onTap: () {
                 onFilmSelected(index);
                 // Navigator.of(context).pushNamed(screenRoute, arguments: index);
@@ -92,4 +85,24 @@ class ListOfFilms extends StatelessWidget {
       return false;
     }
   }
+}
+
+class Details extends StatelessWidget {
+  const Details({Key? key, this.film}) : super(key: key);
+  final Film? film;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [Text(film!.id), CachedNetworkImage(imageUrl: film!.url)],
+      ),
+    );
+  }
+}
+
+Widget loading() {
+  return const Center(child: CircularProgressIndicator());
 }

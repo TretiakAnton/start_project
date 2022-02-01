@@ -42,7 +42,7 @@ class _Screen3MvvmState extends State<Screen3Mvvm> {
             builder: (BuildContext context, Orientation orientation) {
               if (filmViewModel.film.id.isNotEmpty) {
                 if (orientation == Orientation.portrait) {
-                  return details(filmViewModel.film);
+                  return Details(film: filmViewModel.film);
                 } else {
                   return Landscape(
                     filmViewModel.film,
