@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2.dart';
-
-import '../task_performer.dart';
+import 'package:start_project/screens/screen2_bloc.dart';
+import 'package:start_project/screens/screen2_mvvm.dart';
 
 class Screen1 extends StatelessWidget {
   static const String detailsScreenRoute = 'screen1';
@@ -17,6 +16,7 @@ class Screen1 extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
+        //    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -26,16 +26,14 @@ class Screen1 extends StatelessWidget {
                   children: [
                     OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(
-                              Screen2.detailsScreenRoute,
-                              arguments: TaskPerformer.bloc);
+                          Navigator.of(context)
+                              .pushNamed(Screen2Bloc.detailsScreenRoute);
                         },
                         child: const Text('Bloc')),
                     OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(
-                              Screen2.detailsScreenRoute,
-                              arguments: TaskPerformer.mvvm);
+                          Navigator.of(context)
+                              .pushNamed(Screen2Mvvm.detailsScreenRoute);
                         },
                         child: const Text('MVVM')),
                   ],

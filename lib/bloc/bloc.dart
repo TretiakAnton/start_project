@@ -1,40 +1,38 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 
 import 'film_event.dart';
 import 'film_state.dart';
-import '../film.dart';
-export 'film_state.dart';
-export 'film_event.dart';
 
-class FilmBloc extends Bloc<FilmEvent, FilmState> {
+export 'film_event.dart';
+export 'film_state.dart';
+
+class BlocThirdScreen extends Bloc<FilmEvent, FilmState> {
+  BlocThirdScreen() : super(FilmLoadingState()) {
+    on<SelectFilmEvent>(_initFilms);
+  }
+
+  void _initFilms(SelectFilmEvent event, Emitter<FilmState> emit) {
+    final List<Film> films = event.films;
+    final Film film = films[event.selectedFilmId];
+
+    emit(FilmLoadedState(films, film));
+  }
+}
+
+class BlocSecondScreen extends Bloc<FilmEvent, FilmState> {
+  BlocSecondScreen(this._repo) : super(FilmLoadingState()) {
+    on<LoadFilmsEvent>(_loadFilms);
+  }
+
   final FilmRepository _repo;
 
-  FilmBloc(this._repo) : super(FilmLoadingState()) {
-    _loadFilms;
-    on<LoadFilmsEvent>(_loadFilms);
-    on<SelectFilmEvent>(_selectFilm);
-    on<ShuffleFilmEvent>(_pullToRefreshFilms);
-  }
-
-  void _selectFilm(SelectFilmEvent event, Emitter<FilmState> emit) async {
-    List<Film> films = List.empty();
-    if (state is FilmLoadedState) {
-      films = (state as FilmLoadedState).films;
+  Future<void> _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
+    final result = await _repo.getFilms();
+    if (event.isShuffled) {
+      result.shuffle();
     }
-    emit(FilmLoadedState(films, event.selectedFilmId));
-  }
-
-  void _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
-    final result = await _repo.getListOfFilms();
     emit(FilmLoadedState(result, null));
-  }
-
-  void _pullToRefreshFilms(
-      ShuffleFilmEvent event, Emitter<FilmState> emit) async {
-    List<Film> films = List.empty();
-    films = await _repo.getListOfFilms();
-    films.shuffle();
-    emit(FilmLoadedState(films, null));
   }
 }

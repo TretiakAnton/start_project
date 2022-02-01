@@ -1,14 +1,17 @@
 import 'dart:convert';
 
-import '../film.dart';
 import 'package:http/http.dart' as http;
+import 'package:start_project/film.dart';
 
 Uri address = Uri.parse('https://putsreq.com/1vupmovCKZ78Jzs8qeCm');
-
+//https://putsreq.com/o2j1CICxtIp0vh6bVDhj
 class FilmRepository {
-  Future<List<Film>> getListOfFilms() async {
-    http.Response response = await http.get(address);
-    List<dynamic> films = jsonDecode(response.body);
+  Future<List<Film>> getFilms() async {
+    print('start');
+    final http.Response response = await http.get(address);
+    print('process');
+    final List<dynamic> films = jsonDecode(response.body);
+    print('end');
     return films.map((json) => Film.fromJSON(json)).toList();
   }
 }
