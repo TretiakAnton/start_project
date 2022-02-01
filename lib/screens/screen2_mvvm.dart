@@ -52,6 +52,7 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
                       Navigator.of(context).pushNamed(
                           Screen3Mvvm.detailsScreenRoute,
                           arguments: index);
+                      filmViewModel.getSelectedFilm(index);
                     },
                     ifSelected: false,
                     selectedFilm: const Film('', ''),
@@ -66,6 +67,7 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
                     Navigator.of(context).pushNamed(
                         Screen3Mvvm.detailsScreenRoute,
                         arguments: index);
+                    filmViewModel.getSelectedFilm(index);
                   },
                 );
               }

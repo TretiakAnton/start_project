@@ -40,7 +40,6 @@ class _Screen3MvvmState extends State<Screen3Mvvm> {
         builder: (context, filmViewModel, child) => Center(
           child: OrientationBuilder(
             builder: (BuildContext context, Orientation orientation) {
-              filmViewModel.getSelectedFilm(widget.selectedFilmId);
               if (filmViewModel.film.id.isNotEmpty) {
                 if (orientation == Orientation.portrait) {
                   return details(filmViewModel.film);
