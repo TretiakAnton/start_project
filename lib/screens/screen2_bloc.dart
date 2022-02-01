@@ -47,6 +47,8 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                         Screen3Bloc.detailsScreenRoute,
                         arguments: {'index': index, 'films': filmState.films});
                   },
+                  ifSelected: false,
+                  selectedFilm: const Film('', ''),
                 ),
               );
             } else {

@@ -39,7 +39,7 @@ class Landscape extends StatelessWidget {
               list: list,
               onFilmSelected: (int index) {
                 onFilmSelected(index);
-              },
+              }, ifSelected: ifSelected, selectedFilm: film,
             )),
         Expanded(
           flex: 2,
@@ -63,7 +63,7 @@ class ListOfFilms extends StatelessWidget {
       {Key? key, required this.list, required this.onFilmSelected, required this.ifSelected, required this.selectedFilm})
       : super(key: key);
   final bool ifSelected;
-  final Film selectedFilm;
+  final Film? selectedFilm;
   final List<Film> list;
   final Function(int) onFilmSelected;
 
@@ -74,7 +74,7 @@ class ListOfFilms extends StatelessWidget {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              selected: _selected(ifSelected, index, selectedFilm, list),
+              selected: _selected(ifSelected, index, selectedFilm as Film, list),
               onTap: () {
                 onFilmSelected(index);
                 // Navigator.of(context).pushNamed(screenRoute, arguments: index);

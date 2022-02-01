@@ -53,6 +53,8 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
                           Screen3Mvvm.detailsScreenRoute,
                           arguments: index);
                     },
+                    ifSelected: false,
+                    selectedFilm: const Film('', ''),
                   ),
                 );
               } else {
