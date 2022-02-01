@@ -20,8 +20,7 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-//metgod
+            onPressed: () { backArrow(MediaQuery.of(context).orientation, context);
             }),
         title: const Text('List of Films'),
       ),

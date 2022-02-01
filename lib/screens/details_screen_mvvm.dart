@@ -28,11 +28,7 @@ class _DetailsScreenMvvmState extends State<DetailsScreenMvvm> {
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              if (MediaQuery.of(context).orientation == Orientation.landscape) {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              } else {
-                Navigator.of(context).pop();
-              }
+              backArrow(MediaQuery.of(context).orientation, context);
             }),
         title: const Text('Details'),
       ),
