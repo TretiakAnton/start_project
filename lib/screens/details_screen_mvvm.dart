@@ -5,10 +5,10 @@ import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
 class DetailsScreenMvvm extends StatefulWidget {
+  const DetailsScreenMvvm({Key? key, required this.selectedFilmId}) : super(key: key);
+
   final int selectedFilmId;
   static const String detailsScreenRoute = 'detailsMvvm';
-
-  DetailsScreenMvvm({Key? key, required this.selectedFilmId}) : super(key: key);
 
   @override
   State<DetailsScreenMvvm> createState() => _DetailsScreenMvvmState();
@@ -41,12 +41,12 @@ class _DetailsScreenMvvmState extends State<DetailsScreenMvvm> {
                   return Details(film: filmViewModel.film);
                 } else {
                   return Landscape(
-                    filmViewModel.film,
-                    ifSelected: true,
-                    list: filmViewModel.filmList,
-                    onFilmSelected: (int index) {
+                    true,
+                    filmViewModel.filmList,
+                    (int index) {
                       filmViewModel.getSelectedFilm(index);
                     },
+                    filmViewModel.film,
                   );
                 }
               } else {

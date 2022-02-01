@@ -3,24 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
 class Landscape extends StatelessWidget {
-  Landscape(
-    this.film, {
-    Key? key, //default
-    required this.ifSelected,
-    required this.list,
-    required this.onFilmSelected,
-  }) : super(key: key);
-
-  Landscape.fromChoose(
-      {required this.ifSelected,
-      required this.list,
-      required this.onFilmSelected,
-      Key? key})
-      : super(key: key);
+  const Landscape(this.ifSelected, this.list, this.onFilmSelected,
+      [this.film = const Film('', '')])
+      : super();
 
   final bool ifSelected;
   final List<Film> list;
-  Film? film;
+  final Film? film;
   final Function(int) onFilmSelected;
 
   @override
@@ -30,12 +19,12 @@ class Landscape extends StatelessWidget {
         Expanded(
             flex: 1,
             child: ListOfFilms(
-              list: list,
-              onFilmSelected: (int index) {
+              list,
+              (int index) {
                 onFilmSelected(index);
               },
-              ifSelected: ifSelected,
-              selectedFilm: film,
+              ifSelected,
+              film,
             )),
         Expanded(
           flex: 2,
@@ -55,22 +44,12 @@ class Landscape extends StatelessWidget {
 }
 
 class ListOfFilms extends StatelessWidget {
-  ListOfFilms(
-      {Key? key,
-      required this.list,
-      required this.onFilmSelected,
-      required this.ifSelected,
-      required this.selectedFilm})
-      : super(key: key);
+  const ListOfFilms(this.list, this.onFilmSelected, this.ifSelected,
+      [this.selectedFilm = const Film('', '')])
+      : super();
 
-  ListOfFilms.fromChoose(
-      {required this.ifSelected,
-      required this.list,
-      required this.onFilmSelected,
-      Key? key})
-      : super(key: key);
   final bool ifSelected;
-  Film? selectedFilm;
+  final Film? selectedFilm;
   final List<Film> list;
   final Function(int) onFilmSelected;
 

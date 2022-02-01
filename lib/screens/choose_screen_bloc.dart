@@ -35,19 +35,19 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                   BlocProvider.of<BlocSecondScreen>(context)
                       .add(LoadFilmsEvent(true));
                 },
-                child: ListOfFilms.fromChoose(
-                  list: filmState.films,
-                  onFilmSelected: (int index) {
+                child: ListOfFilms(
+                  filmState.films,
+                  (int index) {
                     _onSelected(index, filmState);
                   },
-                  ifSelected: false,
+                   false,
                 ),
               );
             } else {
-              return Landscape.fromChoose(
-                ifSelected: false,
-                list: filmState.films,
-                onFilmSelected: (int index) {
+              return Landscape(
+                false,
+                filmState.films,
+                 (int index) {
                   _onSelected(index, filmState);
                 },
               );

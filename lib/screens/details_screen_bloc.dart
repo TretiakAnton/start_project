@@ -42,14 +42,14 @@ class _DetailsScreenBlocState extends State<DetailsScreenBloc> {
                   return Details(film: filmState.selectedFilm);
                 } else {
                   return Landscape(
-                    filmState.selectedFilm,
-                    ifSelected: true,
-                    list: filmState.films,
-                    onFilmSelected: (int index) {
+                    true,
+                    filmState.films,
+                    (int index) {
                       BlocProvider.of<BlocThirdScreen>(context).add(
                           SelectFilmEvent(
                               films: filmState.films, selectedFilmId: index));
                     },
+                    filmState.selectedFilm,
                   );
                 }
               } else {

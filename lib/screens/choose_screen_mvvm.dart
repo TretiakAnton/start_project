@@ -41,19 +41,19 @@ class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
                   onRefresh: () async {
                     filmViewModel.getFilmList(isShuffle: true);
                   },
-                  child: ListOfFilms.fromChoose(
-                    list: filmViewModel.filmList,
-                    onFilmSelected: (int index) {
+                  child: ListOfFilms(
+                    filmViewModel.filmList,
+                    (int index) {
                       _onSelected(index, filmViewModel);
                     },
-                    ifSelected: false,
+                    false,
                   ),
                 );
               } else {
-                return Landscape.fromChoose(
-                  ifSelected: false,
-                  list: filmViewModel.filmList,
-                  onFilmSelected: (int index) {
+                return Landscape(
+                  false,
+                  filmViewModel.filmList,
+                  (int index) {
                     _onSelected(index, filmViewModel);
                   },
                 );
