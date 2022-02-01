@@ -3,16 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
 class Landscape extends StatelessWidget {
-  const Landscape(
-    this.film, {//default
+  Landscape(
+    this.film, {
+    Key? key, //default
     required this.ifSelected,
     required this.list,
     required this.onFilmSelected,
-  }) : super();
+  }) : super(key: key);
+
+  Landscape.fromChoose(
+      {required this.ifSelected,
+      required this.list,
+      required this.onFilmSelected,
+      Key? key})
+      : super(key: key);
 
   final bool ifSelected;
   final List<Film> list;
-  final Film? film;
+  Film? film;
   final Function(int) onFilmSelected;
 
   @override
@@ -47,15 +55,22 @@ class Landscape extends StatelessWidget {
 }
 
 class ListOfFilms extends StatelessWidget {
-  const ListOfFilms(
+  ListOfFilms(
       {Key? key,
       required this.list,
       required this.onFilmSelected,
       required this.ifSelected,
       required this.selectedFilm})
       : super(key: key);
+
+  ListOfFilms.fromChoose(
+      {required this.ifSelected,
+      required this.list,
+      required this.onFilmSelected,
+      Key? key})
+      : super(key: key);
   final bool ifSelected;
-  final Film? selectedFilm;
+  Film? selectedFilm;
   final List<Film> list;
   final Function(int) onFilmSelected;
 

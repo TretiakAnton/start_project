@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
-import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
@@ -42,18 +41,16 @@ class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
                   onRefresh: () async {
                     filmViewModel.getFilmList(isShuffle: true);
                   },
-                  child: ListOfFilms(
+                  child: ListOfFilms.fromChoose(
                     list: filmViewModel.filmList,
                     onFilmSelected: (int index) {
                       _onSelected(index, filmViewModel);
                     },
                     ifSelected: false,
-                    selectedFilm: const Film('', ''),
                   ),
                 );
               } else {
-                return Landscape(
-                  const Film('', ''),
+                return Landscape.fromChoose(
                   ifSelected: false,
                   list: filmViewModel.filmList,
                   onFilmSelected: (int index) {

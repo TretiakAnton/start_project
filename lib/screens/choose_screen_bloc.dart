@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
-import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
@@ -36,18 +35,16 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                   BlocProvider.of<BlocSecondScreen>(context)
                       .add(LoadFilmsEvent(true));
                 },
-                child: ListOfFilms(
+                child: ListOfFilms.fromChoose(
                   list: filmState.films,
                   onFilmSelected: (int index) {
                     _onSelected(index, filmState);
                   },
                   ifSelected: false,
-                  selectedFilm: const Film('', ''),
                 ),
               );
             } else {
-              return Landscape(
-                const Film('', ''),
+              return Landscape.fromChoose(
                 ifSelected: false,
                 list: filmState.films,
                 onFilmSelected: (int index) {
