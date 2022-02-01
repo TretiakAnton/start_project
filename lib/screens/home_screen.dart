@@ -16,7 +16,6 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
-            //    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

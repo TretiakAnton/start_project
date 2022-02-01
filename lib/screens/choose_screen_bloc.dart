@@ -20,7 +20,8 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () { backArrow(MediaQuery.of(context).orientation, context);
+            onPressed: () {
+              backArrow(MediaQuery.of(context).orientation, context);
             }),
         title: const Text('List of Films'),
       ),
@@ -37,10 +38,8 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                 },
                 child: ListOfFilms(
                   list: filmState.films,
-                  onFilmSelected: (int index) {//meth_
-                    Navigator.of(context).pushNamed(
-                        DetailsScreenBloc.detailsScreenRoute,
-                        arguments: {'index': index, 'films': filmState.films});
+                  onFilmSelected: (int index) {
+                    _onSelected(index, filmState);
                   },
                   ifSelected: false,
                   selectedFilm: const Film('', ''),
@@ -52,9 +51,7 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                 ifSelected: false,
                 list: filmState.films,
                 onFilmSelected: (int index) {
-                  Navigator.of(context).pushNamed(
-                      DetailsScreenBloc.detailsScreenRoute,
-                      arguments: {'index': index, 'films': filmState.films});
+                  _onSelected(index, filmState);
                 },
               );
             }
@@ -64,5 +61,10 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
         });
       })),
     );
+  }
+
+  void _onSelected(int index, FilmLoadedState filmState) {
+    Navigator.of(context).pushNamed(DetailsScreenBloc.detailsScreenRoute,
+        arguments: {'index': index, 'films': filmState.films});
   }
 }

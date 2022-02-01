@@ -45,10 +45,7 @@ class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
                   child: ListOfFilms(
                     list: filmViewModel.filmList,
                     onFilmSelected: (int index) {
-                      Navigator.of(context).pushNamed(
-                          DetailsScreenMvvm.detailsScreenRoute,
-                          arguments: index);
-                      filmViewModel.getSelectedFilm(index);
+                      _onSelected(index, filmViewModel);
                     },
                     ifSelected: false,
                     selectedFilm: const Film('', ''),
@@ -60,10 +57,7 @@ class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
                   ifSelected: false,
                   list: filmViewModel.filmList,
                   onFilmSelected: (int index) {
-                    Navigator.of(context).pushNamed(
-                        DetailsScreenMvvm.detailsScreenRoute,
-                        arguments: index);
-                    filmViewModel.getSelectedFilm(index);
+                    _onSelected(index, filmViewModel);
                   },
                 );
               }
@@ -74,5 +68,11 @@ class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
         ),
       ),
     );
+  }
+
+  void _onSelected(int index, FilmViewModel filmViewModel) {
+    Navigator.of(context)
+        .pushNamed(DetailsScreenMvvm.detailsScreenRoute, arguments: index);
+    filmViewModel.getSelectedFilm(index);
   }
 }
