@@ -18,6 +18,15 @@ class _Screen2BlocState extends State<Screen2Bloc> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (MediaQuery.of(context).orientation == Orientation.landscape) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              } else {
+                Navigator.of(context).pop();
+              }
+            }),
         title: const Text('List of Films'),
       ),
       body: Center(child: OrientationBuilder(
@@ -36,7 +45,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                   onFilmSelected: (int index) {
                     Navigator.of(context).pushNamed(
                         Screen3Bloc.detailsScreenRoute,
-                        arguments: index);
+                        arguments: {'index': index, 'films': filmState.films});
                   },
                 ),
               );
@@ -48,7 +57,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 onFilmSelected: (int index) {
                   Navigator.of(context).pushNamed(
                       Screen3Bloc.detailsScreenRoute,
-                      arguments: index);
+                      arguments: {'index': index, 'films': filmState.films});
                 },
               );
             }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:start_project/film.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String? name = settings.name;
-    final Object? arguments = settings.arguments;
+    final dynamic arguments = settings.arguments;
 
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
@@ -28,11 +29,13 @@ class RouteGenerator {
 
       case Screen3Bloc.detailsScreenRoute:
         int selectedFilm = 0;
-        if (arguments is int) {
-          selectedFilm = arguments;
+        List<Film> films = List.empty();
+        if(arguments!= null){
+        selectedFilm = arguments['index'];
+        films = arguments['films'];
         }
         return MaterialPageRoute(
-          builder: (_) => Screen3Bloc(selectedFilm: selectedFilm),
+          builder: (_) => Screen3Bloc(selectedFilm: selectedFilm, films: films,),
         );
 
       case Screen3Mvvm.detailsScreenRoute:

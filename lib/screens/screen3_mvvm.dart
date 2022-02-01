@@ -25,6 +25,15 @@ class _Screen3MvvmState extends State<Screen3Mvvm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (MediaQuery.of(context).orientation == Orientation.landscape) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              } else {
+                Navigator.of(context).pop();
+              }
+            }),
         title: const Text('Details'),
       ),
       body: Consumer<FilmViewModel>(

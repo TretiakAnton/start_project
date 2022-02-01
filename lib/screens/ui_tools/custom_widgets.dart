@@ -43,7 +43,7 @@ class Landscape extends StatelessWidget {
             )),
         Expanded(
           flex: 2,
-          child: _details(ifSelected, film),
+          child: SingleChildScrollView(child: _details(ifSelected, film)),
         )
       ],
     );
@@ -60,8 +60,10 @@ class Landscape extends StatelessWidget {
 
 class ListOfFilms extends StatelessWidget {
   const ListOfFilms(
-      {Key? key, required this.list, required this.onFilmSelected})
+      {Key? key, required this.list, required this.onFilmSelected, required this.ifSelected, required this.selectedFilm})
       : super(key: key);
+  final bool ifSelected;
+  final Film selectedFilm;
   final List<Film> list;
   final Function(int) onFilmSelected;
 
@@ -72,6 +74,7 @@ class ListOfFilms extends StatelessWidget {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
+              selected: _selected(ifSelected, index, selectedFilm, list),
               onTap: () {
                 onFilmSelected(index);
                 // Navigator.of(context).pushNamed(screenRoute, arguments: index);
@@ -80,5 +83,13 @@ class ListOfFilms extends StatelessWidget {
             ),
           );
         });
+  }
+
+  bool _selected(bool ifSelected, int index, Film film, List<Film> films) {
+    if (ifSelected) {
+      return film == films[index];
+    } else {
+      return false;
+    }
   }
 }
