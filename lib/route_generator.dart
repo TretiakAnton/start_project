@@ -12,22 +12,23 @@ class RouteGenerator {
     }
 
     switch (name) {
-      case Screen1.detailsScreenRoute:
+      case HomeScreen.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen1(),
+          builder: (_) => const HomeScreen(),
         );
 
-      case Screen2Bloc.detailsScreenRoute:
+      case ChooseScreenBloc.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen2Bloc(),
+          builder: (_) => const ChooseScreenBloc(),
         );
 
-      case Screen2Mvvm.detailsScreenRoute:
+      case ChooseScreenMvvm.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const Screen2Mvvm(),
+          builder: (_) => const ChooseScreenMvvm(),
         );
 
-      case Screen3Bloc.detailsScreenRoute:
+      case DetailsScreenBloc.detailsScreenRoute:
+
         int selectedFilm = 0;
         List<Film> films = List.empty();
         if(arguments!= null){
@@ -35,16 +36,16 @@ class RouteGenerator {
         films = arguments['films'];
         }
         return MaterialPageRoute(
-          builder: (_) => Screen3Bloc(selectedFilm: selectedFilm, films: films,),
+          builder: (_) => DetailsScreenBloc(selectedFilm: selectedFilm, films: films,),
         );
 
-      case Screen3Mvvm.detailsScreenRoute:
+      case DetailsScreenMvvm.detailsScreenRoute:
         int selectedFilm = 0;
         if (arguments is int) {
           selectedFilm = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => Screen3Mvvm(selectedFilmId: selectedFilm),
+          builder: (_) => DetailsScreenMvvm(selectedFilmId: selectedFilm),
         );
 
       default:

@@ -7,7 +7,7 @@ import 'package:start_project/route_generator.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
-void main() {
+void main() {// винести на скріни
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => FilmViewModel(FilmRepository())),
@@ -31,6 +31,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: const Screen1());
+        home: const HomeScreen());
   }
 }

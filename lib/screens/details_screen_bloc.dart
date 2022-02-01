@@ -4,24 +4,25 @@ import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class Screen3Bloc extends StatefulWidget {
-  const Screen3Bloc({Key? key, required this.selectedFilm, required this.films})
+class DetailsScreenBloc extends StatefulWidget {
+  const DetailsScreenBloc(
+      {Key? key, required this.selectedFilm, required this.films})
       : super(key: key);
   final List<Film> films;
   final int selectedFilm;
-  static const String detailsScreenRoute = 'screen3Bloc';
+  static const String detailsScreenRoute = 'detailsBloc';
 
   @override
-  State<Screen3Bloc> createState() => _Screen3BlocState();
+  State<DetailsScreenBloc> createState() => _DetailsScreenBlocState();
 }
 
-class _Screen3BlocState extends State<Screen3Bloc> {
+class _DetailsScreenBlocState extends State<DetailsScreenBloc> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<BlocThirdScreen>(context).add(SelectFilmEvent(
       films: widget.films,
       selectedFilmId: widget.selectedFilm,
-    ));
+    )); //to rout generator
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

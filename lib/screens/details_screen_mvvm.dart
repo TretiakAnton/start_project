@@ -4,17 +4,17 @@ import 'package:provider/provider.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
-class Screen3Mvvm extends StatefulWidget {
+class DetailsScreenMvvm extends StatefulWidget {
   final int selectedFilmId;
-  static const String detailsScreenRoute = 'screen3Mvvm';
+  static const String detailsScreenRoute = 'detailsMvvm';
 
-  Screen3Mvvm({Key? key, required this.selectedFilmId}) : super(key: key);
+  DetailsScreenMvvm({Key? key, required this.selectedFilmId}) : super(key: key);
 
   @override
-  State<Screen3Mvvm> createState() => _Screen3MvvmState();
+  State<DetailsScreenMvvm> createState() => _DetailsScreenMvvmState();
 }
 
-class _Screen3MvvmState extends State<Screen3Mvvm> {
+class _DetailsScreenMvvmState extends State<DetailsScreenMvvm> {
   @override
   void initState() {
     super.initState();

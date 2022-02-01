@@ -5,15 +5,15 @@ import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class Screen2Bloc extends StatefulWidget {
-  const Screen2Bloc({Key? key}) : super(key: key);
+class ChooseScreenBloc extends StatefulWidget {
+  const ChooseScreenBloc({Key? key}) : super(key: key);
   static const String detailsScreenRoute = 'screen2Bloc';
 
   @override
-  State<Screen2Bloc> createState() => _Screen2BlocState();
+  State<ChooseScreenBloc> createState() => _ChooseScreenBlocState();
 }
 
-class _Screen2BlocState extends State<Screen2Bloc> {
+class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +21,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              if (MediaQuery.of(context).orientation == Orientation.landscape) {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              } else {
-                Navigator.of(context).pop();
-              }
+//metgod
             }),
         title: const Text('List of Films'),
       ),
@@ -42,9 +38,9 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 },
                 child: ListOfFilms(
                   list: filmState.films,
-                  onFilmSelected: (int index) {
+                  onFilmSelected: (int index) {//meth_
                     Navigator.of(context).pushNamed(
-                        Screen3Bloc.detailsScreenRoute,
+                        DetailsScreenBloc.detailsScreenRoute,
                         arguments: {'index': index, 'films': filmState.films});
                   },
                   ifSelected: false,
@@ -58,7 +54,7 @@ class _Screen2BlocState extends State<Screen2Bloc> {
                 list: filmState.films,
                 onFilmSelected: (int index) {
                   Navigator.of(context).pushNamed(
-                      Screen3Bloc.detailsScreenRoute,
+                      DetailsScreenBloc.detailsScreenRoute,
                       arguments: {'index': index, 'films': filmState.films});
                 },
               );

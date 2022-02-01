@@ -6,15 +6,15 @@ import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
 
-class Screen2Mvvm extends StatefulWidget {
-  const Screen2Mvvm({Key? key}) : super(key: key);
+class ChooseScreenMvvm extends StatefulWidget {
+  const ChooseScreenMvvm({Key? key}) : super(key: key);
   static const String detailsScreenRoute = 'screen2Mvvm';
 
   @override
-  State<Screen2Mvvm> createState() => _Screen2MvvmState();
+  State<ChooseScreenMvvm> createState() => _ChooseScreenMvvmState();
 }
 
-class _Screen2MvvmState extends State<Screen2Mvvm> {
+class _ChooseScreenMvvmState extends State<ChooseScreenMvvm> {
   @override
   void initState() {
     super.initState();
@@ -50,7 +50,7 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
                     list: filmViewModel.filmList,
                     onFilmSelected: (int index) {
                       Navigator.of(context).pushNamed(
-                          Screen3Mvvm.detailsScreenRoute,
+                          DetailsScreenMvvm.detailsScreenRoute,
                           arguments: index);
                       filmViewModel.getSelectedFilm(index);
                     },
@@ -65,7 +65,7 @@ class _Screen2MvvmState extends State<Screen2Mvvm> {
                   list: filmViewModel.filmList,
                   onFilmSelected: (int index) {
                     Navigator.of(context).pushNamed(
-                        Screen3Mvvm.detailsScreenRoute,
+                        DetailsScreenMvvm.detailsScreenRoute,
                         arguments: index);
                     filmViewModel.getSelectedFilm(index);
                   },

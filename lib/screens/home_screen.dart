@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:start_project/screens/screen2_bloc.dart';
-import 'package:start_project/screens/screen2_mvvm.dart';
+import 'package:start_project/screens/choose_screen_bloc.dart';
+import 'package:start_project/screens/choose_screen_mvvm.dart';
 
-class Screen1 extends StatelessWidget {
-  static const String detailsScreenRoute = 'screen1';
+class HomeScreen extends StatelessWidget {
+  static const String detailsScreenRoute = 'home';
 
-  const Screen1({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Screen1 extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
-        //    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+            //    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -27,13 +27,13 @@ class Screen1 extends StatelessWidget {
                     OutlinedButton(
                         onPressed: () {
                           Navigator.of(context)
-                              .pushNamed(Screen2Bloc.detailsScreenRoute);
+                              .pushNamed(ChooseScreenBloc.detailsScreenRoute);
                         },
                         child: const Text('Bloc')),
                     OutlinedButton(
                         onPressed: () {
                           Navigator.of(context)
-                              .pushNamed(Screen2Mvvm.detailsScreenRoute);
+                              .pushNamed(ChooseScreenMvvm.detailsScreenRoute);
                         },
                         child: const Text('MVVM')),
                   ],
