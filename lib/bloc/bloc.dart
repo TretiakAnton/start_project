@@ -31,6 +31,6 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
     if (event.isShuffled) {
       result.shuffle();
     }
-    emit(FilmLoadedState(result, null));
+    emit(FilmLoadedState(result, const Film('', '')));
   }
 }

@@ -64,7 +64,6 @@ class ListOfFilms extends StatelessWidget {
                   _selected(ifSelected, index, selectedFilm as Film, list),
               onTap: () {
                 onFilmSelected(index);
-                // Navigator.of(context).pushNamed(screenRoute, arguments: index);
               },
               title: Text(list[index].id),
             ),
