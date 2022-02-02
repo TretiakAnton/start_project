@@ -22,7 +22,7 @@ class ChooseScreenMvvm extends StatelessWidget {
           title: const Text('List of Films'),
         ),
         body: ChangeNotifierProvider(
-          create: (_) => FilmViewModel(FilmRepository()),
+          create: (_) => FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
           child: Consumer<FilmViewModel>(
             builder: (context, filmViewModel, child) => Center(
               child: OrientationBuilder(
