@@ -82,18 +82,24 @@ class ListOfFilms extends StatelessWidget {
 }
 
 class Details extends StatelessWidget {
-  const Details({Key? key, this.film}) : super(key: key);
+  const Details({Key? key, required this.film}) : super(key: key);
   final Film? film;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [Text(film!.id), CachedNetworkImage(imageUrl: film!.url)],
-      ),
-    );
+    if (film?.id.isNotEmpty ?? false) {
+      return SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [Text(film!.id), CachedNetworkImage(imageUrl: film!.url)],
+          ),
+        ),
+      );
+    } else {
+      return loading();
+    }
   }
 }
 

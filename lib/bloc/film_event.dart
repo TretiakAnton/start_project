@@ -1,5 +1,3 @@
-import 'package:start_project/film.dart';
-
 abstract class FilmEvent {}
 
 class LoadFilmsEvent extends FilmEvent {
@@ -9,8 +7,7 @@ class LoadFilmsEvent extends FilmEvent {
 }
 
 class SelectFilmEvent extends FilmEvent {
-  SelectFilmEvent({required this.selectedFilmId, required this.films});
+  SelectFilmEvent({required this.selectedFilmId});
 
-  final List<Film> films;
   final int selectedFilmId;
 }

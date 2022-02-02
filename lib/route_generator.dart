@@ -27,25 +27,13 @@ class RouteGenerator {
           builder: (_) => const ChooseScreenMvvm(),
         );
 
-      case DetailsScreenBloc.detailsScreenRoute:
-
-        int selectedFilm = 0;
-        List<Film> films = List.empty();
-        if(arguments!= null){
-        selectedFilm = arguments['index'];
-        films = arguments['films'];
-        }
-        return MaterialPageRoute(
-          builder: (_) => DetailsScreenBloc(selectedFilm: selectedFilm, films: films,),
-        );
-
-      case DetailsScreenMvvm.detailsScreenRoute:
-        int selectedFilm = 0;
-        if (arguments is int) {
+      case DetailsScreen.detailsScreenRoute:
+        Film selectedFilm= const Film('', '');
+        if (arguments is Film) {
           selectedFilm = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => DetailsScreenMvvm(selectedFilmId: selectedFilm),
+          builder: (_) => DetailsScreen(selectedFilm: selectedFilm),
         );
 
       default:
