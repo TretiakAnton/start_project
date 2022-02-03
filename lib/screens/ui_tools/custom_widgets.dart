@@ -1,82 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
-class Landscape extends StatelessWidget {
-  const Landscape(this.ifSelected, this.list, this.onFilmSelected,
-      [this.film = const Film('', '')])
-      : super();
-
-  final bool ifSelected;
-  final List<Film> list;
-  final Film? film;
-  final Function(Film) onFilmSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            flex: 1,
-            child: ListOfFilms(
-              list,
-              (Film film) {
-                onFilmSelected(film);
-              },
-              ifSelected,
-              film,
-            )),
-        Expanded(
-          flex: 2,
-          child: SingleChildScrollView(child: _details(ifSelected, film)),
-        )
-      ],
-    );
-  }
-
-  Widget _details(bool ifSelected, Film? film) {
-    if (ifSelected) {
-      return Details(film: film);
-    } else {
-      return loading();
-    }
-  }
-}
-
 class ListOfFilms extends StatelessWidget {
-  const ListOfFilms(this.list, this.onFilmSelected, this.ifSelected,
-      [this.selectedFilm = const Film('', '')])
-      : super();
+  const ListOfFilms({
+    required this.list,
+    required this.onFilmSelected,
+    required this.onRefresh,
+    Key? key,
+  }) : super(key: key);
 
-  final bool ifSelected;
-  final Film? selectedFilm;
   final List<Film> list;
   final Function(Film) onFilmSelected;
+  final AsyncCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              selected:
-                  _selected(ifSelected, index, selectedFilm as Film, list),
-              onTap: () {
-                onFilmSelected(list[index]);
-              },
-              title: Text(list[index].id),
-            ),
+    return list.isEmpty
+        ? loading()
+        : RefreshIndicator(
+            onRefresh: onRefresh,
+            child: ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      onTap: () {
+                        onFilmSelected(list[index]);
+                      },
+                      title: Text(list[index].id),
+                    ),
+                  );
+                }),
           );
-        });
-  }
-
-  bool _selected(bool ifSelected, int index, Film film, List<Film> films) {
-    if (ifSelected) {
-      return film == films[index];
-    } else {
-      return false;
-    }
   }
 }
 
@@ -97,7 +54,9 @@ class Details extends StatelessWidget {
         ),
       );
     } else {
-      return loading();
+      return const Center(
+        child: Text('No data'),
+      );
     }
   }
 }

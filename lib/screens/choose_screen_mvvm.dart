@@ -28,42 +28,44 @@ class ChooseScreenMvvm extends StatelessWidget {
             builder: (context, filmViewModel, child) => Center(
               child: OrientationBuilder(
                   builder: (BuildContext context, Orientation orientation) {
-                if (filmViewModel.filmList.isNotEmpty) {
-                  if (orientation == Orientation.portrait) {
-                    return RefreshIndicator(
-                      onRefresh: () =>
-                          filmViewModel.getFilmList(isShuffle: true),
-                      child: ListOfFilms(filmViewModel.filmList, (Film film) {
-                        filmViewModel.getSelectedFilm(film);
-                        Navigator.of(context).pushNamed(
-                            DetailsScreen.detailsScreenRoute,
-                            arguments: film);
-                      }, false),
-                    );
-                  } else {
-                    return Row(
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: ListOfFilms(
-                              filmViewModel.filmList,
-                              (Film film) {
-                                filmViewModel.getSelectedFilm(film);
-                              },
-                              true,
-                              filmViewModel.film,
-                            )),
-                        Expanded(
-                            flex: 2,
-                            child: Details(
-                              film: filmViewModel.film,
-                            ))
-                      ],
-                    );
-                  }
-                } else {
-                  return loading();
-                }
+                // if (filmViewModel.filmList.isNotEmpty) {
+                //   if (orientation == Orientation.portrait) {
+                //     return RefreshIndicator(
+                //       onRefresh: () =>
+                //           filmViewModel.getFilmList(isShuffle: true),
+                //       child: ListOfFilms(filmViewModel.filmList, (Film film) {
+                //         filmViewModel.getSelectedFilm(film);
+                //         Navigator.of(context).pushNamed(
+                //             DetailsScreen.detailsScreenRoute,
+                //             arguments: film);
+                //       }, false, () async => print),
+                //     );
+                //   } else {
+                //     return Row(
+                //       children: [
+                //         Expanded(
+                //             flex: 1,
+                //             child: ListOfFilms(
+                //               filmViewModel.filmList,
+                //               (Film film) {
+                //                 filmViewModel.getSelectedFilm(film);
+                //               },
+                //               true,
+                //               () async => print
+                //               filmViewModel.film,
+                //             )),
+                //         Expanded(
+                //             flex: 2,
+                //             child: Details(
+                //               film: filmViewModel.film,
+                //             ))
+                //       ],
+                //     );
+                //   }
+                // } else {
+                //   return loading();
+                // }
+                return Container();
               }),
             ),
           ),

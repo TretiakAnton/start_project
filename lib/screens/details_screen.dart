@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen(
-      {Key? key, required this.selectedFilm, required this.route})
-      : super(key: key);
+class DetailsScreenArgumets {
+  DetailsScreenArgumets(this.film, this.onExitCallback);
+  final Film? film;
+  final VoidCallback onExitCallback;
+}
 
-  final String route;
-  final Film selectedFilm;
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({
+    required this.film,
+    required this.onExitCallback,
+    Key? key,
+  }) : super(key: key);
+
+  final Film? film;
+  final VoidCallback onExitCallback;
   static const String detailsScreenRoute = 'details';
 
   @override
@@ -16,14 +24,20 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              onExitCallback();
+              Navigator.of(context).pop();
+            }),
       ),
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             if (orientation == Orientation.landscape) {
-              Navigator.of(context).pushReplacementNamed(route);
+              Future.microtask(() => Navigator.of(context).pop());
             }
-            return Details(film: selectedFilm);
+            return Details(film: film);
           },
         ),
       ),
