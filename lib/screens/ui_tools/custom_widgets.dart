@@ -105,11 +105,3 @@ class Details extends StatelessWidget {
 Widget loading() {
   return const Center(child: CircularProgressIndicator());
 }
-
-void backArrow(Orientation orientation, BuildContext context) {
-  if (MediaQuery.of(context).orientation == Orientation.landscape) {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-  } else {
-    Navigator.of(context).pop();
-  }
-}

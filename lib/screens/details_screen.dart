@@ -15,13 +15,18 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed(route);
+            }),
         title: const Text('Details'),
       ),
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             if (orientation == Orientation.landscape) {
-              Navigator.of(context).pushReplacementNamed(route);
+              Navigator.of(context).pop();
             }
             return Details(film: selectedFilm);
           },

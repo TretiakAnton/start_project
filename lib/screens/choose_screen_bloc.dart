@@ -17,7 +17,7 @@ class ChooseScreenBloc extends StatelessWidget {
           leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                backArrow(MediaQuery.of(context).orientation, context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               }),
           title: const Text('List of Films'),
         ),
