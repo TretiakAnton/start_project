@@ -12,6 +12,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
   FilmBloc(this._repo) : super(FilmLoadingState()) {
     on<SelectFilmEvent>(_selectFilm);
     on<LoadFilmsEvent>(_loadFilms);
+    on<ShowSelectedFilmEvent>(_showFilms);
   }
 
   final FilmRepository _repo;
@@ -23,7 +24,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
     }
     final Film film = event.selectedFilm;
 
-    emit(FilmLoadedState(list, film));
+    emit(FilmLoadedState(list, film, true));
   }
 
   Future<void> _loadFilms(LoadFilmsEvent event, Emitter<FilmState> emit) async {
@@ -31,6 +32,17 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
     if (event.isShuffled) {
       result.shuffle();
     }
-    emit(FilmLoadedState(result, const Film('', '')));
+    emit(FilmLoadedState(result, const Film('', ''), false));
+  }
+
+  void _showFilms(ShowSelectedFilmEvent event, Emitter<FilmState> emit) {
+    List<Film> list = List.empty();
+    Film? film = const Film('', '');
+    if (state is FilmLoadedState) {
+      list = (state as FilmLoadedState).films;
+      film = (state as FilmLoadedState).selectedFilm;
+    }
+    final bool ifSelected = event.ifSelected;
+    emit(FilmLoadedState(list, film, ifSelected));
   }
 }

@@ -13,3 +13,9 @@ class SelectFilmEvent extends FilmEvent {
 
   final Film selectedFilm;
 }
+
+class ShowSelectedFilmEvent extends FilmEvent {
+  ShowSelectedFilmEvent(this.ifSelected);
+
+  final bool ifSelected;
+}

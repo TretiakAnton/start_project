@@ -34,6 +34,8 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
             return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
               if (filmState is FilmLoadedState) {
                 if (orientation == Orientation.portrait) {
+                  BlocProvider.of<FilmBloc>(context)
+                      .add(ShowSelectedFilmEvent(false));
                   return RefreshIndicator(
                     onRefresh: () async {
                       BlocProvider.of<FilmBloc>(context)
@@ -42,6 +44,8 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                     child: ListOfFilms(
                       filmState.films,
                       (Film film) {
+                        BlocProvider.of<FilmBloc>(context)
+                            .add(ShowSelectedFilmEvent(true));
                         BlocProvider.of<FilmBloc>(context)
                             .add(SelectFilmEvent(selectedFilm: film));
                         Navigator.of(context).pushNamed(
@@ -52,6 +56,10 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                     ),
                   );
                 } else {
+                  if (!filmState.ifSelected) {
+                    BlocProvider.of<FilmBloc>(context)
+                        .add(SelectFilmEvent(selectedFilm: const Film('', '')));
+                  }
                   return Row(
                     children: [
                       Expanded(
@@ -61,6 +69,8 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                             (Film film) {
                               BlocProvider.of<FilmBloc>(context)
                                   .add(SelectFilmEvent(selectedFilm: film));
+                              BlocProvider.of<FilmBloc>(context)
+                                  .add(ShowSelectedFilmEvent(true));
                             },
                             true,
                             filmState.selectedFilm,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:start_project/film.dart';
@@ -23,7 +22,8 @@ class ChooseScreenMvvm extends StatelessWidget {
           title: const Text('List of Films'),
         ),
         body: ChangeNotifierProvider(
-          create: (_) => FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
+          create: (_) =>
+              FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
           child: Consumer<FilmViewModel>(
             builder: (context, filmViewModel, child) => Center(
               child: OrientationBuilder(
@@ -45,10 +45,14 @@ class ChooseScreenMvvm extends StatelessWidget {
                       children: [
                         Expanded(
                             flex: 1,
-                            child: ListOfFilms(filmViewModel.filmList,
-                                (Film film) {
-                              filmViewModel.getSelectedFilm(film);
-                            }, true, filmViewModel.film)),
+                            child: ListOfFilms(
+                              filmViewModel.filmList,
+                              (Film film) {
+                                filmViewModel.getSelectedFilm(film);
+                              },
+                              true,
+                              filmViewModel.film,
+                            )),
                         Expanded(
                             flex: 2,
                             child: Details(
