@@ -30,17 +30,29 @@ class ChooseScreenMvvm extends StatelessWidget {
                   builder: (BuildContext context, Orientation orientation) {
                 if (filmViewModel.filmList.isNotEmpty) {
                   if (orientation == Orientation.portrait) {
+                    filmViewModel.setSelected(ifSelected: false);
                     return RefreshIndicator(
                       onRefresh: () =>
                           filmViewModel.getFilmList(isShuffle: true),
-                      child: ListOfFilms(filmViewModel.filmList, (Film film) {
-                        filmViewModel.getSelectedFilm(film);
-                        Navigator.of(context).pushNamed(
-                            DetailsScreen.detailsScreenRoute,
-                            arguments: film);
-                      }, false),
+                      child: ListOfFilms(
+                        filmViewModel.filmList,
+                        (Film film) {
+                          filmViewModel.getSelectedFilm(film);
+                          filmViewModel.setSelected(ifSelected: true);
+                          Navigator.of(context).pushNamed(
+                              DetailsScreen.detailsScreenRoute,
+                              arguments: {
+                                'film': film,
+                                'route': detailsScreenRoute
+                              });
+                        },
+                        false,
+                      ),
                     );
                   } else {
+                    if(!filmViewModel.ifSelected){
+                      filmViewModel.getSelectedFilm(const Film('', ''));
+                    }
                     return Row(
                       children: [
                         Expanded(
@@ -49,6 +61,7 @@ class ChooseScreenMvvm extends StatelessWidget {
                               filmViewModel.filmList,
                               (Film film) {
                                 filmViewModel.getSelectedFilm(film);
+                                filmViewModel.setSelected(ifSelected: true);
                               },
                               true,
                               filmViewModel.film,
