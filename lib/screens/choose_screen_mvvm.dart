@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
@@ -32,11 +33,11 @@ class ChooseScreenMvvm extends StatelessWidget {
                     return RefreshIndicator(
                       onRefresh: () =>
                           filmViewModel.getFilmList(isShuffle: true),
-                      child: ListOfFilms(filmViewModel.filmList, (int index) {
-                        filmViewModel.getSelectedFilm(index);
+                      child: ListOfFilms(filmViewModel.filmList, (Film film) {
+                        filmViewModel.getSelectedFilm(film);
                         Navigator.of(context).pushNamed(
                             DetailsScreen.detailsScreenRoute,
-                            arguments: filmViewModel.film);
+                            arguments: film);
                       }, false),
                     );
                   } else {
@@ -45,8 +46,8 @@ class ChooseScreenMvvm extends StatelessWidget {
                         Expanded(
                             flex: 1,
                             child: ListOfFilms(filmViewModel.filmList,
-                                (int index) {
-                              filmViewModel.getSelectedFilm(index);
+                                (Film film) {
+                              filmViewModel.getSelectedFilm(film);
                             }, true, filmViewModel.film)),
                         Expanded(
                             flex: 2,

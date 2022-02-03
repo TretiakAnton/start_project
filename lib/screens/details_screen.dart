@@ -15,13 +15,15 @@ class DetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Details'),
       ),
-      body: OrientationBuilder(
-        builder: (BuildContext context, Orientation orientation) {
-          if (orientation == Orientation.landscape) {
-            Navigator.of(context).pop();
-          }
-          return Details(film: selectedFilm);
-        },
+      body: Center(
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            if (orientation == Orientation.landscape) {
+              Navigator.of(context).pop();
+            }
+            return Details(film: selectedFilm);
+          },
+        ),
       ),
     );
   }

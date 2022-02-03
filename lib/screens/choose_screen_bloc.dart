@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:start_project/bloc/bloc.dart';
+import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
@@ -40,12 +41,12 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                     },
                     child: ListOfFilms(
                       filmState.films,
-                      (int index) {
+                      (Film film) {
                         BlocProvider.of<FilmBloc>(context)
-                            .add(SelectFilmEvent(selectedFilmId: index));
+                            .add(SelectFilmEvent(selectedFilm: film));
                         Navigator.of(context).pushNamed(
                             DetailsScreen.detailsScreenRoute,
-                            arguments: filmState.selectedFilm);
+                            arguments: film);
                       },
                       false,
                     ),
@@ -57,9 +58,9 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                           flex: 1,
                           child: ListOfFilms(
                             filmState.films,
-                            (int index) {
+                            (Film film) {
                               BlocProvider.of<FilmBloc>(context)
-                                  .add(SelectFilmEvent(selectedFilmId: index));
+                                  .add(SelectFilmEvent(selectedFilm: film));
                             },
                             true,
                             filmState.selectedFilm,

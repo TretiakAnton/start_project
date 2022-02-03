@@ -22,8 +22,8 @@ class FilmViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getSelectedFilm(int index) {
-    _film = filmList[index];
+  void getSelectedFilm(Film selectedFilm) {
+    _film = selectedFilm;
     notifyListeners();
   }
 }

@@ -10,7 +10,7 @@ class Landscape extends StatelessWidget {
   final bool ifSelected;
   final List<Film> list;
   final Film? film;
-  final Function(int) onFilmSelected;
+  final Function(Film) onFilmSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class Landscape extends StatelessWidget {
             flex: 1,
             child: ListOfFilms(
               list,
-              (int index) {
-                onFilmSelected(index);
+              (Film film) {
+                onFilmSelected(film);
               },
               ifSelected,
               film,
@@ -51,7 +51,7 @@ class ListOfFilms extends StatelessWidget {
   final bool ifSelected;
   final Film? selectedFilm;
   final List<Film> list;
-  final Function(int) onFilmSelected;
+  final Function(Film) onFilmSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class ListOfFilms extends StatelessWidget {
               selected:
                   _selected(ifSelected, index, selectedFilm as Film, list),
               onTap: () {
-                onFilmSelected(index);
+                onFilmSelected(list[index]);
               },
               title: Text(list[index].id),
             ),

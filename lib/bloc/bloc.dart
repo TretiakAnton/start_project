@@ -21,7 +21,7 @@ class FilmBloc extends Bloc<FilmEvent, FilmState> {
     if (state is FilmLoadedState) {
       list = (state as FilmLoadedState).films;
     }
-    final Film film = list[event.selectedFilmId];
+    final Film film = event.selectedFilm;
 
     emit(FilmLoadedState(list, film));
   }
