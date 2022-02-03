@@ -3,9 +3,11 @@ import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key, required this.selectedFilm})
+  const DetailsScreen(
+      {Key? key, required this.selectedFilm, required this.route})
       : super(key: key);
 
+  final String route;
   final Film selectedFilm;
   static const String detailsScreenRoute = 'details';
 
@@ -19,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             if (orientation == Orientation.landscape) {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed(route);
             }
             return Details(film: selectedFilm);
           },

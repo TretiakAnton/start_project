@@ -6,15 +6,10 @@ import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class ChooseScreenBloc extends StatefulWidget {
+class ChooseScreenBloc extends StatelessWidget {
   const ChooseScreenBloc({Key? key}) : super(key: key);
   static const String detailsScreenRoute = 'screen2Bloc';
 
-  @override
-  State<ChooseScreenBloc> createState() => _ChooseScreenBlocState();
-}
-
-class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +26,13 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
               FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
           child: OrientationBuilder(
               builder: (BuildContext context, Orientation orientation) {
+            if (orientation == Orientation.portrait) {
+              BlocProvider.of<FilmBloc>(context)
+                  .add(ShowSelectedFilmEvent(false));
+            }
             return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
               if (filmState is FilmLoadedState) {
                 if (orientation == Orientation.portrait) {
-                  BlocProvider.of<FilmBloc>(context)
-                      .add(ShowSelectedFilmEvent(false));
                   return RefreshIndicator(
                     onRefresh: () async {
                       BlocProvider.of<FilmBloc>(context)
@@ -45,12 +42,15 @@ class _ChooseScreenBlocState extends State<ChooseScreenBloc> {
                       filmState.films,
                       (Film film) {
                         BlocProvider.of<FilmBloc>(context)
-                            .add(ShowSelectedFilmEvent(true));
-                        BlocProvider.of<FilmBloc>(context)
                             .add(SelectFilmEvent(selectedFilm: film));
                         Navigator.of(context).pushNamed(
                             DetailsScreen.detailsScreenRoute,
-                            arguments: film);
+                            arguments: {
+                              'film': film,
+                              'route': detailsScreenRoute
+                            });
+                        BlocProvider.of<FilmBloc>(context)
+                            .add(ShowSelectedFilmEvent(true));
                       },
                       false,
                     ),

@@ -29,11 +29,13 @@ class RouteGenerator {
 
       case DetailsScreen.detailsScreenRoute:
         Film selectedFilm= const Film('', '');
-        if (arguments is Film) {
-          selectedFilm = arguments;
+        String route='';
+        if (arguments!= null) {
+          selectedFilm = arguments['film'];
+          route = arguments['route'];
         }
         return MaterialPageRoute(
-          builder: (_) => DetailsScreen(selectedFilm: selectedFilm),
+          builder: (_) => DetailsScreen(selectedFilm: selectedFilm, route: route,),
         );
 
       default:
