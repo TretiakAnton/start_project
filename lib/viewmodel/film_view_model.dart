@@ -9,7 +9,7 @@ class FilmViewModel extends ChangeNotifier {
 
   List<Film> _filmList = [];
   Film _film = const Film('', '');
-  bool _ifSelected  = false;
+  bool _ifSelected = false;
 
   List<Film> get filmList => _filmList;
 
@@ -24,13 +24,13 @@ class FilmViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
-  //TODO use prefix 'set' for setters
-  void getSelectedFilm(Film selectedFilm) {
+
+  void setSelectedFilm(Film selectedFilm) {
     _film = selectedFilm;
     notifyListeners();
   }
 
-  void setSelected({required bool ifSelected}){
+  void setSelected({required bool ifSelected}) {
     _ifSelected = ifSelected;
   }
 }

@@ -2,55 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
-//TODO remove unused code
-class Landscape extends StatelessWidget {
-  const Landscape(this.ifSelected, this.list, this.onFilmSelected,
-      [this.film = const Film('', '')])
-      : super();
-  //TODO better use prefix 'is' instead of "if" for bool variables
-  final bool ifSelected;
-  final List<Film> list;
-  final Film? film;
-  final Function(Film) onFilmSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            flex: 1,
-            child: ListOfFilms(
-              list,
-              (Film film) {
-                onFilmSelected(film);
-              },
-              ifSelected,
-              film,
-            )),
-        Expanded(
-          flex: 2,
-          child: SingleChildScrollView(child: _details(ifSelected, film)),
-        )
-      ],
-    );
-  }
-
-  Widget _details(bool ifSelected, Film? film) {
-    if (ifSelected) {
-      return Details(film: film);
-    } else {
-      return loading();
-    }
-  }
-}
-
 class ListOfFilms extends StatelessWidget {
-  //TODO make named parameters
-  const ListOfFilms(this.list, this.onFilmSelected, this.ifSelected,
-      [this.selectedFilm = const Film('', '')])
-      : super();
+  ListOfFilms(
+      {Key? key, required this.list,
+        required this.onFilmSelected,
+        required this.isSelected,
+        this.selectedFilm = const Film('', '')}) : super(key: key);
 
-  final bool ifSelected;
+  final bool isSelected;
   final Film? selectedFilm;
   final List<Film> list;
   final Function(Film) onFilmSelected;
@@ -63,7 +22,7 @@ class ListOfFilms extends StatelessWidget {
           return Card(
             child: ListTile(
               selected:
-                  _selected(ifSelected, index, selectedFilm as Film, list),
+                  _selected(isSelected, index, selectedFilm as Film, list),
               onTap: () {
                 onFilmSelected(list[index]);
               },
@@ -73,8 +32,8 @@ class ListOfFilms extends StatelessWidget {
         });
   }
 
-  bool _selected(bool ifSelected, int index, Film film, List<Film> films) {
-    if (ifSelected) {
+  bool _selected(bool isSelected, int index, Film film, List<Film> films) {
+    if (isSelected) {
       return film == films[index];
     } else {
       return false;

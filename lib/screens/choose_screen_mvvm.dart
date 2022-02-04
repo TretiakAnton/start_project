@@ -35,9 +35,9 @@ class ChooseScreenMvvm extends StatelessWidget {
                       onRefresh: () =>
                           filmViewModel.getFilmList(isShuffle: true),
                       child: ListOfFilms(
-                        filmViewModel.filmList,
-                        (Film film) {
-                          filmViewModel.getSelectedFilm(film);
+                        list: filmViewModel.filmList,
+                        onFilmSelected: (Film film) {
+                          filmViewModel.setSelectedFilm(film);
                           filmViewModel.setSelected(ifSelected: true);
                           Navigator.of(context).pushNamed(
                               DetailsScreen.detailsScreenRoute,
@@ -46,25 +46,25 @@ class ChooseScreenMvvm extends StatelessWidget {
                                 'route': detailsScreenRoute
                               });
                         },
-                        false,
+                        isSelected: false,
                       ),
                     );
                   } else {
-                    if(!filmViewModel.ifSelected){
-                      filmViewModel.getSelectedFilm(const Film('', ''));
+                    if (!filmViewModel.ifSelected) {
+                      filmViewModel.setSelectedFilm(const Film('', ''));
                     }
                     return Row(
                       children: [
                         Expanded(
                             flex: 1,
                             child: ListOfFilms(
-                              filmViewModel.filmList,
-                              (Film film) {
-                                filmViewModel.getSelectedFilm(film);
+                              list: filmViewModel.filmList,
+                              onFilmSelected: (Film film) {
+                                filmViewModel.setSelectedFilm(film);
                                 filmViewModel.setSelected(ifSelected: true);
                               },
-                              true,
-                              filmViewModel.film,
+                              isSelected: true,
+                              selectedFilm: filmViewModel.film,
                             )),
                         Expanded(
                             flex: 2,

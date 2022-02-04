@@ -39,8 +39,8 @@ class ChooseScreenBloc extends StatelessWidget {
                           .add(LoadFilmsEvent(true));
                     },
                     child: ListOfFilms(
-                      filmState.films,
-                      (Film film) {
+                      list: filmState.films,
+                      onFilmSelected: (Film film) {
                         BlocProvider.of<FilmBloc>(context)
                             .add(SelectFilmEvent(selectedFilm: film));
                         Navigator.of(context).pushNamed(
@@ -52,7 +52,7 @@ class ChooseScreenBloc extends StatelessWidget {
                         BlocProvider.of<FilmBloc>(context)
                             .add(ShowSelectedFilmEvent(true));
                       },
-                      false,
+                      isSelected: false,
                     ),
                   );
                 } else {
@@ -65,16 +65,14 @@ class ChooseScreenBloc extends StatelessWidget {
                       Expanded(
                           flex: 1,
                           child: ListOfFilms(
-                            filmState.films,
-                            (Film film) {
-                              //TODO extract bloc to local variable to avoid multiple call to Provider.of<>
-                              BlocProvider.of<FilmBloc>(context)
-                                  .add(SelectFilmEvent(selectedFilm: film));
-                              BlocProvider.of<FilmBloc>(context)
-                                  .add(ShowSelectedFilmEvent(true));
+                            list: filmState.films,
+                            onFilmSelected: (Film film) {
+                              final bloc = BlocProvider.of<FilmBloc>(context);
+                              bloc.add(SelectFilmEvent(selectedFilm: film));
+                              bloc.add(ShowSelectedFilmEvent(true));
                             },
-                            true,
-                            filmState.selectedFilm,
+                            isSelected: true,
+                            selectedFilm: filmState.selectedFilm,
                           )),
                       Expanded(
                         flex: 2,
