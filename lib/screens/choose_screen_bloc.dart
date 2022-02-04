@@ -67,6 +67,7 @@ class ChooseScreenBloc extends StatelessWidget {
                           child: ListOfFilms(
                             filmState.films,
                             (Film film) {
+                              //TODO extract bloc to local variable to avoid multiple call to Provider.of<>
                               BlocProvider.of<FilmBloc>(context)
                                   .add(SelectFilmEvent(selectedFilm: film));
                               BlocProvider.of<FilmBloc>(context)

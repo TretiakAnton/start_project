@@ -24,7 +24,7 @@ class FilmViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
-
+  //TODO use prefix 'set' for setters
   void getSelectedFilm(Film selectedFilm) {
     _film = selectedFilm;
     notifyListeners();

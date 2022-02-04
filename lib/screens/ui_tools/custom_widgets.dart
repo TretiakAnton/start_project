@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
+//TODO remove unused code
 class Landscape extends StatelessWidget {
   const Landscape(this.ifSelected, this.list, this.onFilmSelected,
       [this.film = const Film('', '')])
       : super();
-
+  //TODO better use prefix 'is' instead of "if" for bool variables
   final bool ifSelected;
   final List<Film> list;
   final Film? film;
@@ -44,6 +45,7 @@ class Landscape extends StatelessWidget {
 }
 
 class ListOfFilms extends StatelessWidget {
+  //TODO make named parameters
   const ListOfFilms(this.list, this.onFilmSelected, this.ifSelected,
       [this.selectedFilm = const Film('', '')])
       : super();

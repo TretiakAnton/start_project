@@ -26,6 +26,7 @@ class DetailsScreen extends StatelessWidget {
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             if (orientation == Orientation.landscape) {
+              //TODO Fix runtime exception here
               Navigator.of(context).pop();
             }
             return Details(film: selectedFilm);
