@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:start_project/bloc/bloc.dart';
 import 'package:start_project/film.dart';
+import 'package:start_project/repo/films_repo.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
@@ -19,8 +22,14 @@ class RouteGenerator {
 
       case ChooseScreenBloc.detailsScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => const ChooseScreenBloc(),
-        );
+            builder: (_) =>
+                //BlocProvider<FilmBloc>(
+                //create: (context) =>
+                //  FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
+                //   child:
+                const ChooseScreenBloc()
+            //),
+            );
 
       case ChooseScreenMvvm.detailsScreenRoute:
         return MaterialPageRoute(
@@ -28,14 +37,17 @@ class RouteGenerator {
         );
 
       case DetailsScreen.detailsScreenRoute:
-        Film selectedFilm= const Film('', '');
-        String route='';
-        if (arguments!= null) {
+        Film selectedFilm = const Film('', '');
+        String route = '';
+        if (arguments != null) {
           selectedFilm = arguments['film'];
           route = arguments['route'];
         }
         return MaterialPageRoute(
-          builder: (_) => DetailsScreen(selectedFilm: selectedFilm, route: route,),
+          builder: (_) => DetailsScreen(
+            selectedFilm: selectedFilm,
+            route: route,
+          ),
         );
 
       default:

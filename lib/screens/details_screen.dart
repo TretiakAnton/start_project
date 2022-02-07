@@ -27,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
           builder: (BuildContext context, Orientation orientation) {
             if (orientation == Orientation.landscape) {
               try {
-                Future.microtask(() => Navigator.of(context).pop());
+                Navigator.of(context).pop();
               } on Exception catch (e) {
                 print(e);
               }
