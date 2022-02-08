@@ -40,11 +40,8 @@ class ChooseScreenMvvm extends StatelessWidget {
                           filmViewModel.setSelectedFilm(film);
                           filmViewModel.setSelected(ifSelected: true);
                           Navigator.of(context).pushNamed(
-                              DetailsScreen.detailsScreenRoute,
-                              arguments: {
-                                'film': film,
-                                'route': detailsScreenRoute
-                              });
+                              DetailsMvvmScreen.detailsScreenRoute,
+                              arguments:detailsScreenRoute);
                         },
                         isSelected: false,
                       ),
