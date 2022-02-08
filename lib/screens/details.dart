@@ -38,7 +38,7 @@ class DetailsScreen extends StatelessWidget {
             if (orientation == Orientation.portrait) {
               return Details(film: film);
             } else {
-              Navigator.of(context).pop();
+              Future.microtask(() => Navigator.of(context).pop());
               return const CircularProgressIndicator();
             }
           },
