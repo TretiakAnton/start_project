@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:start_project/film.dart';
 import 'package:start_project/repo/films_repo.dart';
 
 import 'bloc/bloc.dart';
@@ -16,12 +15,12 @@ class RouteGenerator {
     }
 
     switch (name) {
-      case HomeScreen.detailsScreenRoute:
+      case HomeScreen.homeScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
         );
 
-      case ChooseScreenBloc.detailsScreenRoute:
+      case ChooseScreenBloc.chooseBlocScreenRoute:
         return MaterialPageRoute(
           builder: (_) => BlocProvider<FilmBloc>(
               create: (context) =>
@@ -29,40 +28,17 @@ class RouteGenerator {
               child: const ChooseScreenBloc()),
         );
 
-      case ChooseScreenMvvm.detailsScreenRoute:
-        return MaterialPageRoute(
+      case ChooseScreenMvvm.chooseMvvmScreenRoute:
+        return MaterialPageRoute(//model
           builder: (_) => const ChooseScreenMvvm(),
         );
 
-      case DetailsBlocScreen.detailsScreenRoute:
-        Function(int) callback = (int i) {
-          i++;
-        };
-        Film film = const Film('', '');
-        if (arguments != null) {
-          callback = arguments['callback'];
-          film = arguments['film'];
-        }
+      case DetailsScreen.detailsScreenRoute:
+        final arg = arguments as DetailsScreenArguments;
         return MaterialPageRoute(
-          builder: (_) => DetailsBlocScreen(
-            callback: callback,
-            film: film,
-          ),
-        );
-
-      case DetailsMvvmScreen.detailsScreenRoute:
-        Function(int) callback = (int i) {
-          i++;
-        };
-        Film film = const Film('', '');
-        if (arguments != null) {
-          callback = arguments['callback'];
-          film = arguments['film'];
-        }
-        return MaterialPageRoute(
-          builder: (_) => DetailsMvvmScreen(
-            callback: callback,
-            film: film,
+          builder: (_) => DetailsScreen(
+            callback: arg.callback,
+            film: arg.film,
           ),
         );
 

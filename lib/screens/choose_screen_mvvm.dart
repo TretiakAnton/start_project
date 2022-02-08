@@ -8,26 +8,27 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 
 class ChooseScreenMvvm extends StatelessWidget {
   const ChooseScreenMvvm({Key? key}) : super(key: key);
-  static const String detailsScreenRoute = 'screen2Mvvm';
+  static const String chooseMvvmScreenRoute = 'screen2Mvvm';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              }),
-          title: const Text('List of Films'),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
         ),
-        body: ChangeNotifierProvider(
-          create: (_) =>
-              FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
-          child: Consumer<FilmViewModel>(
-            builder: (context, filmViewModel, child) => Center(
-              child: OrientationBuilder(
-                  builder: (BuildContext context, Orientation orientation) {
+        title: const Text('List of Films'),
+      ),
+      body: ChangeNotifierProvider(
+        create: (_) =>
+            FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
+        child: Consumer<FilmViewModel>(
+          builder: (context, filmViewModel, child) => Center(
+            child: OrientationBuilder(
+              builder: (BuildContext context, Orientation orientation) {
                 if (filmViewModel.filmList.isNotEmpty) {
                   if (orientation == Orientation.portrait) {
                     return RefreshIndicator(
@@ -38,14 +39,16 @@ class ChooseScreenMvvm extends StatelessWidget {
                         onFilmSelected: (Film film) {
                           filmViewModel.setSelectedFilm(film);
                           Navigator.of(context).pushNamed(
-                              DetailsMvvmScreen.detailsScreenRoute,
-                              arguments: {
-                                'callback': (int callback) {
-                                  filmViewModel
-                                      .setSelectedFilm(const Film('', ''));
-                                },
-                                'film': film
-                              });
+                            DetailsScreen.detailsScreenRoute,
+                            arguments: DetailsScreenArguments(
+                              film: film,
+                              callback: () {
+                                filmViewModel.setSelectedFilm(
+                                  const Film('', ''),
+                                );
+                              },
+                            ),
+                          );
                         },
                         isSelected: false,
                       ),
@@ -54,29 +57,33 @@ class ChooseScreenMvvm extends StatelessWidget {
                     return Row(
                       children: [
                         Expanded(
-                            flex: 1,
-                            child: ListOfFilms(
-                              list: filmViewModel.filmList,
-                              onFilmSelected: (Film film) {
-                                filmViewModel.setSelectedFilm(film);
-                              },
-                              isSelected: true,
-                              selectedFilm: filmViewModel.film,
-                            )),
+                          flex: 1,
+                          child: ListOfFilms(
+                            list: filmViewModel.filmList,
+                            onFilmSelected: (Film film) {
+                              filmViewModel.setSelectedFilm(film);
+                            },
+                            isSelected: true,
+                            selectedFilm: filmViewModel.film,
+                          ),
+                        ),
                         Expanded(
-                            flex: 2,
-                            child: Details(
-                              film: filmViewModel.film,
-                            ))
+                          flex: 2,
+                          child: Details(
+                            film: filmViewModel.film,
+                          ),
+                        )
                       ],
                     );
                   }
                 } else {
                   return loading();
                 }
-              }),
+              },
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

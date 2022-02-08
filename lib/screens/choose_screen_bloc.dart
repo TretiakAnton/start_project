@@ -7,10 +7,11 @@ import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class ChooseScreenBloc extends StatelessWidget {
   const ChooseScreenBloc({Key? key}) : super(key: key);
-  static const String detailsScreenRoute = 'screen2Bloc';
+  static const String chooseBlocScreenRoute = 'screen2Bloc';
 
   @override
   Widget build(BuildContext context) {
+    final FilmBloc _bloc = BlocProvider.of<FilmBloc>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -21,65 +22,63 @@ class ChooseScreenBloc extends StatelessWidget {
         title: const Text('List of Films'),
       ),
       body: OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-        return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-          if (filmState is FilmLoadedState) {
-            if (orientation == Orientation.portrait) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  BlocProvider.of<FilmBloc>(context).add(LoadFilmsEvent(true));
-                },
-                child: ListOfFilms(
-                  list: filmState.films,
-                  onFilmSelected: (Film film) {
-                    BlocProvider.of<FilmBloc>(context)
-                        .add(SelectFilmEvent(selectedFilm: film));
-                    Navigator.of(context).pushNamed(
-                        DetailsBlocScreen.detailsScreenRoute,
-                        arguments: {
-                          'callback': (int callback) {
-                            BlocProvider.of<FilmBloc>(context).add(
-                                SelectFilmEvent(
-                                    selectedFilm: const Film('', '')));
-                          },
-                          'film': film
-                        });
-                  },
-                  isSelected: false,
-                ),
-              );
-            } else {
-              if (!filmState.ifSelected) {
-                BlocProvider.of<FilmBloc>(context)
-                    .add(SelectFilmEvent(selectedFilm: const Film('', '')));
-              }
-              return Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: ListOfFilms(
-                        list: filmState.films,
-                        onFilmSelected: (Film film) {
-                          BlocProvider.of<FilmBloc>(context)
-                              .add(SelectFilmEvent(selectedFilm: film));
-                        },
-                        isSelected: true,
-                        selectedFilm: filmState.selectedFilm,
-                      )),
-                  Expanded(
-                    flex: 2,
-                    child: Details(
-                      film: filmState.selectedFilm,
+        builder: (BuildContext context, Orientation orientation) {
+          return BlocBuilder<FilmBloc, FilmState>(
+            builder: (_, filmState) {
+              if (filmState is FilmLoadedState) {
+                if (orientation == Orientation.portrait) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      _bloc.add(LoadFilmsEvent(true));
+                    },
+                    child: ListOfFilms(
+                      list: filmState.films,
+                      onFilmSelected: (Film film) {
+                        _bloc.add(SelectFilmEvent(selectedFilm: film));
+                        Navigator.of(context).pushNamed(
+                          DetailsScreen.detailsScreenRoute,
+                          arguments: DetailsScreenArguments(
+                            film: film,
+                            callback: () {
+                              _bloc.add(SelectFilmEvent(
+                                  selectedFilm: const Film('', '')));
+                            },
+                          ),
+                        );
+                      },
+                      isSelected: false,
                     ),
-                  )
-                ],
-              );
-            }
-          } else {
-            return loading();
-          }
-        });
-      }),
+                  );
+                } else {
+                  return Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ListOfFilms(
+                          list: filmState.films,
+                          onFilmSelected: (Film film) {
+                            _bloc.add(SelectFilmEvent(selectedFilm: film));
+                          },
+                          isSelected: true,
+                          selectedFilm: filmState.selectedFilm,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Details(
+                          film: filmState.selectedFilm,
+                        ),
+                      )
+                    ],
+                  );
+                }
+              } else {
+                return loading();
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

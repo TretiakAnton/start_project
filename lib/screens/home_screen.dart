@@ -3,9 +3,8 @@ import 'package:start_project/screens/choose_screen_bloc.dart';
 import 'package:start_project/screens/choose_screen_mvvm.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String detailsScreenRoute = 'home';
-
   const HomeScreen({Key? key}) : super(key: key);
+  static const String homeScreenRoute = 'home';
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +23,19 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(ChooseScreenBloc.detailsScreenRoute);
-                        },
-                        child: const Text('Bloc')),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ChooseScreenBloc.chooseBlocScreenRoute);
+                      },
+                      child: const Text('Bloc'),
+                    ),
                     OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(ChooseScreenMvvm.detailsScreenRoute);
-                        },
-                        child: const Text('MVVM')),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ChooseScreenMvvm.chooseMvvmScreenRoute);
+                      },
+                      child: const Text('MVVM'),
+                    ),
                   ],
                 )
               ],
