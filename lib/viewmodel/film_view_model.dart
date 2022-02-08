@@ -9,13 +9,11 @@ class FilmViewModel extends ChangeNotifier {
 
   List<Film> _filmList = [];
   Film _film = const Film('', '');
-  bool _ifSelected = false;
 
   List<Film> get filmList => _filmList;
 
   Film get film => _film;
 
-  bool get ifSelected => _ifSelected;
 
   Future<void> getFilmList({required bool isShuffle}) async {
     _filmList = await _repo.getFilms();
@@ -30,7 +28,5 @@ class FilmViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelected({required bool ifSelected}) {
-    _ifSelected = ifSelected;
-  }
+
 }

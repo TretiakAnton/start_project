@@ -6,10 +6,10 @@ import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class DetailsBlocScreen extends StatelessWidget {
   const DetailsBlocScreen(
-      {Key? key, required this.route})
+      {Key? key, required this.callback})
       : super(key: key);
 
-  final String route;
+  final Function(int) callback;
   static const String detailsScreenRoute = 'detailsBloc';
 
   @override
@@ -19,7 +19,8 @@ class DetailsBlocScreen extends StatelessWidget {
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed(route);
+              callback(1);
+              Navigator.of(context).pop();
             }),
         title: const Text('Details'),
       ),

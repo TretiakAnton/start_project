@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 
 class ListOfFilms extends StatelessWidget {
-  ListOfFilms(
+  const ListOfFilms(
       {Key? key, required this.list,
         required this.onFilmSelected,
         required this.isSelected,

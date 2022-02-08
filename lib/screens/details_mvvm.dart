@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:start_project/film.dart';
@@ -7,11 +6,11 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 
 class DetailsMvvmScreen extends StatelessWidget {
   const DetailsMvvmScreen(
-      {Key? key,  required this.route})
+      {Key? key,  required this.callback})
       : super(key: key);
 
-  final String route;
-  static const String detailsScreenRoute = 'details';
+  final Function(int) callback;
+  static const String detailsScreenRoute = 'detailsMvvm';
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,8 @@ class DetailsMvvmScreen extends StatelessWidget {
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed(route);
+              callback(1);
+              Navigator.of(context).pop();
             }),
         title: const Text('Details'),
       ),

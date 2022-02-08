@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:start_project/repo/films_repo.dart';
+import 'bloc/bloc.dart';
 import 'screens/screens.dart';
 
 class RouteGenerator {
@@ -19,12 +22,12 @@ class RouteGenerator {
       case ChooseScreenBloc.detailsScreenRoute:
         return MaterialPageRoute(
             builder: (_) =>
-                //BlocProvider<FilmBloc>(
-                //create: (context) =>
-                //  FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
-                //   child:
+                BlocProvider<FilmBloc>(
+                create: (context) =>
+                  FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
+                   child:
                 const ChooseScreenBloc()
-            //),
+            ),
             );
 
       case ChooseScreenMvvm.detailsScreenRoute:
@@ -33,24 +36,24 @@ class RouteGenerator {
         );
 
       case DetailsBlocScreen.detailsScreenRoute:
-        String route = '';
-        if (arguments is String) {
-          route = arguments;
+        Function(int) callback= (int i){i++;};
+        if (arguments is Function(int)) {
+          callback = arguments;
         }
         return MaterialPageRoute(
           builder: (_) => DetailsBlocScreen(
-            route: route,
+            callback: callback,
           ),
         );
 
       case DetailsMvvmScreen.detailsScreenRoute:
-        String route = '';
-        if (arguments is String) {
-          route = arguments;
+        Function(int) callback= (int i){i++;};
+        if (arguments is Function(int)) {
+          callback = arguments;
         }
         return MaterialPageRoute(
-          builder: (_) => DetailsBlocScreen(
-            route: route,
+          builder: (_) => DetailsMvvmScreen(
+            callback: callback,
           ),
         );
 
