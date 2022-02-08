@@ -37,11 +37,15 @@ class ChooseScreenMvvm extends StatelessWidget {
                         list: filmViewModel.filmList,
                         onFilmSelected: (Film film) {
                           filmViewModel.setSelectedFilm(film);
-                          Navigator.of(context)
-                              .pushNamed(DetailsMvvmScreen.detailsScreenRoute,
-                                  arguments: (int callback) {
-                            filmViewModel.setSelectedFilm(const Film('', ''));
-                          });
+                          Navigator.of(context).pushNamed(
+                              DetailsMvvmScreen.detailsScreenRoute,
+                              arguments: {
+                                'callback': (int callback) {
+                                  filmViewModel
+                                      .setSelectedFilm(const Film('', ''));
+                                },
+                                'film': film
+                              });
                         },
                         isSelected: false,
                       ),

@@ -5,10 +5,12 @@ import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class DetailsBlocScreen extends StatelessWidget {
-  const DetailsBlocScreen(
-      {Key? key, required this.callback})
-      : super(key: key);
-
+  const DetailsBlocScreen({
+    Key? key,
+    required this.callback,
+    required this.film,
+  }) : super(key: key);
+  final Film film;
   final Function(int) callback;
   static const String detailsScreenRoute = 'detailsBloc';
 
@@ -27,20 +29,12 @@ class DetailsBlocScreen extends StatelessWidget {
       body: Center(
         child: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
-            return BlocBuilder<FilmBloc, FilmState>(builder: (_, filmState) {
-              if (filmState is FilmLoadedState) {
-                if (orientation == Orientation.portrait) {
-                  return Details(film: filmState.selectedFilm);
-                } else {
-                  BlocProvider.of<FilmBloc>(context)
-                      .add(SelectFilmEvent(selectedFilm: const Film('', '')));
-                  Navigator.of(context).pop();
-                  return const CircularProgressIndicator();
-                }
-              } else {
-                return const CircularProgressIndicator();
-              }
-            });
+            if (orientation == Orientation.portrait) {
+              return Details(film: film);
+            } else {
+              Navigator.of(context).pop();
+              return const CircularProgressIndicator();
+            }
           },
         ),
       ),

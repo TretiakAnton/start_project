@@ -34,12 +34,16 @@ class ChooseScreenBloc extends StatelessWidget {
                   onFilmSelected: (Film film) {
                     BlocProvider.of<FilmBloc>(context)
                         .add(SelectFilmEvent(selectedFilm: film));
-                    Navigator.of(context)
-                        .pushNamed(DetailsBlocScreen.detailsScreenRoute,
-                            arguments: (int callback) {
-                      BlocProvider.of<FilmBloc>(context).add(
-                          SelectFilmEvent(selectedFilm: const Film('', '')));
-                    });
+                    Navigator.of(context).pushNamed(
+                        DetailsBlocScreen.detailsScreenRoute,
+                        arguments: {
+                          'callback': (int callback) {
+                            BlocProvider.of<FilmBloc>(context).add(
+                                SelectFilmEvent(
+                                    selectedFilm: const Film('', '')));
+                          },
+                          'film': film
+                        });
                   },
                   isSelected: false,
                 ),

@@ -6,9 +6,9 @@ import 'package:start_project/viewmodel/film_view_model.dart';
 
 class DetailsMvvmScreen extends StatelessWidget {
   const DetailsMvvmScreen(
-      {Key? key,  required this.callback})
+      {Key? key, required this.callback, required this.film})
       : super(key: key);
-
+  final Film film;
   final Function(int) callback;
   static const String detailsScreenRoute = 'detailsMvvm';
 
@@ -25,24 +25,15 @@ class DetailsMvvmScreen extends StatelessWidget {
         title: const Text('Details'),
       ),
       body: Center(
-        child: Consumer<FilmViewModel>(
-          builder: (context, filmViewModel, child) => Center(
-            child: OrientationBuilder(
-              builder: (BuildContext context, Orientation orientation) {
-                if (filmViewModel.film.id.isNotEmpty) {
-                  if (orientation == Orientation.portrait) {
-                    return Details(film: filmViewModel.film);
-                  } else {
-                    filmViewModel.setSelectedFilm(const Film('', ''));
-                    Navigator.of(context).pop();
-                    return const CircularProgressIndicator();
-                  }
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-          ),
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            if (orientation == Orientation.portrait) {
+              return Details(film: film);
+            } else {
+              Navigator.of(context).pop();
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );
