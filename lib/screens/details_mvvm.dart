@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
-import 'package:start_project/viewmodel/film_view_model.dart';
 
 class DetailsMvvmScreen extends StatelessWidget {
   const DetailsMvvmScreen(
