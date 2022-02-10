@@ -39,7 +39,7 @@ class ChooseScreenBloc extends StatelessWidget {
                           DetailsScreen.detailsScreenRoute,
                           arguments: DetailsScreenArguments(
                             film: film,
-                            callback: () {
+                            exitPageCallback: () {
                               _bloc.add(SelectFilmEvent(
                                   selectedFilm: const Film('', '')));
                             },

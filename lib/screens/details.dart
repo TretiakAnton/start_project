@@ -3,10 +3,10 @@ import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
 class DetailsScreenArguments {
-  const DetailsScreenArguments({required this.film, required this.callback});
+  const DetailsScreenArguments({required this.film, required this.exitPageCallback});
 
   final Film film;
-  final VoidCallback callback;
+  final VoidCallback exitPageCallback;
 }
 
 class DetailsScreen extends StatelessWidget {

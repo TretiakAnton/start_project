@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:start_project/film.dart';
-import 'package:start_project/repo/films_repo.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 import 'package:start_project/viewmodel/film_view_model.dart';
@@ -22,65 +21,60 @@ class ChooseScreenMvvm extends StatelessWidget {
         ),
         title: const Text('List of Films'),
       ),
-      body: ChangeNotifierProvider(
-        create: (_) =>
-            FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
-        child: Consumer<FilmViewModel>(
-          builder: (context, filmViewModel, child) => Center(
-            child: OrientationBuilder(
-              builder: (BuildContext context, Orientation orientation) {
-                if (filmViewModel.filmList.isNotEmpty) {
-                  if (orientation == Orientation.portrait) {
-                    return RefreshIndicator(
-                      onRefresh: () =>
-                          filmViewModel.getFilmList(isShuffle: true),
-                      child: ListOfFilms(
-                        list: filmViewModel.filmList,
-                        onFilmSelected: (Film film) {
-                          filmViewModel.setSelectedFilm(film);
-                          Navigator.of(context).pushNamed(
-                            DetailsScreen.detailsScreenRoute,
-                            arguments: DetailsScreenArguments(
-                              film: film,
-                              callback: () {
-                                filmViewModel.setSelectedFilm(
-                                  const Film('', ''),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        isSelected: false,
-                      ),
-                    );
-                  } else {
-                    return Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: ListOfFilms(
-                            list: filmViewModel.filmList,
-                            onFilmSelected: (Film film) {
-                              filmViewModel.setSelectedFilm(film);
+      body: Consumer<FilmViewModel>(
+        builder: (context, filmViewModel, child) => Center(
+          child: OrientationBuilder(
+            builder: (BuildContext context, Orientation orientation) {
+              if (filmViewModel.filmList.isNotEmpty) {
+                if (orientation == Orientation.portrait) {
+                  return RefreshIndicator(
+                    onRefresh: () => filmViewModel.getFilmList(isShuffle: true),
+                    child: ListOfFilms(
+                      list: filmViewModel.filmList,
+                      onFilmSelected: (Film film) {
+                        filmViewModel.setSelectedFilm(film);
+                        Navigator.of(context).pushNamed(
+                          DetailsScreen.detailsScreenRoute,
+                          arguments: DetailsScreenArguments(
+                            film: film,
+                            exitPageCallback: () {
+                              filmViewModel.setSelectedFilm(
+                                const Film('', ''),
+                              );
                             },
-                            isSelected: true,
-                            selectedFilm: filmViewModel.film,
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Details(
-                            film: filmViewModel.film,
-                          ),
-                        )
-                      ],
-                    );
-                  }
+                        );
+                      },
+                      isSelected: false,
+                    ),
+                  );
                 } else {
-                  return loading();
+                  return Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ListOfFilms(
+                          list: filmViewModel.filmList,
+                          onFilmSelected: (Film film) {
+                            filmViewModel.setSelectedFilm(film);
+                          },
+                          isSelected: true,
+                          selectedFilm: filmViewModel.film,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Details(
+                          film: filmViewModel.film,
+                        ),
+                      )
+                    ],
+                  );
                 }
-              },
-            ),
+              } else {
+                return loading();
+              }
+            },
           ),
         ),
       ),

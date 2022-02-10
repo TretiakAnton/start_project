@@ -4,10 +4,12 @@ import 'package:start_project/film.dart';
 
 class ListOfFilms extends StatelessWidget {
   const ListOfFilms(
-      {Key? key, required this.list,
-        required this.onFilmSelected,
-        required this.isSelected,
-        this.selectedFilm = const Film('', '')}) : super(key: key);
+      {Key? key,
+      required this.list,
+      required this.onFilmSelected,
+      required this.isSelected,
+      this.selectedFilm = const Film('', '')})
+      : super(key: key);
 
   final bool isSelected;
   final Film? selectedFilm;
@@ -58,7 +60,13 @@ class Details extends StatelessWidget {
         ),
       );
     } else {
-      return loading();
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Text('Waiting for you choice'),
+          loading(),
+        ],
+      );
     }
   }
 }

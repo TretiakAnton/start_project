@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:start_project/repo/films_repo.dart';
+import 'package:start_project/viewmodel/film_view_model.dart';
 
 import 'bloc/bloc.dart';
 import 'screens/screens.dart';
@@ -29,15 +31,19 @@ class RouteGenerator {
         );
 
       case ChooseScreenMvvm.chooseMvvmScreenRoute:
-        return MaterialPageRoute(//model
-          builder: (_) => const ChooseScreenMvvm(),
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) =>
+                FilmViewModel(FilmRepository())..getFilmList(isShuffle: false),
+            child: const ChooseScreenMvvm(),
+          ),
         );
 
       case DetailsScreen.detailsScreenRoute:
         final arg = arguments as DetailsScreenArguments;
         return MaterialPageRoute(
           builder: (_) => DetailsScreen(
-            callback: arg.callback,
+            callback: arg.exitPageCallback,
             film: arg.film,
           ),
         );
