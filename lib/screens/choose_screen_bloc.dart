@@ -5,7 +5,8 @@ import 'package:start_project/film.dart';
 import 'package:start_project/screens/screens.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class ChooseScreenBloc extends StatelessWidget {
+class ChooseScreenBloc extends StatelessWidget{
+  //widget
   const ChooseScreenBloc({Key? key}) : super(key: key);
   static const String chooseBlocScreenRoute = 'screen2Bloc';
 
@@ -14,11 +15,6 @@ class ChooseScreenBloc extends StatelessWidget {
     final FilmBloc _bloc = BlocProvider.of<FilmBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
-            }),
         title: const Text('List of Films'),
       ),
       body: OrientationBuilder(
@@ -27,26 +23,18 @@ class ChooseScreenBloc extends StatelessWidget {
             builder: (_, filmState) {
               if (filmState is FilmLoadedState) {
                 if (orientation == Orientation.portrait) {
+
                   return RefreshIndicator(
                     onRefresh: () async {
                       _bloc.add(LoadFilmsEvent(true));
                     },
                     child: ListOfFilms(
                       list: filmState.films,
-                      onFilmSelected: (Film film) {
+                      onFilmSelected: (String film) {
                         _bloc.add(SelectFilmEvent(selectedFilm: film));
-                        Navigator.of(context).pushNamed(
-                          DetailsScreen.detailsScreenRoute,
-                          arguments: DetailsScreenArguments(
-                            film: film,
-                            onExitPageCallback: () {
-                              _bloc.add(SelectFilmEvent(
-                                  selectedFilm: const Film('', '')));
-                            },
-                          ),
-                        );
                       },
-                      isSelected: false,
+
+                      enableSelection: false,
                     ),
                   );
                 } else {
@@ -56,11 +44,11 @@ class ChooseScreenBloc extends StatelessWidget {
                         flex: 1,
                         child: ListOfFilms(
                           list: filmState.films,
-                          onFilmSelected: (Film film) {
-                            _bloc.add(SelectFilmEvent(selectedFilm: film));
+                          onFilmSelected: (String id) {
+                            _bloc.add(SelectFilmEvent(selectedFilm: id));
                           },
-                          isSelected: true,
-                          selectedFilm: filmState.selectedFilm,
+                          enableSelection: true,
+                          selectedFilm: filmState.selectedFilm!.id,
                         ),
                       ),
                       Expanded(
@@ -81,4 +69,20 @@ class ChooseScreenBloc extends StatelessWidget {
       ),
     );
   }
+
+  void _pushDetailsScreen(Film film, BuildContext context) {
+    Navigator.of(context).pushNamed(
+      DetailsScreen.detailsScreenRoute,
+      arguments: DetailsScreenArguments(
+        film: film,
+        onExitPageCallback: () {
+          //_bloc.add(SelectFilmEvent(selectedFilm: const Film('', '')));
+        },
+      ),
+    );
+  }
+}
+
+mixin BlocNavigator{
+  void push (String name, Object? arguments);
 }

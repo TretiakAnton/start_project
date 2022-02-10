@@ -31,21 +31,21 @@ class ChooseScreenMvvm extends StatelessWidget {
                     onRefresh: () => filmViewModel.getFilmList(isShuffle: true),
                     child: ListOfFilms(
                       list: filmViewModel.filmList,
-                      onFilmSelected: (Film film) {
-                        filmViewModel.setSelectedFilm(film);
-                        Navigator.of(context).pushNamed(
+                      onFilmSelected: (String film) {
+                        //filmViewModel.setSelectedFilm(film);
+                        /*Navigator.of(context).pushNamed(
                           DetailsScreen.detailsScreenRoute,
                           arguments: DetailsScreenArguments(
-                            film: film,
+                           // film: film,
                             onExitPageCallback: () {
                               filmViewModel.setSelectedFilm(
                                 const Film('', ''),
                               );
                             },
                           ),
-                        );
+                        );*/
                       },
-                      isSelected: false,
+                      enableSelection: false,
                     ),
                   );
                 } else {
@@ -53,14 +53,15 @@ class ChooseScreenMvvm extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: ListOfFilms(
+                       child: Center(),
+                       /* child: ListOfFilms(
                           list: filmViewModel.filmList,
                           onFilmSelected: (Film film) {
                             filmViewModel.setSelectedFilm(film);
                           },
-                          isSelected: true,
+                          enableSelection: true,
                           selectedFilm: filmViewModel.film,
-                        ),
+                        ),*/
                       ),
                       Expanded(
                         flex: 2,

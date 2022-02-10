@@ -11,7 +11,7 @@ class LoadFilmsEvent extends FilmEvent {
 class SelectFilmEvent extends FilmEvent {
   SelectFilmEvent({required this.selectedFilm});
 
-  final Film selectedFilm;
+  final String selectedFilm;
 }
 
 

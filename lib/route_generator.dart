@@ -24,10 +24,10 @@ class RouteGenerator {
 
       case ChooseScreenBloc.chooseBlocScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<FilmBloc>(
-              create: (context) =>
-                  FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
-              child: const ChooseScreenBloc()),
+          builder: (context) => MyBlocProvider<FilmBloc>(
+              context,
+              FilmBloc(FilmRepository())..add(LoadFilmsEvent(false)),
+              const ChooseScreenBloc()),
         );
 
       case ChooseScreenMvvm.chooseMvvmScreenRoute:
@@ -61,5 +61,23 @@ class RouteGenerator {
         ),
       );
     });
+  }
+}
+
+class MyBlocProvider<T extends StateStreamableSource<Object?>>
+    extends BlocProvider with BlocNavigator {
+  MyBlocProvider(
+    this.context,
+    FilmBloc bloc,
+    Widget child,
+  ) : super(create: (_){print('123');return bloc;}, child: child) {
+    bloc.navigator = this;
+  }
+
+  BuildContext context;
+
+  @override
+  void push(String name, Object? args) {
+    Navigator.of(context).pushNamed(name, arguments: args);
   }
 }

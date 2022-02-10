@@ -7,14 +7,14 @@ class ListOfFilms extends StatelessWidget {
       {Key? key,
       required this.list,
       required this.onFilmSelected,
-      required this.isSelected,
-      this.selectedFilm = const Film('', '')})
+      required this.enableSelection,
+      this.selectedFilm})
       : super(key: key);
 
-  final bool isSelected;
-  final Film? selectedFilm;
+  final bool enableSelection;
+  final String? selectedFilm;
   final List<Film> list;
-  final Function(Film) onFilmSelected;
+  final Function(String) onFilmSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class ListOfFilms extends StatelessWidget {
           return Card(
             child: ListTile(
               selected:
-                  _selected(isSelected, index, selectedFilm as Film, list),
+                  _selected(enableSelection, index, selectedFilm as Film, list),
               onTap: () {
-                onFilmSelected(list[index]);
+                onFilmSelected(list[index].id);
               },
               title: Text(list[index].id),
             ),
