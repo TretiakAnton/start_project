@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:start_project/film.dart';
 import 'package:start_project/screens/ui_tools/custom_widgets.dart';
 
-class DetailsScreenArguments {
-  const DetailsScreenArguments({required this.film, required this.exitPageCallback});
-
-  final Film film;
-  final VoidCallback exitPageCallback;
-}
-
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({
     Key? key,
-    required this.callback,
+    required this.onExitPageCallback,
     required this.film,
   }) : super(key: key);
   final Film film;
-  final VoidCallback callback;
+  final VoidCallback onExitPageCallback;
   static const String detailsScreenRoute = 'details';
 
   @override
@@ -26,7 +19,7 @@ class DetailsScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            callback();
+            onExitPageCallback();
             Navigator.of(context).pop();
           },
         ),
@@ -46,4 +39,12 @@ class DetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class DetailsScreenArguments {
+  const DetailsScreenArguments(
+      {required this.film, required this.onExitPageCallback});
+
+  final Film film;
+  final VoidCallback onExitPageCallback;
 }

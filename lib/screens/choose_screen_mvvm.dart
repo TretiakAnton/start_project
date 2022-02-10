@@ -37,7 +37,7 @@ class ChooseScreenMvvm extends StatelessWidget {
                           DetailsScreen.detailsScreenRoute,
                           arguments: DetailsScreenArguments(
                             film: film,
-                            exitPageCallback: () {
+                            onExitPageCallback: () {
                               filmViewModel.setSelectedFilm(
                                 const Film('', ''),
                               );

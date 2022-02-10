@@ -43,7 +43,7 @@ class RouteGenerator {
         final arg = arguments as DetailsScreenArguments;
         return MaterialPageRoute(
           builder: (_) => DetailsScreen(
-            callback: arg.exitPageCallback,
+            onExitPageCallback: arg.onExitPageCallback,
             film: arg.film,
           ),
         );
